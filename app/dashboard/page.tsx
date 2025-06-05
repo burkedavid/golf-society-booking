@@ -114,44 +114,44 @@ export default async function Dashboard() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Mobile-Optimized Stats Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-6 mb-6 sm:mb-8 lg:mb-12">
           <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-3 sm:p-4 lg:p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center">
-                <div className="p-2 sm:p-3 bg-green-600 rounded-full mb-2 sm:mb-0 self-center sm:self-auto">
-                  <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+            <CardContent className="p-2 sm:p-3 lg:p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="p-1.5 sm:p-2 lg:p-3 bg-green-600 rounded-full mb-1 sm:mb-2">
+                  <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-white" />
                 </div>
-                <div className="sm:ml-3 lg:ml-4 text-center sm:text-left">
-                  <p className="text-xs sm:text-sm font-medium text-green-600 leading-tight">Available Outings</p>
-                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{outings.length}</p>
+                <div>
+                  <p className="text-xs sm:text-sm font-medium text-green-600 leading-tight">Available</p>
+                  <p className="text-sm sm:text-lg lg:text-2xl font-bold text-gray-900">{outings.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
           <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-3 sm:p-4 lg:p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center">
-                <div className="p-2 sm:p-3 bg-blue-600 rounded-full mb-2 sm:mb-0 self-center sm:self-auto">
-                  <Users className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+            <CardContent className="p-2 sm:p-3 lg:p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="p-1.5 sm:p-2 lg:p-3 bg-blue-600 rounded-full mb-1 sm:mb-2">
+                  <Users className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-white" />
                 </div>
-                <div className="sm:ml-3 lg:ml-4 text-center sm:text-left">
-                  <p className="text-xs sm:text-sm font-medium text-blue-600 leading-tight">My Bookings</p>
-                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{userBookings.length}</p>
+                <div>
+                  <p className="text-xs sm:text-sm font-medium text-blue-600 leading-tight">Bookings</p>
+                  <p className="text-sm sm:text-lg lg:text-2xl font-bold text-gray-900">{userBookings.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg hover:shadow-xl transition-all duration-300 col-span-2 md:col-span-1">
-            <CardContent className="p-3 sm:p-4 lg:p-6">
-              <div className="flex flex-col sm:flex-row sm:items-center">
-                <div className="p-2 sm:p-3 bg-yellow-600 rounded-full mb-2 sm:mb-0 self-center sm:self-auto">
-                  <Trophy className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
+          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg hover:shadow-xl transition-all duration-300">
+            <CardContent className="p-2 sm:p-3 lg:p-6">
+              <div className="flex flex-col items-center text-center">
+                <div className="p-1.5 sm:p-2 lg:p-3 bg-yellow-600 rounded-full mb-1 sm:mb-2">
+                  <Trophy className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-white" />
                 </div>
-                <div className="sm:ml-3 lg:ml-4 text-center sm:text-left">
+                <div>
                   <p className="text-xs sm:text-sm font-medium text-yellow-600 leading-tight">Handicap</p>
-                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{session.user.handicap}</p>
+                  <p className="text-sm sm:text-lg lg:text-2xl font-bold text-gray-900">{session.user.handicap}</p>
                 </div>
               </div>
             </CardContent>

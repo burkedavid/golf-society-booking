@@ -116,57 +116,57 @@ export default async function AdminDashboard() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Enhanced Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-6 mb-12">
+        {/* Mobile-Optimized Admin Stats Cards */}
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-6 mb-6 sm:mb-8 lg:mb-12">
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg">
-              <CardTitle className="text-sm font-medium flex items-center">
-                <CalendarDays className="w-4 h-4 mr-2" />
-                Total Outings
+            <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
+              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Total </span>Outings
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-gray-900">{outings.length}</div>
-              <p className="text-sm text-gray-600">Active events</p>
+            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">{outings.length}</div>
+              <p className="text-xs sm:text-sm text-gray-600">Active events</p>
             </CardContent>
           </Card>
 
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
-              <CardTitle className="text-sm font-medium flex items-center">
-                <Users className="w-4 h-4 mr-2" />
-                Total Members
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
+              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Total </span>Members
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-gray-900">{totalMembers}</div>
-              <p className="text-sm text-gray-600">Registered members</p>
+            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">{totalMembers}</div>
+              <p className="text-xs sm:text-sm text-gray-600">Registered</p>
             </CardContent>
           </Card>
 
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-lg">
-              <CardTitle className="text-sm font-medium flex items-center">
-                <Trophy className="w-4 h-4 mr-2" />
-                Total Bookings
+            <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
+              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <Trophy className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Total </span>Bookings
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-gray-900">{totalBookings}</div>
-              <p className="text-sm text-gray-600">All time bookings</p>
+            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">{totalBookings}</div>
+              <p className="text-xs sm:text-sm text-gray-600">All time</p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-t-lg">
-              <CardTitle className="text-sm font-medium flex items-center">
-                <PoundSterling className="w-4 h-4 mr-2" />
-                Total Revenue
+          <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 col-span-2 lg:col-span-1">
+            <CardHeader className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
+              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <PoundSterling className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                <span className="hidden sm:inline">Total </span>Revenue
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-6">
-              <div className="text-3xl font-bold text-gray-900">£{totalRevenue._sum.totalCost?.toFixed(2) || '0.00'}</div>
-              <p className="text-sm text-gray-600">All time revenue</p>
+            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">£{totalRevenue._sum.totalCost?.toFixed(2) || '0.00'}</div>
+              <p className="text-xs sm:text-sm text-gray-600">All time revenue</p>
             </CardContent>
           </Card>
         </div>
