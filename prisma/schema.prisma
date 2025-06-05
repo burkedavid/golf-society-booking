@@ -17,7 +17,7 @@ model User {
   name         String
   phone        String?
   memberNumber String    @unique
-  handicap     Int       @default(28)
+  handicap     Float     @default(28.0)
   role         String    @default("member") // 'admin' | 'member'
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
@@ -61,7 +61,7 @@ model Booking {
   id            String   @id @default(cuid())
   userId        String
   outingId      String
-  memberHandicap Int
+  memberHandicap Float
   guests        String   @default("[]") // JSON string
   memberMeals   String   // JSON string - now includes mainCourse and dessert for member
   guestMeals    String   @default("[]") // JSON string - array of meal choices for each guest

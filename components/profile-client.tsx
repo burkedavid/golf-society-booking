@@ -182,9 +182,11 @@ export function ProfileClient({ user }: ProfileClientProps) {
                 type="number"
                 min="0"
                 max="54"
+                step="0.1"
                 value={formData.handicap}
-                onChange={(e) => handleInputChange('handicap', parseInt(e.target.value) || 0)}
+                onChange={(e) => handleInputChange('handicap', parseFloat(e.target.value) || 0)}
                 className="w-full text-sm sm:text-base"
+                placeholder="e.g., 17.2"
                 required
               />
               <p className="text-xs text-gray-500">

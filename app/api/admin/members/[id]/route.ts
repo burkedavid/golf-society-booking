@@ -47,7 +47,7 @@ export async function PATCH(
         name,
         email,
         phone: phone || null,
-        handicap: parseInt(handicap)
+        handicap: parseFloat(handicap)
       }
     })
 

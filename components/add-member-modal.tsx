@@ -176,9 +176,10 @@ export function AddMemberModal({ onMemberAdded }: AddMemberModalProps) {
                 type="number"
                 min="0"
                 max="54"
+                step="0.1"
                 value={formData.handicap}
-                onChange={(e) => handleInputChange('handicap', parseInt(e.target.value) || 0)}
-                placeholder="Enter handicap (0-54)"
+                onChange={(e) => handleInputChange('handicap', parseFloat(e.target.value) || 0)}
+                placeholder="Enter handicap (e.g., 17.2)"
                 required
                 className="mt-1"
               />

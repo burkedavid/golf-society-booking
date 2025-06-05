@@ -54,7 +54,7 @@ export function MemberEditModal({ member }: MemberEditModalProps) {
           name: formData.name,
           email: formData.email,
           phone: formData.phone || null,
-          handicap: parseInt(formData.handicap)
+          handicap: parseFloat(formData.handicap)
         }),
       })
 
@@ -161,8 +161,10 @@ export function MemberEditModal({ member }: MemberEditModalProps) {
                       type="number"
                       min="0"
                       max="54"
+                      step="0.1"
                       value={formData.handicap}
                       onChange={handleInputChange}
+                      placeholder="e.g., 17.2"
                       required
                       className="mt-1"
                     />

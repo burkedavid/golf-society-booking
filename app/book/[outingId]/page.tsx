@@ -548,8 +548,10 @@ export default function BookOuting({ params }: { params: { outingId: string } })
                                     type="number"
                                     min="0"
                                     max="54"
+                                    step="0.1"
                                     value={guestHandicaps[i] || 28}
-                                    onChange={(e) => handleGuestHandicapChange(i, parseInt(e.target.value) || 28)}
+                                    onChange={(e) => handleGuestHandicapChange(i, parseFloat(e.target.value) || 28)}
+                                    placeholder="e.g., 17.2"
                                     className="mt-1 h-12 text-base"
                                   />
                                 </div>

@@ -129,10 +129,11 @@ export function BookingEditModal({ booking, outing }: BookingEditModalProps) {
                   type="number"
                   min="0"
                   max="54"
+                  step="0.1"
                   value={memberHandicap}
-                  onChange={(e) => setMemberHandicap(parseInt(e.target.value) || 0)}
-                  required
-                  className="mt-1"
+                  onChange={(e) => setMemberHandicap(parseFloat(e.target.value) || 0)}
+                  placeholder="Enter handicap"
+                  className="w-full"
                 />
               </div>
               <div>
@@ -197,8 +198,9 @@ export function BookingEditModal({ booking, outing }: BookingEditModalProps) {
                           type="number"
                           min="0"
                           max="54"
+                          step="0.1"
                           value={guest.handicap || 28}
-                          onChange={(e) => handleGuestChange(index, 'handicap', parseInt(e.target.value) || 28)}
+                          onChange={(e) => handleGuestChange(index, 'handicap', parseFloat(e.target.value) || 28)}
                           required
                           className="mt-1"
                         />
