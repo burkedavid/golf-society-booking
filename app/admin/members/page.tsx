@@ -8,7 +8,8 @@ import { Button } from '@/components/ui/button'
 import { ClientUserMenu } from '@/components/client-user-menu'
 import { MemberEditModal } from '@/components/member-edit-modal'
 import { PasswordResetButton } from '@/components/password-reset-button'
-import { ArrowLeft, Edit, RotateCcw, Users, Mail, Phone, Trophy, UserPlus } from 'lucide-react'
+import { ArrowLeft, Edit, RotateCcw, Users, Mail, Phone, Trophy, UserPlus, CalendarDays, Star, PoundSterling, UserCog } from 'lucide-react'
+import { formatDateUK } from '@/lib/utils'
 
 interface Member {
   id: string
@@ -239,7 +240,7 @@ export default async function MembersPage() {
                                 </div>
                                 <div className="flex justify-between">
                                   <span className="font-medium">Member Since:</span>
-                                  <span>{new Date(member.createdAt).toLocaleDateString()}</span>
+                                  <span>{formatDateUK(member.createdAt)}</span>
                                 </div>
                               </div>
                             </div>
@@ -262,7 +263,7 @@ export default async function MembersPage() {
                                 {lastBooking && (
                                   <div className="flex justify-between">
                                     <span className="font-medium">Last Booking:</span>
-                                    <span>{lastBooking.toLocaleDateString()}</span>
+                                    <span>{formatDateUK(lastBooking)}</span>
                                   </div>
                                 )}
                               </div>

@@ -14,6 +14,7 @@ import { BankTransferModal } from '@/components/bank-transfer-modal'
 import { CalendarDays, Clock, MapPin, Users, PoundSterling, ArrowLeft, Utensils, Plus, Minus } from 'lucide-react'
 import Link from 'next/link'
 import OrientationIndicator from '@/components/orientation-indicator'
+import { formatDateUK } from '@/lib/utils'
 
 interface Outing {
   id: string
@@ -274,7 +275,7 @@ export default function BookOuting({ params }: { params: { outingId: string } })
                   <div className="space-y-2 text-sm">
                     <div className="flex justify-between">
                       <span>Booking Date:</span>
-                      <span className="font-medium">{new Date(existingBooking.createdAt).toLocaleDateString()}</span>
+                      <span className="font-medium">{formatDateUK(existingBooking.createdAt)}</span>
                     </div>
                     <div className="flex justify-between">
                       <span>Total Cost:</span>
@@ -419,7 +420,7 @@ export default function BookOuting({ params }: { params: { outingId: string } })
                     <CalendarDays className="w-5 h-5 mr-3 text-green-600 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-gray-500 uppercase tracking-wide">Date</p>
-                      <p className="font-semibold text-sm sm:text-base">{new Date(outing.date).toLocaleDateString()}</p>
+                      <p className="font-semibold text-sm sm:text-base">{formatDateUK(outing.date)}</p>
                     </div>
                   </div>
                   <div className="flex items-center bg-blue-50 rounded-lg p-3">

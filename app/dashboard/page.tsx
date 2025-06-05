@@ -7,8 +7,9 @@ import { prisma } from '@/lib/db'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { ClientUserMenu } from '@/components/client-user-menu'
-import { CalendarDays, Users, Clock, MapPin, Trophy, Star, TrendingUp } from 'lucide-react'
+import { CalendarDays, Users, Clock, MapPin, Trophy, Star, TrendingUp, PoundSterling } from 'lucide-react'
 import OrientationIndicator from '@/components/orientation-indicator'
+import { formatDateUK } from '@/lib/utils'
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions)
@@ -191,7 +192,7 @@ export default async function Dashboard() {
                             <CalendarDays className="w-5 h-5 mr-3 text-green-600" />
                             <div>
                               <p className="text-xs text-gray-500 uppercase tracking-wide">Date</p>
-                              <p className="font-semibold">{new Date(outing.date).toLocaleDateString()}</p>
+                              <p className="font-semibold">{formatDateUK(outing.date)}</p>
                             </div>
                           </div>
                           <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
@@ -220,13 +221,29 @@ export default async function Dashboard() {
                       
                       <div className="text-right ml-8">
                         <div className="bg-green-600 text-white rounded-xl p-6 shadow-lg">
-                          <p className="text-sm text-green-100 mb-1">Member Price</p>
-                          <div className="text-3xl font-bold mb-4">
-                            {outing.memberPrice === 0 ? 'TBC' : `£${outing.memberPrice}`}
+                          <div className="text-center">
+                            <p className="text-sm text-green-100 mb-2 flex items-center justify-center">
+                              <PoundSterling className="w-4 h-4 mr-1" />
+                              Pricing
+                            </p>
+                            {outing.memberPrice === 0 ? (
+                              <div className="text-2xl font-bold mb-4 text-green-100">
+                                TBC
+                              </div>
+                            ) : (
+                              <div className="space-y-1 mb-4">
+                                <div className="text-lg font-bold">
+                                  £{outing.memberPrice} <span className="text-sm font-normal text-green-200">member</span>
+                                </div>
+                                <div className="text-lg font-bold">
+                                  £{outing.guestPrice} <span className="text-sm font-normal text-green-200">guest</span>
+                                </div>
+                              </div>
+                            )}
                           </div>
                           <Link href={`/book/${outing.id}`}>
                             <Button 
-                              className="bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                              className="w-full bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
                               disabled={outing.memberPrice === 0}
                             >
                               {outing.memberPrice === 0 ? 'Coming Soon' : 'Book Now'}
@@ -315,7 +332,7 @@ export default async function Dashboard() {
                           </p>
                           <p className="flex items-center">
                             <CalendarDays className="w-4 h-4 mr-2 text-green-500" />
-                            {new Date(booking.outing.date).toLocaleDateString()} at {booking.outing.time}
+                            {formatDateUK(booking.outing.date)} at {booking.outing.time}
                           </p>
                         </div>
                       </div>

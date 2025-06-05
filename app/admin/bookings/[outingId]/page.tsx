@@ -10,6 +10,7 @@ import { AdminBookingClient } from '@/components/admin-booking-client'
 import { BookingDeleteButton } from '@/components/booking-delete-button'
 import { ArrowLeft, Edit, Trash2, Users, CalendarDays, Utensils } from 'lucide-react'
 import Link from 'next/link'
+import { formatDateUK } from '@/lib/utils'
 
 export default async function AdminBookingsPage({ params }: { params: { outingId: string } }) {
   const session = await getServerSession(authOptions)
@@ -97,7 +98,7 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
               <div className="bg-green-50 rounded-lg p-4">
                 <span className="font-semibold text-green-800">Date:</span>
-                <div className="text-lg font-bold text-gray-900">{new Date(outing.date).toLocaleDateString()}</div>
+                <div className="text-lg font-bold text-gray-900">{formatDateUK(outing.date)}</div>
               </div>
               <div className="bg-blue-50 rounded-lg p-4">
                 <span className="font-semibold text-blue-800">Venue:</span>
@@ -291,7 +292,7 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
                             {booking.user.email} • Member #{booking.user.memberNumber}
                           </p>
                           <p className="text-gray-500">
-                            Booked: {new Date(booking.createdAt).toLocaleDateString()}
+                            Booked: {formatDateUK(booking.createdAt)}
                           </p>
                         </div>
                         <div className="flex items-center space-x-4">

@@ -7,6 +7,8 @@ import { Button } from '@/components/ui/button'
 import { CalendarDays, MapPin, Clock, Users, PoundSterling } from 'lucide-react'
 import Link from 'next/link'
 import OrientationIndicator from '@/components/orientation-indicator'
+import { UserMenu } from '@/components/user-menu'
+import { formatDateUK } from '@/lib/utils'
 
 export default async function MemberDashboard() {
   const session = await getServerSession(authOptions)
@@ -103,7 +105,7 @@ export default async function MemberDashboard() {
                         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 text-sm">
                           <div className="flex items-center text-gray-500">
                             <CalendarDays className="w-4 h-4 mr-2 flex-shrink-0" />
-                            <span className="truncate">{new Date(outing.date).toLocaleDateString()}</span>
+                            <span className="truncate">{formatDateUK(outing.date)}</span>
                           </div>
                           <div className="flex items-center text-gray-500">
                             <Clock className="w-4 h-4 mr-2 flex-shrink-0" />
@@ -186,7 +188,7 @@ export default async function MemberDashboard() {
                         <h4 className="font-semibold text-base">{booking.outing.name}</h4>
                         <p className="text-sm text-gray-600 truncate">{booking.outing.venue}</p>
                         <p className="text-sm text-gray-500">
-                          {new Date(booking.outing.date).toLocaleDateString()} at {booking.outing.time}
+                          {formatDateUK(booking.outing.date)} at {booking.outing.time}
                         </p>
                       </div>
                       <div className="flex flex-row sm:flex-col sm:text-right justify-between sm:justify-start items-center sm:items-end space-x-2 sm:space-x-0">

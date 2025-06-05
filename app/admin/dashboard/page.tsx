@@ -8,6 +8,8 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { ClientUserMenu } from '@/components/client-user-menu'
 import { CalendarDays, Users, PoundSterling, UserCog, Trophy, Star, TrendingUp, Settings, Plus } from 'lucide-react'
+import { UserMenu } from '@/components/user-menu'
+import { formatDateUK } from '@/lib/utils'
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions)
@@ -202,7 +204,7 @@ export default async function AdminDashboard() {
                             <CalendarDays className="w-4 h-4 mr-2 text-green-600" />
                             <div>
                               <p className="text-xs text-gray-500 uppercase">Date</p>
-                              <p className="font-semibold">{new Date(outing.date).toLocaleDateString()}</p>
+                              <p className="font-semibold">{formatDateUK(outing.date)}</p>
                             </div>
                           </div>
                           <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
@@ -231,12 +233,25 @@ export default async function AdminDashboard() {
                       
                       <div className="text-right ml-6">
                         <div className="bg-green-600 text-white rounded-lg p-4 shadow-md mb-3">
-                          <div className="text-sm text-green-100 mb-1">Pricing</div>
-                          <div className="font-bold">
-                            {outing.memberPrice === 0 && outing.guestPrice === 0 
-                              ? 'TBC' 
-                              : `£${outing.memberPrice} / £${outing.guestPrice}`
-                            }
+                          <div className="text-center">
+                            <div className="text-sm text-green-100 mb-2 flex items-center justify-center">
+                              <PoundSterling className="w-3 h-3 mr-1" />
+                              Pricing
+                            </div>
+                            {outing.memberPrice === 0 && outing.guestPrice === 0 ? (
+                              <div className="text-lg font-bold text-green-100">
+                                TBC
+                              </div>
+                            ) : (
+                              <div className="space-y-1">
+                                <div className="text-sm font-bold">
+                                  £{outing.memberPrice} <span className="text-xs font-normal text-green-200">member</span>
+                                </div>
+                                <div className="text-sm font-bold">
+                                  £{outing.guestPrice} <span className="text-xs font-normal text-green-200">guest</span>
+                                </div>
+                              </div>
+                            )}
                           </div>
                         </div>
                         <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white w-full">
@@ -275,7 +290,7 @@ export default async function AdminDashboard() {
                         <div className="text-xs text-gray-500">Current total</div>
                       </div>
                       <div className="text-center">
-                        <div className="font-semibold text-blue-600">{new Date(outing.registrationDeadline).toLocaleDateString()}</div>
+                        <div className="font-semibold text-blue-600">{formatDateUK(outing.registrationDeadline)}</div>
                         <div className="text-gray-600">Deadline</div>
                         <div className="text-xs text-gray-500">Registration closes</div>
                       </div>
