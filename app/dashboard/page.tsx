@@ -83,16 +83,11 @@ export default async function Dashboard() {
               </div>
             </div>
             <div className="flex items-center space-x-6">
-              <div className="text-right text-sm text-green-100 bg-green-900/30 rounded-lg p-4 backdrop-blur-sm">
-                <div className="flex items-center mb-1">
-                  <Star className="w-4 h-4 mr-2 text-yellow-400" />
-                  Member #{session.user.memberNumber}
+              <div className="text-right text-xs text-green-100 bg-green-900/30 rounded-lg p-2 backdrop-blur-sm">
+                <div className="flex items-center">
+                  <Star className="w-3 h-3 mr-1 text-yellow-400" />
+                  Member #{session.user.memberNumber} • HC: {session.user.handicap}
                 </div>
-                <div className="flex items-center mb-1">
-                  <TrendingUp className="w-4 h-4 mr-2 text-blue-400" />
-                  Handicap: {session.user.handicap}
-                </div>
-                <div className="text-yellow-300 font-medium">Role: {session.user.role}</div>
               </div>
               <ClientUserMenu />
             </div>
