@@ -1,6 +1,6 @@
 'use client'
 
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useRouter } from 'next/navigation'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
@@ -8,86 +8,10 @@ import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
-import { ArrowLeft, Calendar, MapPin, Users, PoundSterling, Utensils, Plus, X } from 'lucide-react'
-
-// Common menu items that golf courses typically offer
-const COMMON_MAIN_COURSES = [
-  {
-    name: 'Clubhouse Steak Pie',
-    description: 'Seasonal vegetables, Gravy, Fries',
-    allergens: ['gluten', 'dairy']
-  },
-  {
-    name: 'Roasted Chicken Breast',
-    description: 'Dauphinoise Potatoes, Roasted Root Vegetables, Pepper Jus',
-    allergens: ['dairy']
-  },
-  {
-    name: 'Chef\'s Macaroni Cheese (V)',
-    description: 'Garlic Bread',
-    allergens: ['gluten', 'dairy']
-  },
-  {
-    name: 'Fish & Chips',
-    description: 'Beer battered fish with hand-cut chips and mushy peas',
-    allergens: ['fish', 'gluten']
-  },
-  {
-    name: 'Aberdeen Angus Steak',
-    description: 'Prime Aberdeen Angus sirloin with peppercorn sauce',
-    allergens: ['dairy']
-  },
-  {
-    name: 'Pan-Seared Salmon',
-    description: 'Fresh Scottish salmon with lemon butter sauce',
-    allergens: ['fish', 'dairy']
-  },
-  {
-    name: 'Vegetarian Wellington',
-    description: 'Roasted vegetables in puff pastry with red wine jus',
-    allergens: ['gluten', 'dairy']
-  }
-]
-
-const COMMON_DESSERTS = [
-  {
-    name: 'Sticky Toffee Pudding',
-    description: 'Salted Caramel, Vanilla Ice Cream',
-    allergens: ['gluten', 'dairy', 'eggs']
-  },
-  {
-    name: 'Chocolate Brownie',
-    description: 'Salted Caramel Ice Cream',
-    allergens: ['gluten', 'dairy', 'eggs']
-  },
-  {
-    name: 'Selection of Ice Cream or Sorbets (V)',
-    description: 'Fresh Berries',
-    allergens: ['dairy']
-  },
-  {
-    name: 'Traditional Cranachan',
-    description: 'Scottish raspberries, toasted oats, honey and whisky cream',
-    allergens: ['dairy', 'gluten']
-  },
-  {
-    name: 'Apple Crumble',
-    description: 'Warm apple crumble with custard or cream',
-    allergens: ['gluten', 'dairy']
-  },
-  {
-    name: 'Cheesecake',
-    description: 'Classic cheesecake with berry compote',
-    allergens: ['dairy', 'gluten', 'eggs']
-  },
-  {
-    name: 'Scottish Cheese Selection',
-    description: 'Selection of local cheeses with oatcakes and chutney',
-    allergens: ['dairy', 'gluten']
-  }
-]
+import { ArrowLeft, Calendar, MapPin, Users, PoundSterling, Utensils, Plus, X, Settings } from 'lucide-react'
 
 interface MenuItem {
+  id: string
   name: string
   description: string
   allergens: string[]
@@ -96,6 +20,7 @@ interface MenuItem {
 export default function CreateOutingPage() {
   const router = useRouter()
   const [loading, setLoading] = useState(false)
+  const [loadingMenuOptions, setLoadingMenuOptions] = useState(true)
   const [error, setError] = useState('')
   
   const [formData, setFormData] = useState({
@@ -110,10 +35,36 @@ export default function CreateOutingPage() {
     registrationDeadline: ''
   })
 
+  // Database menu options
+  const [commonMainCourses, setCommonMainCourses] = useState<MenuItem[]>([])
+  const [commonDesserts, setCommonDesserts] = useState<MenuItem[]>([])
+
   const [selectedMainCourses, setSelectedMainCourses] = useState<MenuItem[]>([])
   const [selectedDesserts, setSelectedDesserts] = useState<MenuItem[]>([])
   const [customMainCourse, setCustomMainCourse] = useState({ name: '', description: '', allergens: '' })
   const [customDessert, setCustomDessert] = useState({ name: '', description: '', allergens: '' })
+
+  // Fetch menu options from database
+  useEffect(() => {
+    fetchMenuOptions()
+  }, [])
+
+  const fetchMenuOptions = async () => {
+    try {
+      const response = await fetch('/api/admin/menu-options')
+      if (response.ok) {
+        const data = await response.json()
+        setCommonMainCourses(data.mainCourses)
+        setCommonDesserts(data.desserts)
+      } else {
+        console.error('Failed to fetch menu options')
+      }
+    } catch (error) {
+      console.error('Error fetching menu options:', error)
+    } finally {
+      setLoadingMenuOptions(false)
+    }
+  }
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -138,6 +89,7 @@ export default function CreateOutingPage() {
   const addCustomMainCourse = () => {
     if (customMainCourse.name.trim()) {
       const newItem: MenuItem = {
+        id: `custom-${Date.now()}`, // Temporary ID for custom items
         name: customMainCourse.name,
         description: customMainCourse.description,
         allergens: customMainCourse.allergens.split(',').map(a => a.trim()).filter(a => a)
@@ -150,6 +102,7 @@ export default function CreateOutingPage() {
   const addCustomDessert = () => {
     if (customDessert.name.trim()) {
       const newItem: MenuItem = {
+        id: `custom-${Date.now()}`, // Temporary ID for custom items
         name: customDessert.name,
         description: customDessert.description,
         allergens: customDessert.allergens.split(',').map(a => a.trim()).filter(a => a)
@@ -409,13 +362,27 @@ export default function CreateOutingPage() {
           {/* Menu Management */}
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
             <CardHeader className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-t-lg">
-              <CardTitle className="flex items-center">
-                <Utensils className="w-6 h-6 mr-3" />
-                Menu Options
-              </CardTitle>
-              <CardDescription className="text-orange-100">
-                Select from common options or add custom menu items
-              </CardDescription>
+              <div className="flex justify-between items-center">
+                <div>
+                  <CardTitle className="flex items-center">
+                    <Utensils className="w-5 h-5 mr-2" />
+                    Menu Options
+                  </CardTitle>
+                  <CardDescription className="text-orange-100">
+                    Select from common options or add custom menu items
+                  </CardDescription>
+                </div>
+                <Button
+                  type="button"
+                  variant="secondary"
+                  size="sm"
+                  onClick={() => router.push('/admin/menu-options')}
+                  className="bg-white/20 hover:bg-white/30 text-white border-white/30"
+                >
+                  <Settings className="w-4 h-4 mr-1" />
+                  Manage Options
+                </Button>
+              </div>
             </CardHeader>
             <CardContent className="p-8">
               <div className="space-y-8">
@@ -427,7 +394,7 @@ export default function CreateOutingPage() {
                   <div className="mb-6">
                     <Label className="text-base font-medium">Quick Add - Common Options</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-2">
-                      {COMMON_MAIN_COURSES.map((item, index) => (
+                      {commonMainCourses.map((item, index) => (
                         <Button
                           key={index}
                           type="button"
@@ -512,7 +479,7 @@ export default function CreateOutingPage() {
                   <div className="mb-6">
                     <Label className="text-base font-medium">Quick Add - Common Options</Label>
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 mt-2">
-                      {COMMON_DESSERTS.map((item, index) => (
+                      {commonDesserts.map((item, index) => (
                         <Button
                           key={index}
                           type="button"

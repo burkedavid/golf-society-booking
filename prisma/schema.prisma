@@ -74,4 +74,30 @@ model Booking {
   outing        Outing   @relation(fields: [outingId], references: [id], onDelete: Cascade)
 
   @@map("bookings")
+}
+
+model CommonMainCourse {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  allergens   String   // JSON array of allergen strings
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("common_main_courses")
+}
+
+model CommonDessert {
+  id          String   @id @default(cuid())
+  name        String
+  description String
+  allergens   String   // JSON array of allergen strings
+  isActive    Boolean  @default(true)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("common_desserts")
 } 
