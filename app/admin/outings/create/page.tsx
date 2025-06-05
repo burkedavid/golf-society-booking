@@ -361,14 +361,14 @@ export default function CreateOutingPage() {
 
           {/* Menu Management */}
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-            <CardHeader className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-t-lg">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
               <div className="flex justify-between items-center">
                 <div>
                   <CardTitle className="flex items-center">
                     <Utensils className="w-5 h-5 mr-2" />
                     Menu Options
                   </CardTitle>
-                  <CardDescription className="text-orange-100">
+                  <CardDescription className="text-blue-100">
                     Select from common options or add custom menu items
                   </CardDescription>
                 </div>

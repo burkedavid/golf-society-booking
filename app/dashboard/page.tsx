@@ -209,42 +209,43 @@ export default async function Dashboard() {
                         </h3>
                         <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-lg leading-relaxed">{outing.description}</p>
                         
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-4 sm:mb-6">
-                          <div className="bg-blue-50 rounded-lg p-3 sm:p-4">
-                            <div className="flex items-center mb-1 sm:mb-2">
-                              <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
+                        {/* Enhanced Info Grid with Better Desktop Spacing */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
+                          <div className="bg-blue-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-blue-100">
+                            <div className="flex items-center mb-2 sm:mb-3">
+                              <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-blue-600" />
                               <span className="font-semibold text-blue-800 text-sm sm:text-base">Date & Time</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-sm sm:text-base">{formatDateUK(outing.date)}</p>
-                            <p className="text-gray-600 text-sm">{outing.time}</p>
+                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl">{formatDateUK(outing.date)}</p>
+                            <p className="text-gray-600 text-sm sm:text-base mt-1">{outing.time}</p>
                           </div>
                           
-                          <div className="bg-blue-50 rounded-lg p-3 sm:p-4">
-                            <div className="flex items-center mb-1 sm:mb-2">
-                              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
+                          <div className="bg-blue-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-blue-100">
+                            <div className="flex items-center mb-2 sm:mb-3">
+                              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-blue-600" />
                               <span className="font-semibold text-blue-800 text-sm sm:text-base">Venue</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-sm sm:text-base">{outing.venue}</p>
+                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl leading-tight">{outing.venue}</p>
                           </div>
                           
-                          <div className="bg-yellow-50 rounded-lg p-3 sm:p-4">
-                            <div className="flex items-center mb-1 sm:mb-2">
-                              <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-yellow-600" />
+                          <div className="bg-yellow-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-yellow-100">
+                            <div className="flex items-center mb-2 sm:mb-3">
+                              <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-yellow-600" />
                               <span className="font-semibold text-yellow-800 text-sm sm:text-base">Registration</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-sm sm:text-base">
+                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl">
                               {daysUntilDeadline > 0 ? `${daysUntilDeadline} days left` : 'Deadline passed'}
                             </p>
-                            <p className="text-gray-600 text-xs sm:text-sm">Until {formatDateUK(outing.registrationDeadline)}</p>
+                            <p className="text-gray-600 text-xs sm:text-sm mt-1">Until {formatDateUK(outing.registrationDeadline)}</p>
                           </div>
 
-                          <div className="bg-green-50 rounded-lg p-3 sm:p-4">
-                            <div className="flex items-center mb-1 sm:mb-2">
-                              <PoundSterling className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-600" />
+                          <div className="bg-green-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-green-100">
+                            <div className="flex items-center mb-2 sm:mb-3">
+                              <PoundSterling className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-green-600" />
                               <span className="font-semibold text-green-800 text-sm sm:text-base">Pricing</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-sm sm:text-base">£{outing.memberPrice} member</p>
-                            <p className="text-gray-600 text-xs sm:text-sm">£{outing.guestPrice} guest</p>
+                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl">£{outing.memberPrice} member</p>
+                            <p className="text-gray-600 text-xs sm:text-sm mt-1">£{outing.guestPrice} guest</p>
                           </div>
                         </div>
                       </div>

@@ -196,12 +196,12 @@ export default function MenuOptionsPage() {
             Back
           </Button>
           
-          <div className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-lg p-4 sm:p-6">
+          <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-lg p-4 sm:p-6">
             <h1 className="text-2xl sm:text-3xl font-bold flex items-center">
               <Utensils className="w-6 h-6 sm:w-8 sm:h-8 mr-3" />
               Manage Menu Options
             </h1>
-            <p className="text-orange-100 mt-2">
+            <p className="text-blue-100 mt-2">
               Manage common menu items that appear as quick-add options when creating outings
             </p>
           </div>
