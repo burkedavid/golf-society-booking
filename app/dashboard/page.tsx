@@ -219,10 +219,10 @@ export default async function Dashboard() {
                             <p className="text-gray-600 text-sm">{outing.time}</p>
                           </div>
                           
-                          <div className="bg-purple-50 rounded-lg p-3 sm:p-4">
+                          <div className="bg-blue-50 rounded-lg p-3 sm:p-4">
                             <div className="flex items-center mb-1 sm:mb-2">
-                              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-purple-600" />
-                              <span className="font-semibold text-purple-800 text-sm sm:text-base">Venue</span>
+                              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
+                              <span className="font-semibold text-blue-800 text-sm sm:text-base">Venue</span>
                             </div>
                             <p className="text-gray-900 font-medium text-sm sm:text-base">{outing.venue}</p>
                           </div>

@@ -196,180 +196,239 @@ export default async function AdminDashboard() {
 
         {/* Enhanced Outings List */}
         <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-lg p-4 sm:p-6">
-            <CardTitle className="text-xl sm:text-2xl flex items-center">
-              <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
-              Upcoming Outings
-            </CardTitle>
-            <CardDescription className="text-indigo-100 text-sm sm:text-base">
-              Manage your golf outings and view detailed booking information
-            </CardDescription>
+          <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg p-4 sm:p-6">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0">
+              <div>
+                <CardTitle className="text-xl sm:text-2xl flex items-center">
+                  <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
+                  Upcoming Outings
+                </CardTitle>
+                <CardDescription className="text-blue-100 text-sm sm:text-base">
+                  Manage your golf outings and view detailed booking information
+                </CardDescription>
+              </div>
+              <div className="flex items-center space-x-2 text-blue-100">
+                <div className="bg-blue-500/30 rounded-lg px-3 py-1 text-sm">
+                  {outings.length} Active Event{outings.length !== 1 ? 's' : ''}
+                </div>
+              </div>
+            </div>
           </CardHeader>
           <CardContent className="p-4 sm:p-8">
-            <div className="space-y-4 sm:space-y-6">
-              {outings.map((outing: any) => {
-                // Calculate total people (members + guests) not just bookings
-                const totalPeople = outing.bookings.reduce((total: number, booking: any) => {
-                  const guests = JSON.parse(booking.guests || '[]')
-                  return total + 1 + guests.length // 1 member + number of guests
-                }, 0)
-                const availableSpaces = outing.capacity - totalPeople
-                const progressPercentage = (totalPeople / outing.capacity) * 100
+            {outings.length === 0 ? (
+              <div className="text-center py-12 sm:py-16">
+                <div className="bg-gradient-to-br from-gray-100 to-gray-200 rounded-full w-20 h-20 sm:w-24 sm:h-24 flex items-center justify-center mx-auto mb-4 sm:mb-6">
+                  <CalendarDays className="h-10 w-10 sm:h-12 sm:w-12 text-gray-400" />
+                </div>
+                <h3 className="text-lg sm:text-xl font-semibold text-gray-900 mb-2">No upcoming outings</h3>
+                <p className="text-gray-600 mb-4 sm:mb-6 max-w-md mx-auto text-sm sm:text-base">
+                  Create your first golf outing to start managing bookings and events.
+                </p>
+                <Link href="/admin/outings/create">
+                  <Button className="bg-blue-600 hover:bg-blue-700 text-white px-6 sm:px-8 py-3 rounded-lg shadow-lg">
+                    <Plus className="w-4 h-4 mr-2" />
+                    Create First Outing
+                  </Button>
+                </Link>
+              </div>
+            ) : (
+              <div className="space-y-6 sm:space-y-8">
+                {outings.map((outing: any) => {
+                  // Calculate total people (members + guests) not just bookings
+                  const totalPeople = outing.bookings.reduce((total: number, booking: any) => {
+                    const guests = JSON.parse(booking.guests || '[]')
+                    return total + 1 + guests.length // 1 member + number of guests
+                  }, 0)
+                  const availableSpaces = outing.capacity - totalPeople
+                  const progressPercentage = (totalPeople / outing.capacity) * 100
+                  const totalRevenue = outing.bookings.reduce((sum: number, booking: any) => sum + booking.totalCost, 0)
 
-                return (
-                  <div key={outing.id} className="bg-gradient-to-r from-white to-gray-50 border-2 border-gray-100 rounded-xl p-4 sm:p-6 hover:shadow-lg hover:border-green-300 transition-all duration-300">
-                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start space-y-4 lg:space-y-0 mb-4 sm:mb-6">
-                      <div className="flex-1">
-                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center">
-                          <Trophy className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-600" />
-                          {outing.name}
-                        </h3>
-                        <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">{outing.description}</p>
-                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-sm">
-                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm">
-                            <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-600" />
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase">Date</p>
-                              <p className="font-semibold text-xs sm:text-sm">{formatDateUK(outing.date)}</p>
-                            </div>
+                  return (
+                    <div key={outing.id} className="bg-gradient-to-br from-white via-gray-50 to-green-50/30 border border-gray-200 rounded-2xl overflow-hidden shadow-lg hover:shadow-xl transition-all duration-300 hover:border-green-300">
+                      {/* Header Section */}
+                      <div className="bg-gradient-to-r from-green-600 to-emerald-600 p-4 sm:p-6">
+                        <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start space-y-3 lg:space-y-0">
+                          <div className="flex-1">
+                            <h3 className="text-xl sm:text-2xl font-bold text-white mb-2 flex items-center">
+                              <Trophy className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-yellow-300" />
+                              {outing.name}
+                            </h3>
+                            <p className="text-green-100 text-sm sm:text-base leading-relaxed">{outing.description}</p>
                           </div>
-                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm">
-                            <div className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-600">🕐</div>
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase">Time</p>
-                              <p className="font-semibold text-xs sm:text-sm">{outing.time}</p>
+                          
+                          <div className="flex flex-col space-y-2 lg:ml-6 lg:flex-shrink-0">
+                            <div className="bg-white/20 backdrop-blur-sm rounded-lg p-3 text-center">
+                              {outing.memberPrice === 0 && outing.guestPrice === 0 ? (
+                                <div className="text-lg font-bold text-white">
+                                  Pricing TBC
+                                </div>
+                              ) : (
+                                <div className="space-y-1">
+                                  <div className="text-sm font-bold text-white">
+                                    £{outing.memberPrice} <span className="text-xs font-normal text-green-200">member</span>
+                                  </div>
+                                  <div className="text-sm font-bold text-white">
+                                    £{outing.guestPrice} <span className="text-xs font-normal text-green-200">guest</span>
+                                  </div>
+                                </div>
+                              )}
                             </div>
-                          </div>
-                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm col-span-2 sm:col-span-2 md:col-span-1">
-                            <div className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-red-600">📍</div>
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase">Venue</p>
-                              <p className="font-semibold text-xs sm:text-sm truncate">{outing.venue}</p>
-                            </div>
-                          </div>
-                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm">
-                            <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-600" />
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase">Capacity</p>
-                              <p className="font-semibold text-xs sm:text-sm">{totalPeople}/{outing.capacity}</p>
-                            </div>
+                            <Link href={`/admin/bookings/${outing.id}`}>
+                              <Button size="sm" className="w-full bg-blue-600 hover:bg-blue-700 text-white shadow-lg">
+                                <Settings className="w-4 h-4 mr-2" />
+                                Manage
+                              </Button>
+                            </Link>
                           </div>
                         </div>
                       </div>
-                      
-                      <div className="flex flex-col space-y-3 lg:text-right lg:ml-6 lg:flex-shrink-0">
-                        <div className="bg-green-600 text-white rounded-lg p-3 sm:p-4 shadow-md">
-                          <div className="text-center">
-                            {outing.memberPrice === 0 && outing.guestPrice === 0 ? (
-                              <div className="text-base sm:text-lg font-bold text-green-100">
-                                TBC
-                              </div>
-                            ) : (
-                              <div className="space-y-1">
-                                <div className="text-sm font-bold">
-                                  £{outing.memberPrice} <span className="text-xs font-normal text-green-200">member</span>
-                                </div>
-                                <div className="text-sm font-bold">
-                                  £{outing.guestPrice} <span className="text-xs font-normal text-green-200">guest</span>
-                                </div>
-                              </div>
-                            )}
+
+                      {/* Content Section */}
+                      <div className="p-4 sm:p-6">
+                        {/* Event Details Grid */}
+                        <div className="grid grid-cols-2 sm:grid-cols-4 gap-3 sm:gap-4 mb-6">
+                          <div className="bg-blue-50 rounded-xl p-3 sm:p-4 border border-blue-100">
+                            <div className="flex items-center mb-2">
+                              <CalendarDays className="w-4 h-4 mr-2 text-blue-600" />
+                              <span className="text-xs font-semibold text-blue-800 uppercase tracking-wide">Date</span>
+                            </div>
+                            <p className="font-bold text-gray-900 text-sm sm:text-base">{formatDateUK(outing.date)}</p>
+                            <p className="text-xs text-gray-600">{outing.time}</p>
+                          </div>
+                          
+                          <div className="bg-red-50 rounded-xl p-3 sm:p-4 border border-red-100">
+                            <div className="flex items-center mb-2">
+                              <div className="w-4 h-4 mr-2 text-red-600">📍</div>
+                              <span className="text-xs font-semibold text-red-800 uppercase tracking-wide">Venue</span>
+                            </div>
+                            <p className="font-bold text-gray-900 text-sm truncate">{outing.venue}</p>
+                          </div>
+                          
+                          <div className="bg-green-50 rounded-xl p-3 sm:p-4 border border-green-100">
+                            <div className="flex items-center mb-2">
+                              <Users className="w-4 h-4 mr-2 text-green-600" />
+                              <span className="text-xs font-semibold text-green-800 uppercase tracking-wide">Capacity</span>
+                            </div>
+                            <p className="font-bold text-gray-900 text-sm sm:text-base">{totalPeople}/{outing.capacity}</p>
+                            <p className="text-xs text-gray-600">{availableSpaces} available</p>
+                          </div>
+                          
+                          <div className="bg-yellow-50 rounded-xl p-3 sm:p-4 border border-yellow-100">
+                            <div className="flex items-center mb-2">
+                              <PoundSterling className="w-4 h-4 mr-2 text-yellow-600" />
+                              <span className="text-xs font-semibold text-yellow-800 uppercase tracking-wide">Revenue</span>
+                            </div>
+                            <p className="font-bold text-gray-900 text-sm sm:text-base">£{totalRevenue.toFixed(2)}</p>
+                            <p className="text-xs text-gray-600">{outing.bookings.length} booking{outing.bookings.length !== 1 ? 's' : ''}</p>
                           </div>
                         </div>
-                        <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white w-full">
-                          <Settings className="w-4 h-4 mr-2" />
-                          <Link href={`/admin/bookings/${outing.id}`} className="text-white">
-                            Manage
-                          </Link>
-                        </Button>
-                      </div>
-                    </div>
 
-                    {/* Enhanced Progress Bar */}
-                    <div className="mb-4">
-                      <div className="flex justify-between text-sm mb-2">
-                        <span className="font-medium text-gray-700">Booking Progress</span>
-                        <span className="text-green-600 font-semibold">{availableSpaces} spaces remaining</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
-                        <div 
-                          className="bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full transition-all duration-500" 
-                          style={{ width: `${progressPercentage}%` }}
-                        ></div>
-                      </div>
-                    </div>
+                        {/* Progress Section */}
+                        <div className="bg-gray-50 rounded-xl p-4 sm:p-5 border border-gray-100">
+                          <div className="flex justify-between items-center mb-3">
+                            <h4 className="font-semibold text-gray-800 flex items-center">
+                              <TrendingUp className="w-4 h-4 mr-2 text-green-600" />
+                              Booking Progress
+                            </h4>
+                            <span className="text-sm font-medium text-green-600">
+                              {Math.round(progressPercentage)}% Full
+                            </span>
+                          </div>
+                          <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner mb-3">
+                            <div 
+                              className="bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full transition-all duration-700 shadow-sm" 
+                              style={{ width: `${progressPercentage}%` }}
+                            ></div>
+                          </div>
+                          <div className="grid grid-cols-3 gap-4 text-center">
+                            <div>
+                              <div className="text-lg font-bold text-gray-900">{totalPeople}</div>
+                              <div className="text-xs text-gray-600">Total Players</div>
+                            </div>
+                            <div>
+                              <div className="text-lg font-bold text-green-600">£{totalRevenue.toFixed(2)}</div>
+                              <div className="text-xs text-gray-600">Revenue</div>
+                            </div>
+                            <div>
+                              <div className="text-lg font-bold text-blue-600">{formatDateUK(outing.registrationDeadline)}</div>
+                              <div className="text-xs text-gray-600">Deadline</div>
+                            </div>
+                          </div>
+                        </div>
 
-                    {/* Enhanced Booking Summary */}
-                    <div className="grid grid-cols-3 gap-4 text-sm bg-gray-50 rounded-lg p-4">
-                      <div className="text-center">
-                        <div className="font-semibold text-gray-900">{totalPeople}</div>
-                        <div className="text-gray-600">Total Players</div>
-                        <div className="text-xs text-gray-500">({outing.bookings.length} bookings)</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-semibold text-green-600">£{outing.bookings.reduce((sum: number, booking: any) => sum + booking.totalCost, 0).toFixed(2)}</div>
-                        <div className="text-gray-600">Revenue</div>
-                        <div className="text-xs text-gray-500">Current total</div>
-                      </div>
-                      <div className="text-center">
-                        <div className="font-semibold text-blue-600">{formatDateUK(outing.registrationDeadline)}</div>
-                        <div className="text-gray-600">Deadline</div>
-                        <div className="text-xs text-gray-500">Registration closes</div>
-                      </div>
-                    </div>
-
-                    {/* Detailed Bookings */}
-                    {outing.bookings.length > 0 && (
-                      <div className="mt-6 border-t pt-4">
-                        <h4 className="font-semibold text-gray-900 mb-3 flex items-center">
-                          <Users className="w-4 h-4 mr-2" />
-                          Booking Details ({outing.bookings.length})
-                        </h4>
-                        <div className="space-y-3">
-                          {outing.bookings.map((booking: any) => {
-                            const guests = JSON.parse(booking.guests || '[]')
-                            return (
-                              <div key={booking.id} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm">
-                                <div className="flex justify-between items-start mb-3">
-                                  <div>
-                                    <span className="font-semibold text-gray-900">{booking.user.name}</span>
-                                    <span className="text-gray-500 ml-2 text-sm">#{booking.user.memberNumber}</span>
-                                  </div>
-                                  <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
-                                    £{booking.totalCost.toFixed(2)}
-                                  </span>
-                                </div>
-                                <div className="grid grid-cols-2 gap-4 text-sm text-gray-600">
-                                  <div>
-                                    <span className="font-medium">Handicap:</span> {booking.memberHandicap}
-                                  </div>
-                                  <div>
-                                    <span className="font-medium">Guests:</span> {guests.length}
+                        {/* Booking Details - Collapsible */}
+                        {outing.bookings.length > 0 && (
+                          <div className="mt-6 border-t border-gray-200 pt-6">
+                            <details className="group">
+                              <summary className="cursor-pointer list-none">
+                                <div className="flex items-center justify-between p-3 bg-blue-50 rounded-lg hover:bg-blue-100 transition-colors">
+                                  <h4 className="font-semibold text-blue-900 flex items-center">
+                                    <Users className="w-4 h-4 mr-2" />
+                                    View Booking Details ({outing.bookings.length})
+                                  </h4>
+                                  <div className="text-blue-600 group-open:rotate-180 transition-transform">
+                                    <svg className="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
+                                    </svg>
                                   </div>
                                 </div>
-                                {guests.length > 0 && (
-                                  <div className="mt-3 pt-3 border-t border-gray-100">
-                                    <span className="font-medium text-sm text-gray-700">Guest Details:</span>
-                                    <div className="mt-2 space-y-1">
-                                      {guests.map((guest: any, index: number) => (
-                                        <div key={index} className="text-sm text-gray-600 flex justify-between bg-gray-50 rounded px-2 py-1">
-                                          <span>{guest.name}</span>
-                                          <span>Handicap: {guest.handicap}</span>
+                              </summary>
+                              <div className="mt-4 space-y-3 max-h-96 overflow-y-auto">
+                                {outing.bookings.map((booking: any) => {
+                                  const guests = JSON.parse(booking.guests || '[]')
+                                  return (
+                                    <div key={booking.id} className="bg-white border border-gray-200 rounded-lg p-4 shadow-sm hover:shadow-md transition-shadow">
+                                      <div className="flex justify-between items-start mb-3">
+                                        <div className="flex items-center space-x-3">
+                                          <div className="w-10 h-10 bg-gradient-to-br from-green-400 to-blue-500 rounded-full flex items-center justify-center">
+                                            <span className="text-white font-bold text-sm">
+                                              {booking.user.name.split(' ').map((n: string) => n[0]).join('')}
+                                            </span>
+                                          </div>
+                                          <div>
+                                            <span className="font-semibold text-gray-900">{booking.user.name}</span>
+                                            <div className="flex items-center space-x-2 text-sm text-gray-500">
+                                              <span>#{booking.user.memberNumber}</span>
+                                              <span>•</span>
+                                              <span>HC: {booking.memberHandicap}</span>
+                                            </div>
+                                          </div>
                                         </div>
-                                      ))}
+                                        <div className="text-right">
+                                          <span className="bg-green-100 text-green-800 px-3 py-1 rounded-full text-sm font-medium">
+                                            £{booking.totalCost.toFixed(2)}
+                                          </span>
+                                          <div className="text-xs text-gray-500 mt-1">
+                                            {guests.length} guest{guests.length !== 1 ? 's' : ''}
+                                          </div>
+                                        </div>
+                                      </div>
+                                      {guests.length > 0 && (
+                                        <div className="mt-3 pt-3 border-t border-gray-100">
+                                          <div className="text-sm text-gray-700 mb-2 font-medium">Guests:</div>
+                                          <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                                            {guests.map((guest: any, index: number) => (
+                                              <div key={index} className="text-sm bg-gray-50 rounded px-3 py-2 flex justify-between">
+                                                <span className="font-medium">{guest.name}</span>
+                                                <span className="text-gray-500">HC: {guest.handicap}</span>
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                      )}
                                     </div>
-                                  </div>
-                                )}
+                                  )
+                                })}
                               </div>
-                            )
-                          })}
-                        </div>
+                            </details>
+                          </div>
+                        )}
                       </div>
-                    )}
-                  </div>
-                )
-              })}
-            </div>
+                    </div>
+                  )
+                })}
+              </div>
+            )}
           </CardContent>
         </Card>
       </div>

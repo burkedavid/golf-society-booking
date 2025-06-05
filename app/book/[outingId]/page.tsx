@@ -437,8 +437,8 @@ export default function BookOuting({ params }: { params: { outingId: string } })
                       <p className="font-semibold text-sm sm:text-base truncate">{outing.venue}</p>
                     </div>
                   </div>
-                  <div className="flex items-center bg-purple-50 rounded-lg p-3">
-                    <Users className="w-5 h-5 mr-3 text-purple-600 flex-shrink-0" />
+                  <div className="flex items-center bg-blue-50 rounded-lg p-3">
+                    <Users className="w-5 h-5 mr-3 text-blue-600 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-gray-500 uppercase tracking-wide">Available</p>
                       <p className="font-semibold text-sm sm:text-base">{availableSpaces} spaces</p>
