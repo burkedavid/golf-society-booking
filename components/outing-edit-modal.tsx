@@ -31,10 +31,10 @@ export function OutingEditModal({ isOpen, onClose, outing }: OutingEditModalProp
   const [loading, setLoading] = useState(false)
   const [formData, setFormData] = useState({
     name: outing.name,
-    description: outing.description,
+    description: outing.description || '',
     date: new Date(outing.date).toISOString().split('T')[0],
-    time: outing.time,
-    venue: outing.venue,
+    time: outing.time || '',
+    venue: outing.venue || '',
     capacity: outing.capacity.toString(),
     memberPrice: outing.memberPrice.toString(),
     guestPrice: outing.guestPrice.toString(),

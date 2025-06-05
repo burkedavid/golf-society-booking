@@ -81,10 +81,10 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
               <AdminBookingClient outing={{
                 id: outing.id,
                 name: outing.name,
-                description: outing.description,
+                description: outing.description || '',
                 date: outing.date.toISOString(),
-                time: outing.time,
-                venue: outing.venue,
+                time: outing.time || '',
+                venue: outing.venue || '',
                 capacity: outing.capacity,
                 memberPrice: outing.memberPrice,
                 guestPrice: outing.guestPrice,
