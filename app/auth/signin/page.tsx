@@ -53,42 +53,42 @@ export default function SignInPage() {
         backgroundImage: `url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.05'%3E%3Ccircle cx='30' cy='30' r='2'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E")`,
       }}></div>
 
-      <div className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8">
-        <div className="max-w-md w-full space-y-8">
-          {/* Logo and Header */}
+      <div className="relative min-h-screen flex items-center justify-center px-4 sm:px-6 lg:px-8 py-8">
+        <div className="max-w-md w-full space-y-6 sm:space-y-8">
+          {/* Mobile-Optimized Logo and Header */}
           <div className="text-center">
-            <div className="flex justify-center mb-6">
-              <div className="bg-white rounded-2xl p-4 shadow-2xl">
+            <div className="flex justify-center mb-4 sm:mb-6">
+              <div className="bg-white rounded-2xl p-3 sm:p-4 shadow-2xl">
                 <Image
                   src="/image-640x886.png"
                   alt="Irish Golf Society Scotland Logo"
-                  width={80}
-                  height={111}
-                  className="rounded-lg"
+                  width={60}
+                  height={83}
+                  className="sm:w-[80px] sm:h-[111px] rounded-lg"
                 />
               </div>
             </div>
-            <h1 className="text-4xl font-bold text-white mb-2 flex items-center justify-center">
-              <Trophy className="w-8 h-8 mr-3 text-yellow-400" />
+            <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold text-white mb-2 flex items-center justify-center">
+              <Trophy className="w-6 h-6 sm:w-8 sm:h-8 mr-2 sm:mr-3 text-yellow-400" />
               Welcome Back
             </h1>
-            <p className="text-green-100 text-lg">
+            <p className="text-green-100 text-base sm:text-lg">
               Access your premium golf experience
             </p>
           </div>
 
-          {/* Sign In Card */}
+          {/* Mobile-Optimized Sign In Card */}
           <Card className="bg-white/95 backdrop-blur-sm shadow-2xl border-0">
-            <CardHeader className="text-center pb-4">
-              <CardTitle className="text-2xl font-bold text-green-800">
+            <CardHeader className="text-center pb-4 px-4 sm:px-6">
+              <CardTitle className="text-xl sm:text-2xl font-bold text-green-800">
                 Irish Golf Society Scotland
               </CardTitle>
-              <CardDescription className="text-gray-600">
+              <CardDescription className="text-gray-600 text-sm sm:text-base">
                 Sign in to manage your golf outings
               </CardDescription>
             </CardHeader>
-            <CardContent className="px-8 pb-8">
-              <form onSubmit={handleSubmit} className="space-y-6">
+            <CardContent className="px-4 sm:px-6 lg:px-8 pb-6 sm:pb-8">
+              <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
                 <div>
                   <label htmlFor="email" className="block text-sm font-semibold text-gray-700 mb-2">
                     Email Address
@@ -103,7 +103,7 @@ export default function SignInPage() {
                       value={email}
                       onChange={(e) => setEmail(e.target.value)}
                       required
-                      className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full pl-10 pr-4 py-3 sm:py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
                       placeholder="Enter your email"
                     />
                   </div>
@@ -122,13 +122,13 @@ export default function SignInPage() {
                       value={password}
                       onChange={(e) => setPassword(e.target.value)}
                       required
-                      className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white"
+                      className="w-full pl-10 pr-4 py-3 sm:py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
                       placeholder="Enter your password"
                     />
                   </div>
                 </div>
                 {error && (
-                  <div className="bg-red-50 border-l-4 border-red-400 p-4 rounded-md">
+                  <div className="bg-red-50 border-l-4 border-red-400 p-3 sm:p-4 rounded-md">
                     <div className="text-red-700 text-sm font-medium">
                       {error}
                     </div>
@@ -137,7 +137,7 @@ export default function SignInPage() {
                 <Button
                   type="submit"
                   disabled={loading}
-                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5"
+                  className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-3 sm:py-3 px-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 transform hover:-translate-y-0.5 text-base"
                 >
                   {loading ? (
                     <div className="flex items-center justify-center">
@@ -153,35 +153,35 @@ export default function SignInPage() {
                 </Button>
               </form>
               
-              {/* Test Accounts Section */}
-              <div className="mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-6 border border-blue-200">
-                <div className="text-center mb-4">
-                  <Users className="w-6 h-6 text-blue-600 mx-auto mb-2" />
-                  <p className="font-bold text-blue-800 text-lg">Demo Accounts</p>
-                  <p className="text-blue-600 text-sm">Use these credentials to explore the system</p>
+              {/* Mobile-Optimized Test Accounts Section */}
+              <div className="mt-6 sm:mt-8 bg-gradient-to-r from-blue-50 to-indigo-50 rounded-xl p-4 sm:p-6 border border-blue-200">
+                <div className="text-center mb-3 sm:mb-4">
+                  <Users className="w-5 h-5 sm:w-6 sm:h-6 text-blue-600 mx-auto mb-2" />
+                  <p className="font-bold text-blue-800 text-base sm:text-lg">Demo Accounts</p>
+                  <p className="text-blue-600 text-xs sm:text-sm">Use these credentials to explore the system</p>
                 </div>
                 <div className="space-y-3">
-                  <div className="bg-white rounded-lg p-4 shadow-sm border border-blue-100">
+                  <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-blue-100">
                     <div className="flex items-center mb-2">
-                      <Trophy className="w-4 h-4 text-yellow-500 mr-2" />
-                      <span className="font-semibold text-gray-800">Administrator</span>
+                      <Trophy className="w-4 h-4 text-yellow-500 mr-2 flex-shrink-0" />
+                      <span className="font-semibold text-gray-800 text-sm sm:text-base">Administrator</span>
                     </div>
-                    <p className="text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded">
+                    <p className="text-xs sm:text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded break-all">
                       admin@irishgolfsocietyscotland.com
                     </p>
-                    <p className="text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded mt-1">
+                    <p className="text-xs sm:text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded mt-1">
                       admin123
                     </p>
                   </div>
-                  <div className="bg-white rounded-lg p-4 shadow-sm border border-blue-100">
+                  <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-blue-100">
                     <div className="flex items-center mb-2">
-                      <Users className="w-4 h-4 text-green-500 mr-2" />
-                      <span className="font-semibold text-gray-800">Member</span>
+                      <Users className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
+                      <span className="font-semibold text-gray-800 text-sm sm:text-base">Member</span>
                     </div>
-                    <p className="text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded">
+                    <p className="text-xs sm:text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded">
                       seamus@email.com
                     </p>
-                    <p className="text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded mt-1">
+                    <p className="text-xs sm:text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded mt-1">
                       member123
                     </p>
                   </div>
@@ -190,11 +190,11 @@ export default function SignInPage() {
             </CardContent>
           </Card>
 
-          {/* Footer */}
+          {/* Mobile-Optimized Footer */}
           <div className="text-center text-green-100">
             <div className="flex items-center justify-center mb-2">
-              <MapPin className="w-4 h-4 mr-2" />
-              <span className="text-sm">Premium Golf Experiences Across Scotland</span>
+              <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
+              <span className="text-xs sm:text-sm">Premium Golf Experiences Across Scotland</span>
             </div>
             <p className="text-xs text-green-200">
               © 2024 Irish Golf Society Scotland. All rights reserved.

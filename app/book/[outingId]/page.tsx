@@ -203,88 +203,90 @@ export default function BookOuting({ params }: { params: { outingId: string } })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
-      {/* Enhanced Header */}
+      {/* Mobile-Optimized Header */}
       <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-4">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 sm:py-6 space-y-3 sm:space-y-0">
+            <div className="flex items-center space-x-3 sm:space-x-4">
               <Link href="/dashboard">
-                <Button variant="ghost" size="sm" className="text-white hover:bg-green-700">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Dashboard
+                <Button variant="ghost" size="sm" className="text-white hover:bg-green-700 px-3 py-2">
+                  <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2" />
+                  <span className="text-sm sm:text-base">Back</span>
                 </Button>
               </Link>
               <div>
-                <h1 className="text-3xl font-bold text-white">Book Golf Outing</h1>
-                <p className="text-green-100">Irish Golf Society Scotland</p>
+                <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Book Golf Outing</h1>
+                <p className="text-green-100 text-sm sm:text-base">Irish Golf Society Scotland</p>
               </div>
             </div>
-            <UserMenu />
+            <div className="self-end sm:self-auto">
+              <UserMenu />
+            </div>
           </div>
         </div>
       </div>
 
       {/* Main Content */}
-      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+      <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 lg:gap-8">
           {/* Outing Details & Booking Form */}
-          <div className="lg:col-span-2 space-y-8">
-            {/* Outing Details */}
+          <div className="lg:col-span-2 space-y-6 lg:space-y-8">
+            {/* Mobile-Optimized Outing Details */}
             <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg">
-                <CardTitle className="text-2xl">{outing.name}</CardTitle>
-                <CardDescription className="text-green-100">{outing.description}</CardDescription>
+              <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg p-4 sm:p-6">
+                <CardTitle className="text-lg sm:text-xl lg:text-2xl">{outing.name}</CardTitle>
+                <CardDescription className="text-green-100 text-sm sm:text-base">{outing.description}</CardDescription>
               </CardHeader>
-              <CardContent className="p-6">
-                <div className="grid grid-cols-2 gap-6 text-gray-700">
+              <CardContent className="p-4 sm:p-6">
+                <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4 lg:gap-6 text-gray-700">
                   <div className="flex items-center bg-green-50 rounded-lg p-3">
-                    <CalendarDays className="w-5 h-5 mr-3 text-green-600" />
+                    <CalendarDays className="w-5 h-5 mr-3 text-green-600 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-gray-500 uppercase tracking-wide">Date</p>
-                      <p className="font-semibold">{new Date(outing.date).toLocaleDateString()}</p>
+                      <p className="font-semibold text-sm sm:text-base">{new Date(outing.date).toLocaleDateString()}</p>
                     </div>
                   </div>
                   <div className="flex items-center bg-blue-50 rounded-lg p-3">
-                    <Clock className="w-5 h-5 mr-3 text-blue-600" />
+                    <Clock className="w-5 h-5 mr-3 text-blue-600 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-gray-500 uppercase tracking-wide">Time</p>
-                      <p className="font-semibold">{outing.time}</p>
+                      <p className="font-semibold text-sm sm:text-base">{outing.time}</p>
                     </div>
                   </div>
-                  <div className="flex items-center bg-red-50 rounded-lg p-3">
-                    <MapPin className="w-5 h-5 mr-3 text-red-600" />
-                    <div>
+                  <div className="flex items-center bg-red-50 rounded-lg p-3 sm:col-span-2 lg:col-span-1">
+                    <MapPin className="w-5 h-5 mr-3 text-red-600 flex-shrink-0" />
+                    <div className="min-w-0">
                       <p className="text-xs text-gray-500 uppercase tracking-wide">Venue</p>
-                      <p className="font-semibold">{outing.venue}</p>
+                      <p className="font-semibold text-sm sm:text-base truncate">{outing.venue}</p>
                     </div>
                   </div>
                   <div className="flex items-center bg-purple-50 rounded-lg p-3">
-                    <Users className="w-5 h-5 mr-3 text-purple-600" />
+                    <Users className="w-5 h-5 mr-3 text-purple-600 flex-shrink-0" />
                     <div>
                       <p className="text-xs text-gray-500 uppercase tracking-wide">Available</p>
-                      <p className="font-semibold">{availableSpaces} spaces</p>
+                      <p className="font-semibold text-sm sm:text-base">{availableSpaces} spaces</p>
                     </div>
                   </div>
                 </div>
               </CardContent>
             </Card>
 
-            {/* Booking Form */}
+            {/* Mobile-Optimized Booking Form */}
             <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
-                <CardTitle className="flex items-center">
-                  <Utensils className="w-6 h-6 mr-3" />
+              <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg p-4 sm:p-6">
+                <CardTitle className="flex items-center text-lg sm:text-xl">
+                  <Utensils className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
                   Booking Details
                 </CardTitle>
-                <CardDescription className="text-blue-100">Complete your booking information</CardDescription>
+                <CardDescription className="text-blue-100 text-sm sm:text-base">Complete your booking information</CardDescription>
               </CardHeader>
-              <CardContent className="p-8">
-                <form onSubmit={handleSubmit} className="space-y-8">
+              <CardContent className="p-4 sm:p-6 lg:p-8">
+                <form onSubmit={handleSubmit} className="space-y-6 sm:space-y-8">
                   {/* Guest Count */}
                   <div>
-                    <Label htmlFor="guestCount" className="text-lg font-semibold text-gray-800">Number of Guests</Label>
+                    <Label htmlFor="guestCount" className="text-base sm:text-lg font-semibold text-gray-800">Number of Guests</Label>
                     <Select value={guestCount.toString()} onValueChange={(value: string) => handleGuestCountChange(parseInt(value))}>
-                      <SelectTrigger className="mt-2">
+                      <SelectTrigger className="mt-2 h-12 text-base">
                         <SelectValue placeholder="Select number of guests" />
                       </SelectTrigger>
                       <SelectContent>
@@ -298,16 +300,16 @@ export default function BookOuting({ params }: { params: { outingId: string } })
                   </div>
 
                   {/* Member Meal Choices */}
-                  <div className="bg-green-50 rounded-xl p-6 border border-green-200">
-                    <h3 className="text-lg font-semibold text-gray-800 mb-4 flex items-center">
+                  <div className="bg-green-50 rounded-xl p-4 sm:p-6 border border-green-200">
+                    <h3 className="text-base sm:text-lg font-semibold text-gray-800 mb-4 flex items-center">
                       <Utensils className="w-5 h-5 mr-2 text-green-600" />
                       Your Meal Choices
                     </h3>
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-2 sm:gap-4">
                       <div>
-                        <Label htmlFor="memberMainCourse" className="font-medium">Main Course</Label>
+                        <Label htmlFor="memberMainCourse" className="font-medium text-sm sm:text-base">Main Course</Label>
                         <Select value={memberMainCourse} onValueChange={setMemberMainCourse} required>
-                          <SelectTrigger className="mt-1">
+                          <SelectTrigger className="mt-1 h-12 text-base">
                             <SelectValue placeholder="Select main course" />
                           </SelectTrigger>
                           <SelectContent>
@@ -321,9 +323,9 @@ export default function BookOuting({ params }: { params: { outingId: string } })
                       </div>
 
                       <div>
-                        <Label htmlFor="memberDessert" className="font-medium">Dessert</Label>
+                        <Label htmlFor="memberDessert" className="font-medium text-sm sm:text-base">Dessert</Label>
                         <Select value={memberDessert} onValueChange={setMemberDessert} required>
-                          <SelectTrigger className="mt-1">
+                          <SelectTrigger className="mt-1 h-12 text-base">
                             <SelectValue placeholder="Select dessert" />
                           </SelectTrigger>
                           <SelectContent>
@@ -341,73 +343,82 @@ export default function BookOuting({ params }: { params: { outingId: string } })
                   {/* Guest Information */}
                   {guestCount > 0 && (
                     <div>
-                      <Label className="text-lg font-semibold text-gray-800">Guest Information & Meal Choices</Label>
-                      <div className="space-y-6 mt-4">
+                      <Label className="text-base sm:text-lg font-semibold text-gray-800">Guest Information & Meal Choices</Label>
+                      <div className="space-y-4 sm:space-y-6 mt-4">
                         {Array.from({ length: guestCount }, (_, i) => (
-                          <div key={i} className="bg-blue-50 rounded-xl p-6 border border-blue-200">
-                            <h4 className="font-semibold text-lg mb-4 text-blue-800">Guest {i + 1}</h4>
+                          <div key={i} className="bg-blue-50 rounded-xl p-4 sm:p-6 border border-blue-200">
+                            <h4 className="font-semibold text-base sm:text-lg mb-4 text-blue-800">Guest {i + 1}</h4>
                             
-                            {/* Guest Basic Info */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                              <div>
-                                <Label htmlFor={`guest-name-${i}`} className="font-medium">Name</Label>
-                                <Input
-                                  id={`guest-name-${i}`}
-                                  placeholder="Full name"
-                                  value={guestNames[i] || ''}
-                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleGuestNameChange(i, e.target.value)}
-                                  required
-                                  className="mt-1"
-                                />
-                              </div>
-                              <div>
-                                <Label htmlFor={`guest-handicap-${i}`} className="font-medium">Handicap</Label>
-                                <Input
-                                  id={`guest-handicap-${i}`}
-                                  type="number"
-                                  min="0"
-                                  max="54"
-                                  placeholder="28"
-                                  value={guestHandicaps[i]?.toString() || '28'}
-                                  onChange={(e: React.ChangeEvent<HTMLInputElement>) => handleGuestHandicapChange(i, parseInt(e.target.value) || 28)}
-                                  required
-                                  className="mt-1"
-                                />
-                              </div>
-                            </div>
-
-                            {/* Guest Meal Choices */}
-                            <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                              <div>
-                                <Label htmlFor={`guest-main-${i}`} className="font-medium">Main Course</Label>
-                                <Select value={guestMainCourses[i] || ''} onValueChange={(value) => handleGuestMainCourseChange(i, value)} required>
-                                  <SelectTrigger className="mt-1">
-                                    <SelectValue placeholder="Select main course" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {outing.menu.mainCourse.map((option, index) => (
-                                      <SelectItem key={index} value={option}>
-                                        {option}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
+                            <div className="space-y-4">
+                              {/* Guest Name and Handicap */}
+                              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                                <div>
+                                  <Label htmlFor={`guestName${i}`} className="font-medium text-sm sm:text-base">Name</Label>
+                                  <Input
+                                    id={`guestName${i}`}
+                                    type="text"
+                                    value={guestNames[i] || ''}
+                                    onChange={(e) => handleGuestNameChange(i, e.target.value)}
+                                    placeholder="Guest name"
+                                    required
+                                    className="mt-1 h-12 text-base"
+                                  />
+                                </div>
+                                <div>
+                                  <Label htmlFor={`guestHandicap${i}`} className="font-medium text-sm sm:text-base">Handicap</Label>
+                                  <Input
+                                    id={`guestHandicap${i}`}
+                                    type="number"
+                                    min="0"
+                                    max="54"
+                                    value={guestHandicaps[i] || 28}
+                                    onChange={(e) => handleGuestHandicapChange(i, parseInt(e.target.value) || 28)}
+                                    className="mt-1 h-12 text-base"
+                                  />
+                                </div>
                               </div>
 
-                              <div>
-                                <Label htmlFor={`guest-dessert-${i}`} className="font-medium">Dessert</Label>
-                                <Select value={guestDesserts[i] || ''} onValueChange={(value) => handleGuestDessertChange(i, value)} required>
-                                  <SelectTrigger className="mt-1">
-                                    <SelectValue placeholder="Select dessert" />
-                                  </SelectTrigger>
-                                  <SelectContent>
-                                    {outing.menu.dessert.map((option, index) => (
-                                      <SelectItem key={index} value={option}>
-                                        {option}
-                                      </SelectItem>
-                                    ))}
-                                  </SelectContent>
-                                </Select>
+                              {/* Guest Meal Choices */}
+                              <div className="space-y-4 sm:space-y-0 sm:grid sm:grid-cols-1 md:grid-cols-2 sm:gap-4">
+                                <div>
+                                  <Label htmlFor={`guestMainCourse${i}`} className="font-medium text-sm sm:text-base">Main Course</Label>
+                                  <Select 
+                                    value={guestMainCourses[i] || ''} 
+                                    onValueChange={(value) => handleGuestMainCourseChange(i, value)}
+                                    required
+                                  >
+                                    <SelectTrigger className="mt-1 h-12 text-base">
+                                      <SelectValue placeholder="Select main course" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {outing.menu.mainCourse.map((option, index) => (
+                                        <SelectItem key={index} value={option}>
+                                          {option}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
+
+                                <div>
+                                  <Label htmlFor={`guestDessert${i}`} className="font-medium text-sm sm:text-base">Dessert</Label>
+                                  <Select 
+                                    value={guestDesserts[i] || ''} 
+                                    onValueChange={(value) => handleGuestDessertChange(i, value)}
+                                    required
+                                  >
+                                    <SelectTrigger className="mt-1 h-12 text-base">
+                                      <SelectValue placeholder="Select dessert" />
+                                    </SelectTrigger>
+                                    <SelectContent>
+                                      {outing.menu.dessert.map((option, index) => (
+                                        <SelectItem key={index} value={option}>
+                                          {option}
+                                        </SelectItem>
+                                      ))}
+                                    </SelectContent>
+                                  </Select>
+                                </div>
                               </div>
                             </div>
                           </div>
@@ -418,91 +429,60 @@ export default function BookOuting({ params }: { params: { outingId: string } })
 
                   {/* Special Requests */}
                   <div>
-                    <Label htmlFor="specialRequests" className="text-lg font-semibold text-gray-800">Special Requests (Optional)</Label>
+                    <Label htmlFor="specialRequests" className="text-base sm:text-lg font-semibold text-gray-800">Special Requests</Label>
                     <Textarea
                       id="specialRequests"
-                      placeholder="Any dietary requirements, allergies, or special requests..."
                       value={specialRequests}
-                      onChange={(e: React.ChangeEvent<HTMLTextAreaElement>) => setSpecialRequests(e.target.value)}
-                      rows={4}
-                      className="mt-2"
+                      onChange={(e) => setSpecialRequests(e.target.value)}
+                      placeholder="Any dietary requirements or special requests..."
+                      className="mt-2 min-h-[100px] text-base"
                     />
                   </div>
 
+                  {/* Submit Button */}
                   <Button 
                     type="submit" 
-                    className="w-full bg-gradient-to-r from-green-600 to-emerald-600 hover:from-green-700 hover:to-emerald-700 text-white font-semibold py-4 px-6 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-lg"
-                    disabled={submitting || availableSpaces <= guestCount}
+                    disabled={submitting}
+                    className="w-full bg-green-600 hover:bg-green-700 text-white font-semibold py-4 px-6 text-base sm:text-lg h-auto"
                   >
-                    {submitting ? (
-                      <div className="flex items-center justify-center">
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Processing...
-                      </div>
-                    ) : (
-                      `Complete Booking - £${calculateTotal().toFixed(2)}`
-                    )}
+                    {submitting ? 'Processing...' : `Complete Booking - £${calculateTotal().toFixed(2)}`}
                   </Button>
                 </form>
               </CardContent>
             </Card>
           </div>
 
-          {/* Enhanced Booking Summary */}
-          <div>
-            <Card className="sticky top-8 shadow-xl border-0 bg-white/90 backdrop-blur-sm">
-              <CardHeader className="bg-gradient-to-r from-yellow-500 to-orange-500 text-white rounded-t-lg">
-                <CardTitle className="flex items-center">
-                  <PoundSterling className="w-5 h-5 mr-2" />
+          {/* Mobile-Optimized Booking Summary */}
+          <div className="lg:col-span-1">
+            <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm sticky top-6">
+              <CardHeader className="bg-gradient-to-r from-emerald-600 to-green-600 text-white rounded-t-lg p-4 sm:p-6">
+                <CardTitle className="flex items-center text-lg sm:text-xl">
+                  <PoundSterling className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
                   Booking Summary
                 </CardTitle>
               </CardHeader>
-              <CardContent className="p-6 space-y-6">
-                <div className="bg-green-50 rounded-lg p-4">
-                  <div className="flex justify-between items-center mb-2">
-                    <span className="font-semibold">Member ({session?.user?.name})</span>
-                    <span className="font-bold text-green-600">£{outing.memberPrice.toFixed(2)}</span>
+              <CardContent className="p-4 sm:p-6">
+                <div className="space-y-4">
+                  <div className="flex justify-between items-center py-2 border-b">
+                    <span className="text-gray-600 text-sm sm:text-base">Member</span>
+                    <span className="font-semibold text-sm sm:text-base">£{outing.memberPrice.toFixed(2)}</span>
                   </div>
-                  <div className="text-sm text-gray-600 space-y-1">
-                    <div>Handicap: {session?.user?.handicap}</div>
-                    {memberMainCourse && <div>Main: {memberMainCourse}</div>}
-                    {memberDessert && <div>Dessert: {memberDessert}</div>}
-                  </div>
-                </div>
-                
-                {guestCount > 0 && (
-                  <div className="space-y-3">
-                    <div className="flex justify-between items-center">
-                      <span className="font-semibold">{guestCount} Guest{guestCount !== 1 ? 's' : ''}</span>
-                      <span className="font-bold text-blue-600">£{(guestCount * outing.guestPrice).toFixed(2)}</span>
+                  {guestCount > 0 && (
+                    <div className="flex justify-between items-center py-2 border-b">
+                      <span className="text-gray-600 text-sm sm:text-base">{guestCount} Guest{guestCount > 1 ? 's' : ''}</span>
+                      <span className="font-semibold text-sm sm:text-base">£{(guestCount * outing.guestPrice).toFixed(2)}</span>
                     </div>
-                    {guestNames.map((name, index) => (
-                      <div key={index} className="bg-blue-50 rounded-lg p-3">
-                        <div className="font-medium">{name || `Guest ${index + 1}`}</div>
-                        <div className="text-sm text-gray-600 space-y-1">
-                          <div>Handicap: {guestHandicaps[index] || 28}</div>
-                          {guestMainCourses[index] && <div>Main: {guestMainCourses[index]}</div>}
-                          {guestDesserts[index] && <div>Dessert: {guestDesserts[index]}</div>}
-                        </div>
-                      </div>
-                    ))}
+                  )}
+                  <div className="flex justify-between items-center py-3 border-t-2 border-green-200">
+                    <span className="text-lg font-bold text-gray-800">Total</span>
+                    <span className="text-xl font-bold text-green-600">£{calculateTotal().toFixed(2)}</span>
                   </div>
-                )}
-                
-                <div className="border-t pt-4">
-                  <div className="flex justify-between font-bold text-xl">
-                    <span>Total</span>
-                    <span className="text-green-600">£{calculateTotal().toFixed(2)}</span>
+                  
+                  <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-3 sm:p-4 mt-4">
+                    <p className="text-xs sm:text-sm text-yellow-800">
+                      <strong>Payment:</strong> Bank transfer details will be provided after booking confirmation.
+                    </p>
                   </div>
-                </div>
-
-                <div className="text-sm text-gray-600 space-y-2 bg-gray-50 rounded-lg p-4">
-                  <p className="flex items-center">
-                    <Clock className="w-4 h-4 mr-2" />
-                    Registration deadline: {new Date(outing.registrationDeadline).toLocaleDateString()}
-                  </p>
-                  <p>• Payment due on booking</p>
-                  <p>• Cancellation policy applies</p>
                 </div>
               </CardContent>
             </Card>
@@ -510,13 +490,14 @@ export default function BookOuting({ params }: { params: { outingId: string } })
         </div>
       </div>
 
+      {/* Bank Transfer Modal */}
       {showBankModal && (
         <BankTransferModal
           isOpen={showBankModal}
-          amount={calculateTotal()}
-          bookingReference={bookingReference}
-          memberName={session?.user?.name || ''}
           onClose={handleModalClose}
+          bookingReference={bookingReference}
+          amount={calculateTotal()}
+          memberName={session?.user?.name || ''}
         />
       )}
     </div>
