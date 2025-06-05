@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { ClientUserMenu } from '@/components/client-user-menu'
 import { BookingEditModal } from '@/components/booking-edit-modal'
+import { AdminBookingClient } from '@/components/admin-booking-client'
 import { ArrowLeft, Edit, Trash2, Users, CalendarDays, Utensils } from 'lucide-react'
 import Link from 'next/link'
 
@@ -72,10 +73,24 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
         {/* Outing Summary */}
         <Card className="mb-8 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
           <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg">
-            <CardTitle className="flex items-center">
-              <CalendarDays className="w-5 h-5 mr-2" />
-              Outing Details
-            </CardTitle>
+            <div className="flex justify-between items-center">
+              <CardTitle className="flex items-center">
+                <CalendarDays className="w-5 h-5 mr-2" />
+                Outing Details
+              </CardTitle>
+              <AdminBookingClient outing={{
+                id: outing.id,
+                name: outing.name,
+                description: outing.description,
+                date: outing.date.toISOString(),
+                time: outing.time,
+                venue: outing.venue,
+                capacity: outing.capacity,
+                memberPrice: outing.memberPrice,
+                guestPrice: outing.guestPrice,
+                registrationDeadline: outing.registrationDeadline.toISOString()
+              }} />
+            </div>
           </CardHeader>
           <CardContent className="p-6">
             <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
