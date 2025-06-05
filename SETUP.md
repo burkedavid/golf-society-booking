@@ -1,195 +1,98 @@
-# Golf Society Booking System - Setup Guide
+# 🚀 Quick Setup Guide
 
-## Quick Start
+## Copy-Paste Commands for Local Development
 
-Follow these steps to get the Irish Golf Society Scotland booking system running on your local machine.
-
-### 1. Install Dependencies
-
+### 1. Clone and Setup
 ```bash
+# Clone the repository
+git clone https://github.com/burkedavid/golf-society-booking.git
+cd golf-society-booking
+
+# Install dependencies
 npm install
 ```
 
-### 2. Set up Environment Variables
+### 2. Environment Setup
+```bash
+# Create environment file (Windows)
+copy .env.example .env.local
 
-Create a `.env.local` file in the root directory:
+# Or on Mac/Linux
+cp .env.example .env.local
+```
 
+**Edit `.env.local` with these values:**
 ```env
-NEXTAUTH_URL=http://localhost:3000
-NEXTAUTH_SECRET=your-secret-key-here-change-this-in-production
+DATABASE_URL="postgresql://neondb_owner:npg_6brHkOd1LBeR@ep-aged-queen-abbvbz3u-pooler.eu-west-2.aws.neon.tech/neondb?sslmode=require"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key-here-change-this-in-production-12345678901234567890"
 ```
 
-### 3. Set up the Database
-
+### 3. Database Setup
 ```bash
-# Generate Prisma client
-npx prisma generate
-
-# Create and push database schema
+# Set up database tables
 npm run db:push
 
-# Seed the database with test data
+# Add sample data
 npm run db:seed
 ```
 
-### 4. Start the Development Server
-
+### 4. Start Development
 ```bash
+# Start the server
 npm run dev
 ```
 
-### 5. Access the Application
+**Open:** http://localhost:3000
 
-Open your browser and navigate to [http://localhost:3000](http://localhost:3000)
+## 🔑 Test Accounts
 
-## Test Accounts
+**Admin Login:**
+- Email: `admin@irishgolfsocietyscotland.com`
+- Password: `admin123`
 
-After seeding the database, you can log in with these accounts:
+**Member Login:**
+- Email: `seamus@email.com`
+- Password: `member123`
 
-### Admin Account
-- **Email**: `admin@irishgolfsocietyscotland.com`
-- **Password**: `admin123`
-- **Features**: Full system management, create outings, view all bookings
+## 📱 Mobile Testing
 
-### Member Accounts
-- **Email**: `seamus@email.com` | **Password**: `member123`
-- **Email**: `paddy@email.com` | **Password**: `member123`
-- **Email**: `brendan@email.com` | **Password**: `member123`
-- **Features**: Book outings, manage profile, view booking history
+1. Open browser developer tools (F12)
+2. Click mobile device icon
+3. Select iPhone or Android
+4. Test member experience
 
-## Database Management
+## ✅ What You Should See
 
-### View Database
+After setup, you'll have:
+- ✅ Working admin dashboard
+- ✅ Mobile-optimized member interface
+- ✅ Sample golf outings
+- ✅ Complete booking system
+- ✅ Bank transfer integration
+- ✅ Member management
+
+## 🚨 If Something Goes Wrong
+
+**Database Issues:**
 ```bash
-npm run db:studio
-```
-This opens Prisma Studio in your browser for visual database management.
-
-### Reset Database
-If you need to reset the database:
-```bash
-# Delete the database file
-rm prisma/dev.db
-
-# Recreate and seed
-npm run db:push
-npm run db:seed
-```
-
-## Project Structure
-
-```
-golf-society-booking/
-├── app/                    # Next.js app directory
-│   ├── api/               # API routes
-│   │   └── auth/          # NextAuth configuration
-│   ├── auth/              # Authentication pages
-│   │   └── signin/        # Sign-in page
-│   ├── admin/             # Admin dashboard
-│   │   └── dashboard/     # Admin overview
-│   ├── member/            # Member dashboard
-│   │   └── dashboard/     # Member overview
-│   ├── globals.css        # Global styles
-│   ├── layout.tsx         # Root layout
-│   └── page.tsx           # Home page (redirects)
-├── components/            # React components
-│   ├── ui/               # shadcn/ui components
-│   └── auth-provider.tsx  # NextAuth provider
-├── lib/                  # Utility functions
-│   ├── auth.ts           # NextAuth configuration
-│   ├── db.ts             # Prisma client
-│   └── utils.ts          # Utility functions
-├── prisma/               # Database
-│   ├── schema.prisma     # Database schema
-│   ├── seed.ts           # Seed data
-│   └── dev.db            # SQLite database (created after setup)
-├── types/                # TypeScript definitions
-│   └── next-auth.d.ts    # NextAuth type extensions
-└── package.json          # Dependencies and scripts
-```
-
-## Key Features Implemented
-
-### Authentication
-- ✅ NextAuth.js with credentials provider
-- ✅ Role-based access (Admin/Member)
-- ✅ Secure password hashing
-- ✅ Session management
-
-### Database
-- ✅ SQLite database with Prisma ORM
-- ✅ User management (Admin/Member roles)
-- ✅ Outing management
-- ✅ Menu system
-- ✅ Booking system
-- ✅ Seed data with test accounts
-
-### Admin Features
-- ✅ Admin dashboard with statistics
-- ✅ View all outings with capacity tracking
-- ✅ Revenue and booking analytics
-- ✅ Visual progress indicators
-
-### Member Features
-- ✅ Member dashboard
-- ✅ View available outings
-- ✅ Capacity and deadline tracking
-- ✅ Booking history
-- ✅ Payment status tracking
-
-### UI/UX
-- ✅ Modern, responsive design
-- ✅ Green/white golf theme
-- ✅ shadcn/ui components
-- ✅ Tailwind CSS styling
-- ✅ Mobile-friendly interface
-
-## Development Commands
-
-```bash
-# Start development server
+# Make sure .env.local has the correct DATABASE_URL
+# Restart the dev server
 npm run dev
+```
 
-# Build for production
+**Port Issues:**
+```bash
+# Next.js will try ports 3001, 3002 automatically
+# Or specify a port:
+npm run dev -- -p 3001
+```
+
+**Build Issues:**
+```bash
+# Clear cache and rebuild
+rm -rf .next
 npm run build
-
-# Start production server
-npm start
-
-# Run linting
-npm run lint
-
-# Database commands
-npm run db:push     # Push schema changes
-npm run db:studio   # Open database viewer
-npm run db:seed     # Seed test data
 ```
 
-## Next Steps
-
-The foundation is complete! You can now extend the system with:
-
-1. **Booking Flow**: Complete member booking process with guest management
-2. **Menu Selection**: Meal selection during booking
-3. **Payment Integration**: Stripe or bank transfer processing
-4. **Email Notifications**: Booking confirmations and reminders
-5. **Admin Management**: Create/edit outings and menus
-6. **Reporting**: Export attendee lists and financial reports
-
-## Troubleshooting
-
-### Common Issues
-
-1. **Database connection errors**: Ensure `npm run db:push` was successful
-2. **Authentication errors**: Check `.env.local` file exists with correct variables
-3. **Module not found errors**: Run `npm install` to ensure all dependencies are installed
-4. **Port already in use**: Change port with `npm run dev -- -p 3001`
-
-### Getting Help
-
-- Check the browser console for error messages
-- Review the terminal output for server errors
-- Ensure all setup steps were completed in order
-- Verify test accounts are working by trying to log in
-
-The application is now ready for development and testing! 
+That's it! You now have a fully functional golf society booking system running locally. 

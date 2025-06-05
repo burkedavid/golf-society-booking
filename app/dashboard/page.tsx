@@ -200,8 +200,8 @@ export default async function Dashboard() {
 
                 return (
                   <div key={outing.id} className="bg-gradient-to-r from-white to-green-50 border-2 border-green-100 rounded-xl p-4 sm:p-8 hover:shadow-lg transition-all duration-300">
-                    {/* Mobile-First Layout */}
-                    <div className="space-y-4 sm:space-y-0 sm:flex sm:justify-between sm:items-start">
+                    {/* Professional Layout with Full Width Utilization */}
+                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start gap-6">
                       <div className="flex-1">
                         <h3 className="text-xl sm:text-2xl font-bold text-gray-900 mb-2 sm:mb-3 flex items-center">
                           <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3 text-green-600" />
@@ -209,56 +209,112 @@ export default async function Dashboard() {
                         </h3>
                         <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-lg leading-relaxed">{outing.description}</p>
                         
-                        {/* Enhanced Info Grid with Better Desktop Spacing */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-4 sm:gap-6 lg:gap-8 mb-6 sm:mb-8">
-                          <div className="bg-blue-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-blue-100">
-                            <div className="flex items-center mb-2 sm:mb-3">
-                              <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-blue-600" />
-                              <span className="font-semibold text-blue-800 text-sm sm:text-base">Date & Time</span>
+                        {/* Professional Information Grid - Utilizing Full Width */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 xl:grid-cols-4 gap-4 lg:gap-6 mb-6">
+                          {/* Date & Time */}
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                            <div className="flex items-center mb-2">
+                              <CalendarDays className="w-4 h-4 mr-2 text-blue-600" />
+                              <span className="font-semibold text-blue-800 text-sm">Date & Time</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl">{formatDateUK(outing.date)}</p>
-                            <p className="text-gray-600 text-sm sm:text-base mt-1">{outing.time}</p>
+                            <p className="text-gray-900 font-medium text-base">{formatDateUK(outing.date)}</p>
+                            <p className="text-gray-600 text-sm mt-1">{outing.time}</p>
                           </div>
                           
-                          <div className="bg-blue-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-blue-100">
-                            <div className="flex items-center mb-2 sm:mb-3">
-                              <MapPin className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-blue-600" />
-                              <span className="font-semibold text-blue-800 text-sm sm:text-base">Venue</span>
+                          {/* Venue - Now with proper space */}
+                          <div className="bg-blue-50 rounded-lg p-4 border border-blue-100">
+                            <div className="flex items-center mb-2">
+                              <MapPin className="w-4 h-4 mr-2 text-blue-600" />
+                              <span className="font-semibold text-blue-800 text-sm">Venue</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl leading-tight">{outing.venue}</p>
+                            <p className="text-gray-900 font-medium text-base leading-tight">{outing.venue}</p>
                           </div>
                           
-                          <div className="bg-yellow-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-yellow-100">
-                            <div className="flex items-center mb-2 sm:mb-3">
-                              <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-yellow-600" />
-                              <span className="font-semibold text-yellow-800 text-sm sm:text-base">Registration</span>
+                          {/* Registration */}
+                          <div className="bg-yellow-50 rounded-lg p-4 border border-yellow-100">
+                            <div className="flex items-center mb-2">
+                              <Clock className="w-4 h-4 mr-2 text-yellow-600" />
+                              <span className="font-semibold text-yellow-800 text-sm">Registration</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl">
+                            <p className="text-gray-900 font-medium text-base">
                               {daysUntilDeadline > 0 ? `${daysUntilDeadline} days left` : 'Deadline passed'}
                             </p>
-                            <p className="text-gray-600 text-xs sm:text-sm mt-1">Until {formatDateUK(outing.registrationDeadline)}</p>
+                            <p className="text-gray-600 text-xs mt-1">Until {formatDateUK(outing.registrationDeadline)}</p>
                           </div>
 
-                          <div className="bg-green-50 rounded-lg p-4 sm:p-5 lg:p-6 border border-green-100">
-                            <div className="flex items-center mb-2 sm:mb-3">
-                              <PoundSterling className="w-4 h-4 sm:w-5 sm:h-5 mr-2 sm:mr-3 text-green-600" />
-                              <span className="font-semibold text-green-800 text-sm sm:text-base">Pricing</span>
+                          {/* Pricing */}
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-100">
+                            <div className="flex items-center mb-2">
+                              <PoundSterling className="w-4 h-4 mr-2 text-green-600" />
+                              <span className="font-semibold text-green-800 text-sm">Pricing</span>
                             </div>
-                            <p className="text-gray-900 font-medium text-base sm:text-lg lg:text-xl">£{outing.memberPrice} member</p>
-                            <p className="text-gray-600 text-xs sm:text-sm mt-1">£{outing.guestPrice} guest</p>
+                            <p className="text-gray-900 font-medium text-base">£{outing.memberPrice} member</p>
+                            <p className="text-gray-600 text-xs mt-1">£{outing.guestPrice} guest</p>
+                          </div>
+                        </div>
+
+                        {/* Additional Professional Details Row */}
+                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
+                          {/* Capacity & Availability */}
+                          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <div className="flex items-center mb-2">
+                              <Users className="w-4 h-4 mr-2 text-gray-600" />
+                              <span className="font-semibold text-gray-800 text-sm">Availability</span>
+                            </div>
+                            <p className="text-gray-900 font-medium text-base">{availableSpaces} spaces left</p>
+                            <p className="text-gray-600 text-xs mt-1">{totalPeople}/{outing.capacity} booked</p>
+                          </div>
+
+                          {/* Progress Bar */}
+                          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <div className="flex items-center mb-2">
+                              <TrendingUp className="w-4 h-4 mr-2 text-gray-600" />
+                              <span className="font-semibold text-gray-800 text-sm">Progress</span>
+                            </div>
+                            <div className="w-full bg-gray-200 rounded-full h-2 mb-1">
+                              <div 
+                                className="bg-green-600 h-2 rounded-full transition-all duration-300" 
+                                style={{ width: `${Math.min(progressPercentage, 100)}%` }}
+                              ></div>
+                            </div>
+                            <p className="text-gray-600 text-xs">{Math.round(progressPercentage)}% full</p>
+                          </div>
+
+                          {/* Status */}
+                          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
+                            <div className="flex items-center mb-2">
+                              <Star className="w-4 h-4 mr-2 text-gray-600" />
+                              <span className="font-semibold text-gray-800 text-sm">Status</span>
+                            </div>
+                            <p className={`font-medium text-base ${
+                              daysUntilDeadline > 7 ? 'text-green-600' : 
+                              daysUntilDeadline > 0 ? 'text-yellow-600' : 'text-red-600'
+                            }`}>
+                              {daysUntilDeadline > 7 ? 'Open' : 
+                               daysUntilDeadline > 0 ? 'Closing Soon' : 'Closed'}
+                            </p>
+                            <p className="text-gray-600 text-xs mt-1">Registration</p>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="text-center sm:text-right sm:ml-8 flex-shrink-0">
-                        <Link href={`/book/${outing.id}`}>
-                          <Button 
-                            className="w-full sm:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold px-6 sm:px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300 text-base"
-                            disabled={outing.memberPrice === 0}
-                          >
-                            {outing.memberPrice === 0 ? 'Coming Soon' : 'Book Now'}
-                          </Button>
-                        </Link>
+                      {/* Book Now Button - Professional Positioning */}
+                      <div className="flex-shrink-0 lg:ml-8">
+                        <div className="text-center lg:text-right">
+                          <Link href={`/book/${outing.id}`}>
+                            <Button 
+                              className="w-full lg:w-auto bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-4 rounded-lg shadow-lg hover:shadow-xl transition-all duration-300 text-lg min-w-[140px]"
+                              disabled={outing.memberPrice === 0}
+                            >
+                              {outing.memberPrice === 0 ? 'Coming Soon' : 'Book Now'}
+                            </Button>
+                          </Link>
+                          {/* Additional booking info */}
+                          <div className="mt-3 text-sm text-gray-600 lg:text-right">
+                            <p className="font-medium">Quick Booking</p>
+                            <p className="text-xs">Secure your spot</p>
+                          </div>
+                        </div>
                       </div>
                     </div>
                   </div>
