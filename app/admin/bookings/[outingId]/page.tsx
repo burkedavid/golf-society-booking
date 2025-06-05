@@ -8,6 +8,7 @@ import { ClientUserMenu } from '@/components/client-user-menu'
 import { BookingEditModal } from '@/components/booking-edit-modal'
 import { AdminBookingClient } from '@/components/admin-booking-client'
 import { BookingDeleteButton } from '@/components/booking-delete-button'
+import { PDFGenerator } from '@/components/pdf-generator'
 import { ArrowLeft, Edit, Trash2, Users, CalendarDays, Utensils } from 'lucide-react'
 import Link from 'next/link'
 import { formatDateUK } from '@/lib/utils'
@@ -127,15 +128,47 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
         {outing.bookings.length > 0 && (
           <Card className="mb-6 sm:mb-8 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
             <CardHeader className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-t-lg p-4 sm:p-6">
-              <CardTitle className="flex items-center text-lg sm:text-xl">
-                <Utensils className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
-                <span className="hidden sm:inline">Meal Summary for Golf Club Catering</span>
-                <span className="sm:hidden">Meal Summary</span>
-              </CardTitle>
-              <CardDescription className="text-orange-100 text-sm">
-                <span className="hidden sm:inline">Complete breakdown of all meal choices for kitchen preparation</span>
-                <span className="sm:hidden">Meal breakdown for kitchen</span>
-              </CardDescription>
+              <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-3 sm:space-y-0">
+                <div>
+                  <CardTitle className="flex items-center text-lg sm:text-xl">
+                    <Utensils className="w-4 h-4 sm:w-5 sm:h-5 mr-2" />
+                    <span className="hidden sm:inline">Meal Summary for Golf Club Catering</span>
+                    <span className="sm:hidden">Meal Summary</span>
+                  </CardTitle>
+                  <CardDescription className="text-orange-100 text-sm">
+                    <span className="hidden sm:inline">Complete breakdown of all meal choices for kitchen preparation</span>
+                    <span className="sm:hidden">Meal breakdown for kitchen</span>
+                  </CardDescription>
+                </div>
+                <PDFGenerator 
+                  outing={{
+                    id: outing.id,
+                    name: outing.name,
+                    description: outing.description || '',
+                    date: outing.date,
+                    time: outing.time || '',
+                    venue: outing.venue || '',
+                    capacity: outing.capacity,
+                    memberPrice: outing.memberPrice,
+                    guestPrice: outing.guestPrice,
+                    registrationDeadline: outing.registrationDeadline
+                  }}
+                  bookings={outing.bookings.map((booking: any) => ({
+                    id: booking.id,
+                    user: {
+                      name: booking.user.name,
+                      email: booking.user.email,
+                      phone: booking.user.phone,
+                      memberNumber: booking.user.memberNumber
+                    },
+                    guests: booking.guests,
+                    memberMeals: booking.memberMeals,
+                    guestMeals: booking.guestMeals,
+                    totalCost: booking.totalCost,
+                    createdAt: booking.createdAt
+                  }))}
+                />
+              </div>
             </CardHeader>
             <CardContent className="p-4 sm:p-6">
               {(() => {
