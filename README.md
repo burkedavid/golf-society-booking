@@ -201,6 +201,25 @@ npm run type-check   # Run TypeScript checks
    - Vercel will automatically build and deploy
    - Database tables will be created automatically
 
+### 💰 Free Tier Hosting Costs
+
+**✅ Completely Free Option:**
+- **Vercel Free Tier**: Unlimited static deployments, 100GB bandwidth/month, 100GB-hours compute
+- **Neon Free Tier**: 0.5GB PostgreSQL storage, sufficient for golf society data
+- **Domain**: Optional ~$10-15/year (can use free vercel.app subdomain)
+- **Total Cost**: $0-15/year
+
+**⚠️ If You Outgrow Free Limits:**
+- **Vercel Pro**: $20/month (team features, more bandwidth)
+- **Neon Paid**: $19/month (more storage/compute)
+- **Maximum Cost**: $39/month
+
+**🎯 Perfect for Golf Societies:**
+- Small user base (20-100 members)
+- Seasonal usage patterns
+- Simple data storage needs
+- Should stay free indefinitely for typical golf society usage
+
 ### Database Setup (Neon)
 
 1. **Create Neon Account:** [neon.tech](https://neon.tech)
