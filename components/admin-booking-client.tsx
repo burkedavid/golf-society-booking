@@ -4,6 +4,7 @@ import { useState } from 'react'
 import { Button } from '@/components/ui/button'
 import { Edit } from 'lucide-react'
 import { OutingEditModal } from '@/components/outing-edit-modal'
+import { OutingDeleteButton } from '@/components/outing-delete-button'
 
 interface AdminBookingClientProps {
   outing: {
@@ -18,13 +19,14 @@ interface AdminBookingClientProps {
     guestPrice: number
     registrationDeadline: string
   }
+  bookingCount: number
 }
 
-export function AdminBookingClient({ outing }: AdminBookingClientProps) {
+export function AdminBookingClient({ outing, bookingCount }: AdminBookingClientProps) {
   const [showEditModal, setShowEditModal] = useState(false)
 
   return (
-    <>
+    <div className="flex space-x-2">
       <Button 
         variant="outline" 
         size="sm"
@@ -35,11 +37,17 @@ export function AdminBookingClient({ outing }: AdminBookingClientProps) {
         Edit Outing
       </Button>
 
+      <OutingDeleteButton 
+        outingId={outing.id}
+        outingName={outing.name}
+        bookingCount={bookingCount}
+      />
+
       <OutingEditModal
         isOpen={showEditModal}
         onClose={() => setShowEditModal(false)}
         outing={outing}
       />
-    </>
+    </div>
   )
 } 

@@ -91,7 +91,7 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
                 memberPrice: outing.memberPrice,
                 guestPrice: outing.guestPrice,
                 registrationDeadline: outing.registrationDeadline.toISOString()
-              }} />
+              }} bookingCount={outing.bookings.length} />
             </div>
           </CardHeader>
           <CardContent className="p-6">
