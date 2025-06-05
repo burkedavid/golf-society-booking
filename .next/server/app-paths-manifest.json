@@ -1,8 +1,6 @@
 {
-  "/auth/signin/page": "app/auth/signin/page.js",
-  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
-  "/dashboard/page": "app/dashboard/page.js",
   "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/api/outings/[outingId]/route": "app/api/outings/[outingId]/route.js",
-  "/book/[outingId]/page": "app/book/[outingId]/page.js"
+  "/api/auth/[...nextauth]/route": "app/api/auth/[...nextauth]/route.js",
+  "/auth/signin/page": "app/auth/signin/page.js",
+  "/admin/outings/create/page": "app/admin/outings/create/page.js"
 }

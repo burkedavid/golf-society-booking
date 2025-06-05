@@ -4,13 +4,18 @@ import { authOptions } from '@/lib/auth'
 import { prisma } from '@/lib/db'
 import { z } from 'zod'
 
+const mealChoiceSchema = z.object({
+  mainCourse: z.string(),
+  dessert: z.string()
+})
+
 const bookingSchema = z.object({
   outingId: z.string(),
   guestCount: z.number().min(0).max(3),
   guestNames: z.array(z.string()).optional(),
   guestHandicaps: z.array(z.number()).optional(),
-  lunchChoice: z.string(),
-  dinnerChoice: z.string(),
+  memberMeals: mealChoiceSchema,
+  guestMeals: z.array(mealChoiceSchema).optional(),
   specialRequests: z.string().optional(),
   totalCost: z.number().positive()
 })
@@ -72,18 +77,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: 'You already have a booking for this outing' }, { status: 400 })
     }
 
-    // Prepare guest data with handicaps
+    // Prepare guest data with handicaps and individual meal choices
     const guests = validatedData.guestNames?.map((name, index) => ({
       name,
-      handicap: validatedData.guestHandicaps?.[index] || 28,
-      lunchChoice: validatedData.lunchChoice,
-      dinnerChoice: validatedData.dinnerChoice
+      handicap: validatedData.guestHandicaps?.[index] || 28
     })) || []
 
-    // Prepare member meals
+    // Prepare member meals with special requests
     const memberMeals = {
-      lunch: validatedData.lunchChoice,
-      dinner: validatedData.dinnerChoice,
+      mainCourse: validatedData.memberMeals.mainCourse,
+      dessert: validatedData.memberMeals.dessert,
       specialRequests: validatedData.specialRequests || ''
     }
 
@@ -95,6 +98,7 @@ export async function POST(request: NextRequest) {
         memberHandicap: session.user.handicap,
         guests: JSON.stringify(guests),
         memberMeals: JSON.stringify(memberMeals),
+        guestMeals: JSON.stringify(validatedData.guestMeals || []),
         totalCost: validatedData.totalCost,
         status: 'pending',
         paymentStatus: 'pending'

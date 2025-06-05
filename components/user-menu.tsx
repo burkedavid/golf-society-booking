@@ -53,15 +53,15 @@ export function UserMenu() {
           />
           
           {/* Menu */}
-          <Card className="absolute right-0 mt-2 w-64 z-50 shadow-xl border-2">
+          <Card className="absolute right-0 mt-2 w-80 z-50 shadow-xl border-2">
             <CardContent className="p-4">
               <div className="flex items-center space-x-3 mb-4">
-                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center">
+                <div className="w-10 h-10 bg-green-100 rounded-full flex items-center justify-center flex-shrink-0">
                   <User className="w-5 h-5 text-green-600" />
                 </div>
-                <div>
-                  <p className="font-medium text-gray-900">{session.user.name}</p>
-                  <p className="text-sm text-gray-500">{session.user.email}</p>
+                <div className="flex-1 min-w-0">
+                  <p className="font-medium text-gray-900 truncate">{session.user.name}</p>
+                  <p className="text-sm text-gray-500 truncate">{session.user.email}</p>
                 </div>
               </div>
               

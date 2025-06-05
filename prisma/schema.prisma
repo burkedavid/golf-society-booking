@@ -47,12 +47,12 @@ model Outing {
 }
 
 model Menu {
-  id            String   @id @default(cuid())
-  outingId      String   @unique
-  lunchOptions  String   // JSON string
-  dinnerOptions String   // JSON string
-  createdAt     DateTime @default(now())
-  outing        Outing   @relation(fields: [outingId], references: [id], onDelete: Cascade)
+  id                 String   @id @default(cuid())
+  outingId           String   @unique
+  mainCourseOptions  String   // JSON string
+  dessertOptions     String   // JSON string
+  createdAt          DateTime @default(now())
+  outing             Outing   @relation(fields: [outingId], references: [id], onDelete: Cascade)
 
   @@map("menus")
 }
@@ -63,7 +63,8 @@ model Booking {
   outingId      String
   memberHandicap Int
   guests        String   @default("[]") // JSON string
-  memberMeals   String   // JSON string
+  memberMeals   String   // JSON string - now includes mainCourse and dessert for member
+  guestMeals    String   @default("[]") // JSON string - array of meal choices for each guest
   totalCost     Float
   status        String   @default("pending") // 'pending' | 'confirmed' | 'cancelled'
   paymentStatus String   @default("pending") // 'pending' | 'paid'

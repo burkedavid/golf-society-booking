@@ -37,11 +37,11 @@ export async function GET(
     const formattedOuting = {
       ...outing,
       menu: outing.menu ? {
-        lunch: JSON.parse(outing.menu.lunchOptions).map((item: any) => item.name),
-        dinner: JSON.parse(outing.menu.dinnerOptions).map((item: any) => item.name)
+        mainCourse: JSON.parse(outing.menu.mainCourseOptions).map((item: any) => item.name),
+        dessert: JSON.parse(outing.menu.dessertOptions).map((item: any) => item.name)
       } : {
-        lunch: [],
-        dinner: []
+        mainCourse: [],
+        dessert: []
       }
     }
 
