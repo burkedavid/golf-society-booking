@@ -14,7 +14,7 @@ interface Member {
   id: string
   name: string
   email: string
-  phone: string | null
+  phone: string | undefined
   memberNumber: string
   handicap: number
   createdAt: Date
@@ -35,7 +35,7 @@ export default async function MembersPage() {
   }
 
   // Fetch all members with their booking statistics
-  const members: Member[] = await prisma.user.findMany({
+  const rawMembers = await prisma.user.findMany({
     where: {
       role: 'member'
     },
@@ -56,6 +56,12 @@ export default async function MembersPage() {
       name: 'asc'
     }
   })
+
+  // Transform the data to match our Member interface
+  const members: Member[] = rawMembers.map((member: any) => ({
+    ...member,
+    phone: member.phone || undefined
+  }))
 
   // Calculate member statistics
   const totalMembers = members.length
