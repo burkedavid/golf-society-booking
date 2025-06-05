@@ -8,6 +8,7 @@ interface Guest {
   name: string
   email?: string
   phone?: string
+  handicap?: string
 }
 
 interface Booking {
@@ -23,6 +24,7 @@ interface Booking {
   guestMeals: string
   totalCost: number
   createdAt: Date
+  memberHandicap?: number
 }
 
 interface Outing {
@@ -192,6 +194,10 @@ export function PDFGenerator({ outing, bookings }: PDFGeneratorProps) {
         yPosition = 20
       }
 
+      // NEW PAGE FOR MEAL SUMMARY
+      doc.addPage()
+      yPosition = 20
+
       // Meal Summary Section
       doc.setFontSize(18)
       doc.setFont('helvetica', 'bold')
@@ -298,8 +304,7 @@ export function PDFGenerator({ outing, bookings }: PDFGeneratorProps) {
           booking.user.name,
           `#${booking.user.memberNumber}`,
           'Member',
-          booking.user.email,
-          booking.user.phone || 'N/A',
+          booking.memberHandicap?.toString() || 'N/A',
           memberMeals.mainCourse || 'N/A',
           memberMeals.dessert || 'N/A'
         ])
@@ -312,8 +317,7 @@ export function PDFGenerator({ outing, bookings }: PDFGeneratorProps) {
             guest.name,
             '',
             'Guest',
-            guest.email || 'N/A',
-            guest.phone || 'N/A',
+            guest.handicap?.toString() || 'N/A',
             guestMeal.mainCourse || 'N/A',
             guestMeal.dessert || 'N/A'
           ])
@@ -322,7 +326,7 @@ export function PDFGenerator({ outing, bookings }: PDFGeneratorProps) {
 
       autoTable(doc, {
         startY: yPosition,
-        head: [['#', 'Name', 'Member #', 'Type', 'Email', 'Phone', 'Main Course', 'Dessert']],
+        head: [['#', 'Name', 'Member #', 'Type', 'Handicap', 'Main Course', 'Dessert']],
         body: bookingDetails,
         theme: 'striped',
         headStyles: {
@@ -337,13 +341,12 @@ export function PDFGenerator({ outing, bookings }: PDFGeneratorProps) {
         },
         columnStyles: {
           0: { cellWidth: 10, halign: 'center' },
-          1: { cellWidth: 35 },
-          2: { cellWidth: 20, halign: 'center' },
+          1: { cellWidth: 40 },
+          2: { cellWidth: 25, halign: 'center' },
           3: { cellWidth: 20, halign: 'center' },
-          4: { cellWidth: 45 },
-          5: { cellWidth: 25 },
-          6: { cellWidth: 25 },
-          7: { cellWidth: 25 }
+          4: { cellWidth: 25, halign: 'center' },
+          5: { cellWidth: 40 },
+          6: { cellWidth: 35 }
         },
         margin: { left: 5, right: 5 },
         didDrawPage: (data) => {

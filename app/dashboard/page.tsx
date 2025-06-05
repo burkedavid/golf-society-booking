@@ -294,36 +294,128 @@ export default async function Dashboard() {
               </div>
             ) : (
               <div className="space-y-4 sm:space-y-6">
-                {userBookings.map((booking: any) => (
-                  <div key={booking.id} className="bg-gradient-to-r from-white to-blue-50 border-2 border-blue-100 rounded-xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300">
-                    <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start space-y-3 sm:space-y-0">
-                      <div className="flex-1">
-                        <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center">
-                          <Trophy className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
-                          {booking.outing.name}
-                        </h4>
-                        <div className="space-y-1 sm:space-y-2 text-gray-600 text-sm sm:text-base">
-                          <p className="flex items-center">
-                            <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-red-500" />
-                            {booking.outing.venue}
-                          </p>
-                          <p className="flex items-center">
-                            <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-green-500" />
-                            {formatDateUK(booking.outing.date)} at {booking.outing.time}
-                          </p>
+                {userBookings.map((booking: any) => {
+                  // Parse booking data
+                  const guests = JSON.parse(booking.guests || '[]')
+                  const memberMeals = JSON.parse(booking.memberMeals || '{}')
+                  const guestMeals = JSON.parse(booking.guestMeals || '[]')
+                  
+                  return (
+                    <div key={booking.id} className="bg-gradient-to-r from-white to-blue-50 border-2 border-blue-100 rounded-xl p-4 sm:p-6 hover:shadow-lg transition-all duration-300">
+                      <div className="flex flex-col space-y-4">
+                        {/* Header Section */}
+                        <div className="flex flex-col sm:flex-row sm:justify-between sm:items-start space-y-3 sm:space-y-0">
+                          <div className="flex-1">
+                            <h4 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center">
+                              <Trophy className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
+                              {booking.outing.name}
+                            </h4>
+                            <div className="space-y-1 sm:space-y-2 text-gray-600 text-sm sm:text-base">
+                              <p className="flex items-center">
+                                <MapPin className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-red-500" />
+                                {booking.outing.venue}
+                              </p>
+                              <p className="flex items-center">
+                                <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-2 text-green-500" />
+                                {formatDateUK(booking.outing.date)} at {booking.outing.time}
+                              </p>
+                            </div>
+                          </div>
+                          <div className="text-center sm:text-right bg-blue-600 text-white rounded-lg p-3 sm:p-4 shadow-md flex-shrink-0">
+                            <div className="text-xl sm:text-2xl font-bold mb-1">£{booking.totalCost.toFixed(2)}</div>
+                            <div className="text-xs sm:text-sm text-blue-100">
+                              {guests.length === 0 ? 'Solo booking' : `+${guests.length} guest${guests.length !== 1 ? 's' : ''}`}
+                            </div>
+                          </div>
                         </div>
-                      </div>
-                      <div className="text-center sm:text-right bg-blue-600 text-white rounded-lg p-3 sm:p-4 shadow-md flex-shrink-0">
-                        <div className="text-xl sm:text-2xl font-bold mb-1">£{booking.totalCost.toFixed(2)}</div>
-                        {booking.guestCount > 0 && (
-                          <div className="text-xs sm:text-sm text-blue-100">
-                            +{booking.guestCount} guest{booking.guestCount !== 1 ? 's' : ''}
+
+                        {/* Booking Details Section */}
+                        <div className="grid grid-cols-1 lg:grid-cols-2 gap-4">
+                          {/* Your Details & Meals */}
+                          <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                            <h5 className="font-semibold text-green-800 mb-3 flex items-center text-sm">
+                              <Users className="w-4 h-4 mr-2" />
+                              Your Booking
+                            </h5>
+                            <div className="space-y-2 text-sm">
+                              <div className="flex justify-between">
+                                <span className="text-gray-600">Handicap:</span>
+                                <span className="font-medium">{booking.memberHandicap}</span>
+                              </div>
+                              {memberMeals.mainCourse && (
+                                <div className="flex justify-between">
+                                  <span className="text-gray-600">Main:</span>
+                                  <span className="font-medium text-right max-w-32 truncate" title={memberMeals.mainCourse}>
+                                    {memberMeals.mainCourse}
+                                  </span>
+                                </div>
+                              )}
+                              {memberMeals.dessert && (
+                                <div className="flex justify-between">
+                                  <span className="text-gray-600">Dessert:</span>
+                                  <span className="font-medium text-right max-w-32 truncate" title={memberMeals.dessert}>
+                                    {memberMeals.dessert}
+                                  </span>
+                                </div>
+                              )}
+                            </div>
+                          </div>
+
+                          {/* Guest Details & Meals */}
+                          {guests.length > 0 && (
+                            <div className="bg-blue-50 rounded-lg p-4 border border-blue-200">
+                              <h5 className="font-semibold text-blue-800 mb-3 flex items-center text-sm">
+                                <Users className="w-4 h-4 mr-2" />
+                                Guest{guests.length > 1 ? 's' : ''} ({guests.length})
+                              </h5>
+                              <div className="space-y-3">
+                                {guests.map((guest: any, index: number) => {
+                                  const guestMeal = guestMeals[index] || {}
+                                  return (
+                                    <div key={index} className="bg-white rounded p-3 border border-blue-100">
+                                      <div className="flex justify-between items-center mb-2">
+                                        <span className="font-medium text-sm">{guest.name}</span>
+                                        <span className="text-xs text-gray-500">HC: {guest.handicap}</span>
+                                      </div>
+                                      {(guestMeal.mainCourse || guestMeal.dessert) && (
+                                        <div className="space-y-1 text-xs text-gray-600">
+                                          {guestMeal.mainCourse && (
+                                            <div className="flex justify-between">
+                                              <span>Main:</span>
+                                              <span className="font-medium text-right max-w-24 truncate" title={guestMeal.mainCourse}>
+                                                {guestMeal.mainCourse}
+                                              </span>
+                                            </div>
+                                          )}
+                                          {guestMeal.dessert && (
+                                            <div className="flex justify-between">
+                                              <span>Dessert:</span>
+                                              <span className="font-medium text-right max-w-24 truncate" title={guestMeal.dessert}>
+                                                {guestMeal.dessert}
+                                              </span>
+                                            </div>
+                                          )}
+                                        </div>
+                                      )}
+                                    </div>
+                                  )
+                                })}
+                              </div>
+                            </div>
+                          )}
+                        </div>
+
+                        {/* Special Requests */}
+                        {memberMeals.specialRequests && (
+                          <div className="bg-yellow-50 rounded-lg p-3 border border-yellow-200">
+                            <h6 className="font-semibold text-yellow-800 text-sm mb-2">Special Requests:</h6>
+                            <p className="text-sm text-gray-700">{memberMeals.specialRequests}</p>
                           </div>
                         )}
                       </div>
                     </div>
-                  </div>
-                ))}
+                  )
+                })}
               </div>
             )}
           </CardContent>
