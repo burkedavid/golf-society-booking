@@ -83,4 +83,51 @@ export async function PUT(
       { status: 500 }
     )
   }
+}
+
+export async function DELETE(
+  request: NextRequest,
+  { params }: { params: { id: string } }
+) {
+  try {
+    const session = await getServerSession(authOptions)
+
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Check if booking exists
+    const existingBooking = await prisma.booking.findUnique({
+      where: { id: params.id },
+      include: {
+        user: true,
+        outing: true
+      }
+    })
+
+    if (!existingBooking) {
+      return NextResponse.json({ error: 'Booking not found' }, { status: 404 })
+    }
+
+    // Delete the booking (this will remove all associated data including guests and meals)
+    await prisma.booking.delete({
+      where: { id: params.id }
+    })
+
+    return NextResponse.json({ 
+      message: 'Booking deleted successfully',
+      deletedBooking: {
+        id: existingBooking.id,
+        memberName: existingBooking.user.name,
+        outingName: existingBooking.outing.name
+      }
+    })
+  } catch (error) {
+    console.error('Error deleting booking:', error)
+    
+    return NextResponse.json(
+      { error: 'Internal server error' },
+      { status: 500 }
+    )
+  }
 } 

@@ -7,6 +7,7 @@ import { Button } from '@/components/ui/button'
 import { ClientUserMenu } from '@/components/client-user-menu'
 import { BookingEditModal } from '@/components/booking-edit-modal'
 import { AdminBookingClient } from '@/components/admin-booking-client'
+import { BookingDeleteButton } from '@/components/booking-delete-button'
 import { ArrowLeft, Edit, Trash2, Users, CalendarDays, Utensils } from 'lucide-react'
 import Link from 'next/link'
 
@@ -298,13 +299,11 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
                             £{booking.totalCost.toFixed(2)}
                           </span>
                           <BookingEditModal booking={booking} outing={outing} />
-                          <Button
-                            variant="outline"
-                            size="sm"
-                            className="text-red-600 border-red-200 hover:bg-red-50"
-                          >
-                            <Trash2 className="w-4 h-4" />
-                          </Button>
+                          <BookingDeleteButton 
+                            bookingId={booking.id}
+                            memberName={booking.user.name}
+                            outingName={outing.name}
+                          />
                         </div>
                       </div>
 
