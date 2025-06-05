@@ -62,6 +62,32 @@ async function main() {
     }
   })
 
+  const liam = await prisma.user.upsert({
+    where: { email: 'liam@email.com' },
+    update: {},
+    create: {
+      email: 'liam@email.com',
+      passwordHash: memberPassword,
+      name: 'Liam O\'Sullivan',
+      memberNumber: 'IGS004',
+      handicap: 16,
+      phone: '07700 900126'
+    }
+  })
+
+  const declan = await prisma.user.upsert({
+    where: { email: 'declan@email.com' },
+    update: {},
+    create: {
+      email: 'declan@email.com',
+      passwordHash: memberPassword,
+      name: 'Declan Walsh',
+      memberNumber: 'IGS005',
+      handicap: 20,
+      phone: '07700 900127'
+    }
+  })
+
   // Create outings with realistic upcoming dates
   const lochLomondOuting = await prisma.outing.upsert({
     where: { id: 'loch-lomond-june-2025' },
@@ -263,6 +289,8 @@ async function main() {
   console.log('Member login: seamus@email.com / member123')
   console.log('Member login: paddy@email.com / member123')
   console.log('Member login: brendan@email.com / member123')
+  console.log('Member login: liam@email.com / member123')
+  console.log('Member login: declan@email.com / member123')
   console.log('')
   console.log('Upcoming Outings:')
   console.log('1. Loch Lomond (Carrick Golf Course) - Friday 20th June 2025 - £90/£105')

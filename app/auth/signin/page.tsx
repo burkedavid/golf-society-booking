@@ -164,7 +164,9 @@ export default function SignInPage() {
                   <p className="font-bold text-blue-800 text-base sm:text-lg">Demo Accounts</p>
                   <p className="text-blue-600 text-xs sm:text-sm">Use these credentials to explore the system</p>
                 </div>
+                
                 <div className="space-y-3">
+                  {/* Administrator Account */}
                   <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-blue-100">
                     <div className="flex items-center mb-2">
                       <Trophy className="w-4 h-4 text-yellow-500 mr-2 flex-shrink-0" />
@@ -177,17 +179,36 @@ export default function SignInPage() {
                       admin123
                     </p>
                   </div>
+
+                  {/* Member Accounts */}
                   <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-blue-100">
-                    <div className="flex items-center mb-2">
+                    <div className="flex items-center mb-3">
                       <Users className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span className="font-semibold text-gray-800 text-sm sm:text-base">Member</span>
+                      <span className="font-semibold text-gray-800 text-sm sm:text-base">Members (Password: member123)</span>
                     </div>
-                    <p className="text-xs sm:text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded">
-                      seamus@email.com
-                    </p>
-                    <p className="text-xs sm:text-sm text-gray-600 font-mono bg-gray-50 p-2 rounded mt-1">
-                      member123
-                    </p>
+                    
+                    <div className="grid grid-cols-1 gap-2">
+                      <div className="bg-gray-50 p-2 rounded">
+                        <p className="text-xs font-medium text-gray-700">Seamus O'Connor (HC: 12)</p>
+                        <p className="text-xs text-gray-600 font-mono">seamus@email.com</p>
+                      </div>
+                      <div className="bg-gray-50 p-2 rounded">
+                        <p className="text-xs font-medium text-gray-700">Paddy Murphy (HC: 24)</p>
+                        <p className="text-xs text-gray-600 font-mono">paddy@email.com</p>
+                      </div>
+                      <div className="bg-gray-50 p-2 rounded">
+                        <p className="text-xs font-medium text-gray-700">Brendan Kelly (HC: 8)</p>
+                        <p className="text-xs text-gray-600 font-mono">brendan@email.com</p>
+                      </div>
+                      <div className="bg-gray-50 p-2 rounded">
+                        <p className="text-xs font-medium text-gray-700">Liam O'Sullivan (HC: 16)</p>
+                        <p className="text-xs text-gray-600 font-mono">liam@email.com</p>
+                      </div>
+                      <div className="bg-gray-50 p-2 rounded">
+                        <p className="text-xs font-medium text-gray-700">Declan Walsh (HC: 20)</p>
+                        <p className="text-xs text-gray-600 font-mono">declan@email.com</p>
+                      </div>
+                    </div>
                   </div>
                 </div>
               </div>
