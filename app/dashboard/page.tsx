@@ -63,41 +63,57 @@ export default async function Dashboard() {
       {/* Header with Golf Theme */}
       <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-6">
+          <div className="flex justify-between items-center py-4 sm:py-6">
+            <div className="flex items-center space-x-3 sm:space-x-6">
               {/* Logo Section */}
               <div className="flex-shrink-0">
                 <Image
                   src="/image-640x886.png"
                   alt="Irish Golf Society Scotland Logo"
-                  width={60}
-                  height={83}
-                  className="rounded-lg shadow-md bg-white p-1"
+                  width={50}
+                  height={69}
+                  className="sm:w-[60px] sm:h-[83px] rounded-lg shadow-md bg-white p-1"
                 />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white flex items-center">
-                  <Trophy className="w-8 h-8 mr-3 text-yellow-400" />
-                  Member Dashboard
+                <h1 className="text-xl sm:text-3xl font-bold text-white flex items-center">
+                  <Trophy className="w-5 h-5 sm:w-8 sm:h-8 mr-2 sm:mr-3 text-yellow-400" />
+                  <span className="hidden sm:inline">Member Dashboard</span>
+                  <span className="sm:hidden">Dashboard</span>
                 </h1>
-                <p className="text-white text-lg">Welcome back, {session.user.name}</p>
+                <p className="text-white text-sm sm:text-lg">Welcome back, {session.user.name}</p>
               </div>
             </div>
-            <div className="flex items-center space-x-6">
-              <div className="text-right text-xs text-green-100 bg-green-900/30 rounded-lg p-2 backdrop-blur-sm">
+            <div className="flex items-center space-x-2 sm:space-x-6">
+              <div className="text-right text-xs text-green-100 bg-green-900/30 rounded-lg p-1 sm:p-2 backdrop-blur-sm">
                 <div className="flex items-center">
                   <Star className="w-3 h-3 mr-1 text-yellow-400" />
-                  Member #{session.user.memberNumber} • HC: {session.user.handicap}
+                  <span className="hidden sm:inline">Member #{session.user.memberNumber} • HC: {session.user.handicap}</span>
+                  <span className="sm:hidden">#{session.user.memberNumber}</span>
                 </div>
               </div>
-              <Link href="/profile">
+              <Link href="/profile" className="hidden sm:block">
                 <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
                   <Users className="w-4 h-4 mr-2" />
                   Profile
                 </Button>
               </Link>
-              <ClientUserMenu />
+              <ClientUserMenu variant="header" />
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Profile Link - Only show on small screens */}
+      <div className="sm:hidden bg-green-700 border-t border-green-600">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-center py-3">
+            <Link href="/profile">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-green-600">
+                <Users className="w-4 h-4 mr-1" />
+                Profile • HC: {session.user.handicap}
+              </Button>
+            </Link>
           </div>
         </div>
       </div>

@@ -10,6 +10,7 @@ import { ClientUserMenu } from '@/components/client-user-menu'
 import { CalendarDays, Users, PoundSterling, UserCog, Trophy, Star, TrendingUp, Settings, Plus } from 'lucide-react'
 import { UserMenu } from '@/components/user-menu'
 import { formatDateUK } from '@/lib/utils'
+import OrientationIndicator from '@/components/orientation-indicator'
 
 export default async function AdminDashboard() {
   const session = await getServerSession(authOptions)
@@ -53,50 +54,75 @@ export default async function AdminDashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
-      {/* Enhanced Header with Golf Theme */}
+      {/* Orientation Prompt for Mobile */}
+      <OrientationIndicator />
+      
+      {/* Header with Golf Theme */}
       <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-6">
+          <div className="flex justify-between items-center py-4 sm:py-6">
+            <div className="flex items-center space-x-3 sm:space-x-6">
               {/* Logo Section */}
               <div className="flex-shrink-0">
                 <Image
                   src="/image-640x886.png"
                   alt="Irish Golf Society Scotland Logo"
-                  width={60}
-                  height={83}
-                  className="rounded-lg shadow-md bg-white p-1"
+                  width={50}
+                  height={69}
+                  className="sm:w-[60px] sm:h-[83px] rounded-lg shadow-md bg-white p-1"
                 />
               </div>
               <div>
-                <h1 className="text-3xl font-bold text-white flex items-center">
-                  <Settings className="w-8 h-8 mr-3 text-yellow-400" />
-                  Admin Dashboard
+                <h1 className="text-xl sm:text-3xl font-bold text-white flex items-center">
+                  <Settings className="w-5 h-5 sm:w-8 sm:h-8 mr-2 sm:mr-3 text-yellow-400" />
+                  <span className="hidden sm:inline">Admin Dashboard</span>
+                  <span className="sm:hidden">Admin</span>
                 </h1>
-                <p className="text-green-100 text-lg">Irish Golf Society Scotland - Management Portal</p>
+                <p className="text-green-100 text-sm sm:text-lg hidden sm:block">Irish Golf Society Scotland - Management Portal</p>
               </div>
             </div>
-            <div className="flex items-center space-x-6">
-              <div className="text-right text-xs text-green-100 bg-green-900/30 rounded-lg p-2 backdrop-blur-sm">
+            <div className="flex items-center space-x-2 sm:space-x-6">
+              <div className="text-right text-xs text-green-100 bg-green-900/30 rounded-lg p-1 sm:p-2 backdrop-blur-sm">
                 <div className="flex items-center">
                   <Star className="w-3 h-3 mr-1 text-yellow-400" />
-                  Admin #{session.user.memberNumber}
+                  <span className="hidden sm:inline">Admin #{session.user.memberNumber}</span>
+                  <span className="sm:hidden">#{session.user.memberNumber}</span>
                 </div>
               </div>
-              <Link href="/admin/members">
+              <Link href="/admin/members" className="hidden sm:block">
                 <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
                   <UserCog className="w-4 h-4 mr-2" />
                   Members
                 </Button>
               </Link>
-              <Link href="/admin/outings/create">
+              <Link href="/admin/outings/create" className="hidden sm:block">
                 <Button className="bg-blue-600 hover:bg-blue-700 text-white shadow-lg">
                   <Plus className="w-4 h-4 mr-2" />
                   Create Outing
                 </Button>
               </Link>
-              <ClientUserMenu />
+              <ClientUserMenu variant="header" />
             </div>
+          </div>
+        </div>
+      </div>
+
+      {/* Mobile Navigation - Only show on small screens */}
+      <div className="sm:hidden bg-green-700 border-t border-green-600">
+        <div className="max-w-7xl mx-auto px-4">
+          <div className="flex justify-center space-x-4 py-3">
+            <Link href="/admin/members">
+              <Button variant="ghost" size="sm" className="text-white hover:bg-green-600">
+                <UserCog className="w-4 h-4 mr-1" />
+                Members
+              </Button>
+            </Link>
+            <Link href="/admin/outings/create">
+              <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white">
+                <Plus className="w-4 h-4 mr-1" />
+                Create
+              </Button>
+            </Link>
           </div>
         </div>
       </div>
@@ -114,7 +140,7 @@ export default async function AdminDashboard() {
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Mobile-Optimized Admin Stats Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-6 mb-6 sm:mb-8 lg:mb-12">
+        <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-6 mb-6 sm:mb-8 lg:mb-12">
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
             <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
               <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
@@ -151,19 +177,6 @@ export default async function AdminDashboard() {
             <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
               <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">{totalBookings}</div>
               <p className="text-xs sm:text-sm text-gray-600">All time</p>
-            </CardContent>
-          </Card>
-
-          <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 col-span-2 lg:col-span-1">
-            <CardHeader className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
-              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
-                <PoundSterling className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Total </span>Revenue
-              </CardTitle>
-            </CardHeader>
-            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
-              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">£{totalRevenue._sum.totalCost?.toFixed(2) || '0.00'}</div>
-              <p className="text-xs sm:text-sm text-gray-600">All time revenue</p>
             </CardContent>
           </Card>
         </div>
@@ -232,28 +245,6 @@ export default async function AdminDashboard() {
                       </div>
                       
                       <div className="text-right ml-6">
-                        <div className="bg-green-600 text-white rounded-lg p-4 shadow-md mb-3">
-                          <div className="text-center">
-                            <div className="text-sm text-green-100 mb-2 flex items-center justify-center">
-                              <PoundSterling className="w-3 h-3 mr-1" />
-                              Pricing
-                            </div>
-                            {outing.memberPrice === 0 && outing.guestPrice === 0 ? (
-                              <div className="text-lg font-bold text-green-100">
-                                TBC
-                              </div>
-                            ) : (
-                              <div className="space-y-1">
-                                <div className="text-sm font-bold">
-                                  £{outing.memberPrice} <span className="text-xs font-normal text-green-200">member</span>
-                                </div>
-                                <div className="text-sm font-bold">
-                                  £{outing.guestPrice} <span className="text-xs font-normal text-green-200">guest</span>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                        </div>
                         <Button size="sm" className="bg-blue-600 hover:bg-blue-700 text-white w-full">
                           <Settings className="w-4 h-4 mr-2" />
                           <Link href={`/admin/bookings/${outing.id}`} className="text-white">

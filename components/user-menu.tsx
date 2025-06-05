@@ -6,7 +6,11 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { User, LogOut, ChevronDown } from 'lucide-react'
 
-export function UserMenu() {
+interface UserMenuProps {
+  variant?: 'default' | 'header'
+}
+
+export function UserMenu({ variant = 'default' }: UserMenuProps) {
   const { data: session } = useSession()
   const [isOpen, setIsOpen] = useState(false)
 
@@ -32,16 +36,22 @@ export function UserMenu() {
     })
   }
 
+  const buttonClasses = variant === 'header' 
+    ? "flex items-center space-x-2 text-white hover:text-green-100 hover:bg-white/10"
+    : "flex items-center space-x-2 text-gray-700 hover:text-gray-900"
+
+  const iconClasses = variant === 'header' ? "text-white" : ""
+
   return (
     <div className="relative">
       <Button
         variant="ghost"
         onClick={() => setIsOpen(!isOpen)}
-        className="flex items-center space-x-2 text-gray-700 hover:text-gray-900"
+        className={buttonClasses}
       >
-        <User className="w-4 h-4" />
+        <User className={`w-4 h-4 ${iconClasses}`} />
         <span className="hidden md:block">{session.user.name}</span>
-        <ChevronDown className="w-4 h-4" />
+        <ChevronDown className={`w-4 h-4 ${iconClasses}`} />
       </Button>
 
       {isOpen && (

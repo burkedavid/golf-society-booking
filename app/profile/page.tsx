@@ -23,23 +23,25 @@ export default async function ProfilePage() {
       {/* Header */}
       <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-6">
-            <div className="flex items-center space-x-4">
+          <div className="flex justify-between items-center py-4 sm:py-6">
+            <div className="flex items-center space-x-2 sm:space-x-4">
               <Link href="/dashboard">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-green-700">
-                  <ArrowLeft className="w-4 h-4 mr-2" />
-                  Back to Dashboard
+                  <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2" />
+                  <span className="hidden sm:inline">Back to Dashboard</span>
+                  <span className="sm:hidden">Back</span>
                 </Button>
               </Link>
               <div>
-                <h1 className="text-3xl font-bold text-white flex items-center">
-                  <User className="w-8 h-8 mr-3 text-green-200" />
-                  My Profile
+                <h1 className="text-xl sm:text-3xl font-bold text-white flex items-center">
+                  <User className="w-5 h-5 sm:w-8 sm:h-8 mr-2 sm:mr-3 text-green-200" />
+                  <span className="hidden sm:inline">My Profile</span>
+                  <span className="sm:hidden">Profile</span>
                 </h1>
-                <p className="text-green-100">Update your personal information</p>
+                <p className="text-green-100 text-sm sm:text-base">Update your personal information</p>
               </div>
             </div>
-            <ClientUserMenu />
+            <ClientUserMenu variant="header" />
           </div>
         </div>
       </div>

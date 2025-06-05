@@ -2,6 +2,10 @@
 
 import { UserMenu } from './user-menu'
 
-export function ClientUserMenu() {
-  return <UserMenu />
+interface ClientUserMenuProps {
+  variant?: 'default' | 'header'
+}
+
+export function ClientUserMenu({ variant = 'default' }: ClientUserMenuProps) {
+  return <UserMenu variant={variant} />
 } 
