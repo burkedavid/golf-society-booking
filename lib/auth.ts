@@ -41,7 +41,8 @@ export const authOptions: NextAuthOptions = {
           name: user.name,
           role: user.role,
           memberNumber: user.memberNumber,
-          handicap: user.handicap
+          handicap: user.handicap,
+          phone: user.phone
         }
       }
     })
@@ -55,6 +56,7 @@ export const authOptions: NextAuthOptions = {
         token.role = user.role
         token.memberNumber = user.memberNumber
         token.handicap = user.handicap
+        token.phone = user.phone
       }
       return token
     },
@@ -64,6 +66,7 @@ export const authOptions: NextAuthOptions = {
         session.user.role = token.role as string
         session.user.memberNumber = token.memberNumber as string
         session.user.handicap = token.handicap as number
+        session.user.phone = token.phone as string | null
       }
       return session
     }

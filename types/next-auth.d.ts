@@ -9,6 +9,7 @@ declare module 'next-auth' {
       role: string
       memberNumber: string
       handicap: number
+      phone: string | null
     }
   }
 
@@ -19,6 +20,7 @@ declare module 'next-auth' {
     role: string
     memberNumber: string
     handicap: number
+    phone: string | null
   }
 }
 
@@ -27,5 +29,6 @@ declare module 'next-auth/jwt' {
     role: string
     memberNumber: string
     handicap: number
+    phone: string | null
   }
 } 
