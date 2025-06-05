@@ -77,7 +77,7 @@ export default function SignInPage() {
               Welcome Back
             </h1>
             <p className="text-green-100 text-base sm:text-lg">
-              Access your premium golf experience
+              Book your next golf society outing
             </p>
           </div>
 
@@ -219,10 +219,10 @@ export default function SignInPage() {
           <div className="text-center text-green-100">
             <div className="flex items-center justify-center mb-2">
               <MapPin className="w-4 h-4 mr-2 flex-shrink-0" />
-              <span className="text-xs sm:text-sm">Premium Golf Experiences Across Scotland</span>
+              <span className="text-xs sm:text-sm">{new Date().getFullYear()} Golf Society Outings Across Scotland</span>
             </div>
             <p className="text-xs text-green-200">
-              © 2024 Irish Golf Society Scotland. All rights reserved.
+              © {new Date().getFullYear()} Irish Golf Society Scotland. All rights reserved.
             </p>
           </div>
         </div>
