@@ -101,8 +101,7 @@ export default async function Dashboard() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-4">Irish Golf Society Scotland</h2>
           <p className="text-xl text-green-100 max-w-3xl mx-auto">
-            Experience premium golf outings across Scotland's most prestigious courses. 
-            Book your next adventure and connect with fellow golf enthusiasts.
+            Join us in celebrating golf and fostering connections among the Irish in Scotland through exciting events and friendly competition.
           </p>
         </div>
       </div>
@@ -155,11 +154,11 @@ export default async function Dashboard() {
         </div>
 
         {/* Available Outings */}
-        <Card className="mb-12 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+        <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
           <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg">
             <CardTitle className="text-2xl flex items-center">
               <CalendarDays className="w-6 h-6 mr-3" />
-              Premium Golf Outings
+              {new Date().getFullYear()} Society Golf Outings
             </CardTitle>
             <CardDescription className="text-green-100">
               Discover and book your spot for upcoming exclusive golf experiences
@@ -178,111 +177,57 @@ export default async function Dashboard() {
                 const daysUntilDeadline = Math.ceil((new Date(outing.registrationDeadline).getTime() - new Date().getTime()) / (1000 * 60 * 60 * 24))
 
                 return (
-                  <div key={outing.id} className="bg-gradient-to-r from-white to-green-50 border-2 border-green-100 rounded-xl p-8 hover:shadow-2xl hover:border-green-300 transition-all duration-300 transform hover:-translate-y-1">
-                    <div className="flex justify-between items-start mb-6">
+                  <div key={outing.id} className="bg-gradient-to-r from-white to-green-50 border-2 border-green-100 rounded-xl p-8 hover:shadow-lg transition-all duration-300">
+                    <div className="flex justify-between items-start">
                       <div className="flex-1">
                         <h3 className="text-2xl font-bold text-gray-900 mb-3 flex items-center">
-                          <Trophy className="w-6 h-6 mr-3 text-green-600" />
+                          <CalendarDays className="w-6 h-6 mr-3 text-green-600" />
                           {outing.name}
                         </h3>
-                        <p className="text-gray-700 mb-6 text-lg leading-relaxed">{outing.description}</p>
+                        <p className="text-gray-600 mb-6 text-lg leading-relaxed">{outing.description}</p>
                         
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-gray-700">
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <CalendarDays className="w-5 h-5 mr-3 text-green-600" />
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase tracking-wide">Date</p>
-                              <p className="font-semibold">{formatDateUK(outing.date)}</p>
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-6">
+                          <div className="bg-blue-50 rounded-lg p-4">
+                            <div className="flex items-center mb-2">
+                              <CalendarDays className="w-5 h-5 mr-2 text-blue-600" />
+                              <span className="font-semibold text-blue-800">Date & Time</span>
                             </div>
+                            <p className="text-gray-900 font-medium">{formatDateUK(outing.date)}</p>
+                            <p className="text-gray-600">{outing.time}</p>
                           </div>
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <Clock className="w-5 h-5 mr-3 text-blue-600" />
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase tracking-wide">Time</p>
-                              <p className="font-semibold">{outing.time}</p>
+                          
+                          <div className="bg-purple-50 rounded-lg p-4">
+                            <div className="flex items-center mb-2">
+                              <MapPin className="w-5 h-5 mr-2 text-purple-600" />
+                              <span className="font-semibold text-purple-800">Venue</span>
                             </div>
+                            <p className="text-gray-900 font-medium">{outing.venue}</p>
                           </div>
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <MapPin className="w-5 h-5 mr-3 text-red-600" />
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase tracking-wide">Venue</p>
-                              <p className="font-semibold">{outing.venue}</p>
+                          
+                          <div className="bg-yellow-50 rounded-lg p-4">
+                            <div className="flex items-center mb-2">
+                              <Clock className="w-5 h-5 mr-2 text-yellow-600" />
+                              <span className="font-semibold text-yellow-800">Registration</span>
                             </div>
-                          </div>
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <Users className="w-5 h-5 mr-3 text-purple-600" />
-                            <div>
-                              <p className="text-xs text-gray-500 uppercase tracking-wide">Players</p>
-                              <p className="font-semibold">{totalPeople}/{outing.capacity}</p>
-                            </div>
+                            <p className="text-gray-900 font-medium">
+                              {daysUntilDeadline > 0 ? `${daysUntilDeadline} days left` : 'Deadline passed'}
+                            </p>
+                            <p className="text-gray-600 text-sm">Until {formatDateUK(outing.registrationDeadline)}</p>
                           </div>
                         </div>
                       </div>
-                      
+
                       <div className="text-right ml-8">
-                        <div className="bg-green-600 text-white rounded-xl p-6 shadow-lg">
-                          <div className="text-center">
-                            <p className="text-sm text-green-100 mb-2 flex items-center justify-center">
-                              <PoundSterling className="w-4 h-4 mr-1" />
-                              Pricing
-                            </p>
-                            {outing.memberPrice === 0 ? (
-                              <div className="text-2xl font-bold mb-4 text-green-100">
-                                TBC
-                              </div>
-                            ) : (
-                              <div className="space-y-1 mb-4">
-                                <div className="text-lg font-bold">
-                                  £{outing.memberPrice} <span className="text-sm font-normal text-green-200">member</span>
-                                </div>
-                                <div className="text-lg font-bold">
-                                  £{outing.guestPrice} <span className="text-sm font-normal text-green-200">guest</span>
-                                </div>
-                              </div>
-                            )}
-                          </div>
-                          <Link href={`/book/${outing.id}`}>
-                            <Button 
-                              className="w-full bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
-                              disabled={outing.memberPrice === 0}
-                            >
-                              {outing.memberPrice === 0 ? 'Coming Soon' : 'Book Now'}
-                            </Button>
-                          </Link>
-                        </div>
+                        <Link href={`/book/${outing.id}`}>
+                          <Button 
+                            className="bg-green-600 hover:bg-green-700 text-white font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                            disabled={outing.memberPrice === 0}
+                          >
+                            {outing.memberPrice === 0 ? 'Coming Soon' : 'Book Now'}
+                          </Button>
+                        </Link>
                       </div>
                     </div>
-
-                    {/* Enhanced Progress Bar */}
-                    <div className="mb-6">
-                      <div className="flex justify-between text-sm mb-3">
-                        <span className="text-gray-600 font-medium">Booking Progress</span>
-                        <span className="text-green-600 font-semibold">{availableSpaces} spaces remaining</span>
-                      </div>
-                      <div className="w-full bg-gray-200 rounded-full h-3 shadow-inner">
-                        <div 
-                          className="bg-gradient-to-r from-green-500 to-emerald-500 h-3 rounded-full transition-all duration-500 shadow-sm" 
-                          style={{ width: `${progressPercentage}%` }}
-                        ></div>
-                      </div>
-                    </div>
-
-                    {/* Enhanced Deadline Warning */}
-                    {daysUntilDeadline <= 7 && (
-                      <div className="bg-gradient-to-r from-yellow-50 to-orange-50 border-l-4 border-yellow-400 rounded-lg p-4 shadow-md">
-                        <div className="flex">
-                          <div className="flex-shrink-0">
-                            <Clock className="h-6 w-6 text-yellow-500" />
-                          </div>
-                          <div className="ml-4">
-                            <p className="text-sm text-yellow-800 font-medium">
-                              <strong>⚠️ Registration closes in {daysUntilDeadline} day{daysUntilDeadline !== 1 ? 's' : ''}!</strong>
-                            </p>
-                            <p className="text-xs text-yellow-700 mt-1">Don't miss out on this exclusive golf experience.</p>
-                          </div>
-                        </div>
-                      </div>
-                    )}
                   </div>
                 )
               })}
@@ -309,7 +254,7 @@ export default async function Dashboard() {
                 </div>
                 <h3 className="text-xl font-semibold text-gray-900 mb-2">No bookings yet</h3>
                 <p className="text-gray-600 mb-6 max-w-md mx-auto">
-                  Start your golf journey with us! Book your first premium outing to experience Scotland's finest courses.
+                  Start your golf journey with us! Book your first society outing to experience Scotland's finest courses.
                 </p>
                 <Button className="bg-green-600 hover:bg-green-700 text-white px-8 py-3 rounded-lg shadow-lg">
                   Browse Available Outings
