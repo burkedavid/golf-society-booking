@@ -183,7 +183,7 @@ export default async function Dashboard() {
               {new Date().getFullYear()} Society Golf Outings
             </CardTitle>
             <CardDescription className="text-green-100 text-sm sm:text-base">
-              Discover and book your spot for upcoming exclusive golf experiences
+              Join us for some fantastic golf and great craic with fellow members!
             </CardDescription>
           </CardHeader>
           <CardContent className="p-4 sm:p-8">
