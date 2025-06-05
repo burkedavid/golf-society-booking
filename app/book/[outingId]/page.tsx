@@ -44,6 +44,7 @@ export default function BookOuting({ params }: { params: { outingId: string } })
   const [submitting, setSubmitting] = useState(false)
   const [showBankModal, setShowBankModal] = useState(false)
   const [bookingReference, setBookingReference] = useState('')
+  const [existingBooking, setExistingBooking] = useState<any>(null)
   
   // Form state
   const [guestCount, setGuestCount] = useState(0)
@@ -70,6 +71,17 @@ export default function BookOuting({ params }: { params: { outingId: string } })
       if (response.ok) {
         const data = await response.json()
         setOuting(data)
+        
+        // Check for existing booking by this user
+        if (session?.user?.id) {
+          const existingBookingResponse = await fetch(`/api/bookings/check?outingId=${params.outingId}&userId=${session.user.id}`)
+          if (existingBookingResponse.ok) {
+            const existingBookingData = await existingBookingResponse.json()
+            if (existingBookingData.hasBooking) {
+              setExistingBooking(existingBookingData.booking)
+            }
+          }
+        }
       }
     } catch (error) {
       console.error('Error fetching outing:', error)
@@ -188,6 +200,166 @@ export default function BookOuting({ params }: { params: { outingId: string } })
           <Link href="/dashboard">
             <Button className="bg-green-600 hover:bg-green-700">Back to Dashboard</Button>
           </Link>
+        </div>
+      </div>
+    )
+  }
+
+  // If user already has a booking for this outing, show booking management interface
+  if (existingBooking) {
+    const guests = existingBooking.guests || []
+    const memberMeals = existingBooking.memberMeals || {}
+    const guestMeals = existingBooking.guestMeals || []
+
+    return (
+      <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+        <OrientationIndicator />
+        
+        {/* Header */}
+        <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 sm:py-6 space-y-3 sm:space-y-0">
+              <div className="flex items-center space-x-3 sm:space-x-4">
+                <Link href="/dashboard">
+                  <Button variant="ghost" size="sm" className="text-white hover:bg-green-700 px-3 py-2">
+                    <ArrowLeft className="w-4 h-4 mr-1 sm:mr-2" />
+                    <span className="text-sm sm:text-base">Back</span>
+                  </Button>
+                </Link>
+                <div>
+                  <h1 className="text-xl sm:text-2xl lg:text-3xl font-bold text-white">Your Booking</h1>
+                  <p className="text-green-100 text-sm sm:text-base">Irish Golf Society Scotland</p>
+                </div>
+              </div>
+              <div className="self-end sm:self-auto">
+                <UserMenu />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Existing Booking Content */}
+        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-8 lg:py-12">
+          {/* Already Booked Message */}
+          <Card className="mb-8 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
+              <CardTitle className="flex items-center text-xl sm:text-2xl">
+                <Users className="w-6 h-6 mr-3" />
+                You're Already Booked!
+              </CardTitle>
+              <CardDescription className="text-blue-100">
+                You already have a booking for this outing. Here are your details:
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              <div className="bg-green-50 border border-green-200 rounded-lg p-4 mb-6">
+                <div className="flex items-center">
+                  <div className="flex-shrink-0">
+                    <svg className="h-5 w-5 text-green-400" viewBox="0 0 20 20" fill="currentColor">
+                      <path fillRule="evenodd" d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clipRule="evenodd" />
+                    </svg>
+                  </div>
+                  <div className="ml-3">
+                    <p className="text-sm font-medium text-green-800">
+                      Great! You're all set for {existingBooking.outing.name}
+                    </p>
+                  </div>
+                </div>
+              </div>
+
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Booking Summary */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h3 className="font-semibold text-lg mb-3">Booking Summary</h3>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex justify-between">
+                      <span>Booking Date:</span>
+                      <span className="font-medium">{new Date(existingBooking.createdAt).toLocaleDateString()}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Total Cost:</span>
+                      <span className="font-bold text-green-600">£{existingBooking.totalCost.toFixed(2)}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Guests:</span>
+                      <span className="font-medium">{guests.length}</span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Status:</span>
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        existingBooking.status === 'confirmed' ? 'bg-green-100 text-green-800' : 'bg-yellow-100 text-yellow-800'
+                      }`}>
+                        {existingBooking.status}
+                      </span>
+                    </div>
+                    <div className="flex justify-between">
+                      <span>Payment:</span>
+                      <span className={`px-2 py-1 rounded text-xs font-medium ${
+                        existingBooking.paymentStatus === 'paid' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'
+                      }`}>
+                        {existingBooking.paymentStatus}
+                      </span>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Meal Choices */}
+                <div className="bg-gray-50 rounded-lg p-4">
+                  <h3 className="font-semibold text-lg mb-3">Meal Choices</h3>
+                  <div className="space-y-3">
+                    <div className="bg-white rounded p-3">
+                      <h4 className="font-medium text-green-800 mb-2">Your Meals</h4>
+                      <div className="text-sm space-y-1">
+                        <div><span className="font-medium">Main:</span> {memberMeals.mainCourse || 'Not selected'}</div>
+                        <div><span className="font-medium">Dessert:</span> {memberMeals.dessert || 'Not selected'}</div>
+                      </div>
+                    </div>
+                    
+                    {guests.length > 0 && (
+                      <div className="bg-white rounded p-3">
+                        <h4 className="font-medium text-blue-800 mb-2">Guest Meals</h4>
+                        <div className="space-y-2">
+                          {guests.map((guest: any, index: number) => {
+                            const guestMeal = guestMeals[index] || {}
+                            return (
+                              <div key={index} className="text-sm border-l-2 border-blue-200 pl-2">
+                                <div className="font-medium">{guest.name}</div>
+                                <div className="text-xs text-gray-600">
+                                  Main: {guestMeal.mainCourse || 'Not selected'} | 
+                                  Dessert: {guestMeal.dessert || 'Not selected'}
+                                </div>
+                              </div>
+                            )
+                          })}
+                        </div>
+                      </div>
+                    )}
+                  </div>
+                </div>
+              </div>
+
+              {/* Action Buttons */}
+              <div className="mt-6 flex flex-col sm:flex-row gap-3">
+                <Link href="/dashboard" className="flex-1">
+                  <Button className="w-full bg-green-600 hover:bg-green-700">
+                    <ArrowLeft className="w-4 h-4 mr-2" />
+                    Back to Dashboard
+                  </Button>
+                </Link>
+                <Button 
+                  variant="outline" 
+                  className="flex-1 border-blue-200 text-blue-600 hover:bg-blue-50"
+                  onClick={() => {
+                    // TODO: Implement booking management/editing
+                    alert('Booking management feature coming soon! For now, please contact admin to make changes.')
+                  }}
+                >
+                  <Users className="w-4 h-4 mr-2" />
+                  Manage Booking
+                </Button>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </div>
     )
