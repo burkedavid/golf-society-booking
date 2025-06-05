@@ -11,8 +11,9 @@ import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { UserMenu } from '@/components/user-menu'
 import { BankTransferModal } from '@/components/bank-transfer-modal'
-import { CalendarDays, Clock, MapPin, Users, PoundSterling, ArrowLeft, Utensils } from 'lucide-react'
+import { CalendarDays, Clock, MapPin, Users, PoundSterling, ArrowLeft, Utensils, Plus, Minus } from 'lucide-react'
 import Link from 'next/link'
+import OrientationIndicator from '@/components/orientation-indicator'
 
 interface Outing {
   id: string
@@ -203,6 +204,9 @@ export default function BookOuting({ params }: { params: { outingId: string } })
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+      {/* Orientation Prompt for Mobile */}
+      <OrientationIndicator />
+      
       {/* Mobile-Optimized Header */}
       <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">

@@ -6,6 +6,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { CalendarDays, MapPin, Clock, Users, PoundSterling } from 'lucide-react'
 import Link from 'next/link'
+import OrientationIndicator from '@/components/orientation-indicator'
 
 export default async function MemberDashboard() {
   const session = await getServerSession(authOptions)
@@ -48,9 +49,12 @@ export default async function MemberDashboard() {
   })
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+      {/* Orientation Prompt for Mobile */}
+      <OrientationIndicator />
+      
       {/* Mobile-Optimized Header */}
-      <div className="bg-white shadow">
+      <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="py-4 sm:py-6">
             <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center space-y-2 sm:space-y-0">

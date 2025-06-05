@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Trophy, Mail, Lock, Users, MapPin } from 'lucide-react'
+import OrientationIndicator from '@/components/orientation-indicator'
 
 export default function SignInPage() {
   const [email, setEmail] = useState('')
@@ -47,6 +48,9 @@ export default function SignInPage() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-800 via-green-700 to-emerald-800 relative overflow-hidden">
+      {/* Orientation Prompt for Mobile */}
+      <OrientationIndicator />
+      
       {/* Background Pattern */}
       <div className="absolute inset-0 bg-gradient-to-br from-green-900/20 to-emerald-900/20"></div>
       <div className="absolute inset-0" style={{
