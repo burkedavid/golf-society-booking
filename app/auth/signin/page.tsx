@@ -184,29 +184,29 @@ export default function SignInPage() {
                   <div className="bg-white rounded-lg p-3 sm:p-4 shadow-sm border border-blue-100">
                     <div className="flex items-center mb-3">
                       <Users className="w-4 h-4 text-green-500 mr-2 flex-shrink-0" />
-                      <span className="font-semibold text-gray-800 text-sm sm:text-base">Members (Password: member123)</span>
+                      <span className="font-semibold text-gray-800 text-sm sm:text-base">Members</span>
                     </div>
                     
-                    <div className="grid grid-cols-1 gap-2">
-                      <div className="bg-gray-50 p-2 rounded">
-                        <p className="text-xs font-medium text-gray-700">Seamus O'Connor (HC: 12)</p>
-                        <p className="text-xs text-gray-600 font-mono">seamus@email.com</p>
+                    <div className="grid grid-cols-1 gap-3">
+                      <div className="bg-gray-50 p-3 rounded border">
+                        <p className="text-xs font-medium text-gray-700 mb-1">Seamus O'Connor (HC: 12)</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded">seamus@email.com</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded mt-1">member123</p>
                       </div>
-                      <div className="bg-gray-50 p-2 rounded">
-                        <p className="text-xs font-medium text-gray-700">Paddy Murphy (HC: 24)</p>
-                        <p className="text-xs text-gray-600 font-mono">paddy@email.com</p>
+                      <div className="bg-gray-50 p-3 rounded border">
+                        <p className="text-xs font-medium text-gray-700 mb-1">Paddy Murphy (HC: 24)</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded">paddy@email.com</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded mt-1">member123</p>
                       </div>
-                      <div className="bg-gray-50 p-2 rounded">
-                        <p className="text-xs font-medium text-gray-700">Brendan Kelly (HC: 8)</p>
-                        <p className="text-xs text-gray-600 font-mono">brendan@email.com</p>
+                      <div className="bg-gray-50 p-3 rounded border">
+                        <p className="text-xs font-medium text-gray-700 mb-1">Liam O'Sullivan (HC: 16)</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded">liam@email.com</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded mt-1">member123</p>
                       </div>
-                      <div className="bg-gray-50 p-2 rounded">
-                        <p className="text-xs font-medium text-gray-700">Liam O'Sullivan (HC: 16)</p>
-                        <p className="text-xs text-gray-600 font-mono">liam@email.com</p>
-                      </div>
-                      <div className="bg-gray-50 p-2 rounded">
-                        <p className="text-xs font-medium text-gray-700">Declan Walsh (HC: 20)</p>
-                        <p className="text-xs text-gray-600 font-mono">declan@email.com</p>
+                      <div className="bg-gray-50 p-3 rounded border">
+                        <p className="text-xs font-medium text-gray-700 mb-1">Declan Walsh (HC: 20)</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded">declan@email.com</p>
+                        <p className="text-xs text-gray-600 font-mono bg-white p-1 rounded mt-1">member123</p>
                       </div>
                     </div>
                   </div>
