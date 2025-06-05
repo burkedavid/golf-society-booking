@@ -56,12 +56,12 @@ export default async function Dashboard() {
   })
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-slate-50">
       {/* Orientation Prompt for Mobile */}
       <OrientationIndicator />
       
       {/* Header with Golf Theme */}
-      <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
+      <div className="bg-gradient-to-r from-blue-800 via-blue-700 to-indigo-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center py-6">
             <div className="flex items-center space-x-6">
@@ -80,16 +80,22 @@ export default async function Dashboard() {
                   <Trophy className="w-8 h-8 mr-3 text-yellow-400" />
                   Member Dashboard
                 </h1>
-                <p className="text-green-100 text-lg">Welcome back, {session.user.name}</p>
+                <p className="text-blue-100 text-lg">Welcome back, {session.user.name}</p>
               </div>
             </div>
             <div className="flex items-center space-x-6">
-              <div className="text-right text-xs text-green-100 bg-green-900/30 rounded-lg p-2 backdrop-blur-sm">
+              <div className="text-right text-xs text-blue-100 bg-blue-900/30 rounded-lg p-2 backdrop-blur-sm">
                 <div className="flex items-center">
                   <Star className="w-3 h-3 mr-1 text-yellow-400" />
                   Member #{session.user.memberNumber} • HC: {session.user.handicap}
                 </div>
               </div>
+              <Link href="/profile">
+                <Button variant="outline" className="bg-white/10 border-white/20 text-white hover:bg-white/20">
+                  <Users className="w-4 h-4 mr-2" />
+                  Profile
+                </Button>
+              </Link>
               <ClientUserMenu />
             </div>
           </div>
@@ -97,10 +103,10 @@ export default async function Dashboard() {
       </div>
 
       {/* Hero Section */}
-      <div className="bg-gradient-to-r from-green-600 to-emerald-600 text-white py-12">
+      <div className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white py-12">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold mb-4">Irish Golf Society Scotland</h2>
-          <p className="text-xl text-green-100 max-w-3xl mx-auto">
+          <p className="text-xl text-blue-100 max-w-3xl mx-auto">
             Join us in celebrating golf and fostering connections among the Irish in Scotland through exciting events and friendly competition.
           </p>
         </div>
@@ -110,42 +116,42 @@ export default async function Dashboard() {
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         {/* Mobile-Optimized Stats Cards */}
         <div className="grid grid-cols-3 gap-2 sm:gap-3 lg:gap-6 mb-6 sm:mb-8 lg:mb-12">
-          <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="bg-gradient-to-br from-blue-50 to-blue-100 border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardContent className="p-2 sm:p-3 lg:p-6">
               <div className="flex flex-col items-center text-center">
-                <div className="p-1.5 sm:p-2 lg:p-3 bg-green-600 rounded-full mb-1 sm:mb-2">
+                <div className="p-1.5 sm:p-2 lg:p-3 bg-blue-600 rounded-full mb-1 sm:mb-2">
                   <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm font-medium text-green-600 leading-tight">Available</p>
+                  <p className="text-xs sm:text-sm font-medium text-blue-700 leading-tight">Available</p>
                   <p className="text-sm sm:text-lg lg:text-2xl font-bold text-gray-900">{outings.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="bg-gradient-to-br from-indigo-50 to-indigo-100 border-indigo-200 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardContent className="p-2 sm:p-3 lg:p-6">
               <div className="flex flex-col items-center text-center">
-                <div className="p-1.5 sm:p-2 lg:p-3 bg-blue-600 rounded-full mb-1 sm:mb-2">
+                <div className="p-1.5 sm:p-2 lg:p-3 bg-indigo-600 rounded-full mb-1 sm:mb-2">
                   <Users className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm font-medium text-blue-600 leading-tight">Bookings</p>
+                  <p className="text-xs sm:text-sm font-medium text-indigo-700 leading-tight">Bookings</p>
                   <p className="text-sm sm:text-lg lg:text-2xl font-bold text-gray-900">{userBookings.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg hover:shadow-xl transition-all duration-300">
+          <Card className="bg-gradient-to-br from-amber-50 to-amber-100 border-amber-200 shadow-lg hover:shadow-xl transition-all duration-300">
             <CardContent className="p-2 sm:p-3 lg:p-6">
               <div className="flex flex-col items-center text-center">
-                <div className="p-1.5 sm:p-2 lg:p-3 bg-yellow-600 rounded-full mb-1 sm:mb-2">
+                <div className="p-1.5 sm:p-2 lg:p-3 bg-amber-600 rounded-full mb-1 sm:mb-2">
                   <Trophy className="w-3 h-3 sm:w-4 sm:h-4 lg:w-6 lg:h-6 text-white" />
                 </div>
                 <div>
-                  <p className="text-xs sm:text-sm font-medium text-yellow-600 leading-tight">Handicap</p>
+                  <p className="text-xs sm:text-sm font-medium text-amber-700 leading-tight">Handicap</p>
                   <p className="text-sm sm:text-lg lg:text-2xl font-bold text-gray-900">{session.user.handicap}</p>
                 </div>
               </div>
