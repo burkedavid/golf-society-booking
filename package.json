@@ -4,9 +4,10 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "node scripts/init-db.js && prisma generate && prisma db push && next build",
     "start": "next start",
     "lint": "next lint",
+    "postinstall": "prisma generate",
     "db:push": "prisma db push",
     "db:studio": "prisma studio",
     "db:seed": "node prisma/seed.js"
@@ -41,7 +42,7 @@
     "react-hook-form": "^7.48.2",
     "tailwind-merge": "^2.2.0",
     "tailwindcss-animate": "^1.0.7",
-    "zod": "^3.22.4",
+    "zod": "^3.25.51",
     "zustand": "^4.4.7"
   },
   "devDependencies": {
