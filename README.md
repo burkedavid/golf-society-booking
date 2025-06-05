@@ -1,171 +1,167 @@
-# Irish Golf Society Scotland - Outing Management System
+# Irish Golf Society Scotland - Booking System
 
-A comprehensive Next.js web application for managing golf outings, member bookings, and event coordination for the Irish Golf Society Scotland.
+A comprehensive golf society management system built with Next.js, featuring member management, outing bookings, and meal coordination with golf clubs.
 
-## Features
+## 🏌️‍♂️ Features
 
-- **User Authentication**: Secure login system with role-based access (Admin/Member)
-- **Outing Management**: Create and manage golf outings with capacity limits and deadlines
-- **Booking System**: Members can book places for themselves and guests
-- **Menu Management**: Create and manage lunch/dinner menus for each outing
-- **Payment Tracking**: Track payment status for bookings
-- **Admin Dashboard**: Comprehensive overview of outings, bookings, and revenue
-- **Member Dashboard**: Personal booking history and profile management
+### Member Features
+- **Professional Dashboard** with upcoming outings and booking history
+- **Individual Meal Selection** for members and each guest
+- **Guest Management** with handicap tracking
+- **Bank Transfer Integration** with automated payment details
+- **Responsive Design** optimized for all devices
 
-## Technology Stack
+### Admin Features
+- **Complete Member Management** with handicap and contact information
+- **Outing Creation** with menu management and pricing
+- **Booking Management** with full editing capabilities
+- **Meal Summary for Catering** - detailed breakdown for golf club kitchens
+- **Payment Tracking** and status management
+- **Professional Reporting** for golf club coordination
 
-- **Frontend**: Next.js 14 with React 18
-- **Styling**: Tailwind CSS with shadcn/ui components
+### Golf Club Integration
+- **Detailed Meal Counts** with percentages for kitchen preparation
+- **Special Dietary Requirements** tracking
+- **Individual Player Information** including handicaps
+- **Professional Presentation** suitable for club coordination
+
+## 🛠️ Technology Stack
+
+- **Frontend**: Next.js 14, React, TypeScript
+- **Styling**: Tailwind CSS with custom golf-themed design
 - **Database**: SQLite with Prisma ORM
-- **Authentication**: NextAuth.js with credentials provider
-- **Forms**: React Hook Form with Zod validation
+- **Authentication**: NextAuth.js
+- **UI Components**: Radix UI primitives
 - **Icons**: Lucide React
-- **Date Handling**: date-fns
 
-## Getting Started
+## 🚀 Getting Started
 
 ### Prerequisites
-
 - Node.js 18+ 
 - npm or yarn
 
 ### Installation
 
-1. **Clone the repository**
-   ```bash
-   git clone <repository-url>
-   cd golf-society-booking
-   ```
+1. Clone the repository:
+```bash
+git clone https://github.com/yourusername/golf-society-booking.git
+cd golf-society-booking
+```
 
-2. **Install dependencies**
-   ```bash
-   npm install
-   ```
+2. Install dependencies:
+```bash
+npm install
+```
 
-3. **Set up the database**
-   ```bash
-   # Generate Prisma client
-   npx prisma generate
-   
-   # Push database schema
-   npm run db:push
-   
-   # Seed the database with test data
-   npm run db:seed
-   ```
+3. Set up environment variables:
+```bash
+cp .env.example .env.local
+```
 
-4. **Set up environment variables**
-   Create a `.env.local` file in the root directory:
-   ```env
-   NEXTAUTH_URL=http://localhost:3000
-   NEXTAUTH_SECRET=your-secret-key-here
-   ```
+4. Configure your `.env.local` file:
+```env
+DATABASE_URL="file:./dev.db"
+NEXTAUTH_URL="http://localhost:3000"
+NEXTAUTH_SECRET="your-secret-key"
+```
 
-5. **Run the development server**
-   ```bash
-   npm run dev
-   ```
+5. Set up the database:
+```bash
+npx prisma db push
+npx prisma db seed
+```
 
-6. **Open your browser**
-   Navigate to [http://localhost:3000](http://localhost:3000)
+6. Start the development server:
+```bash
+npm run dev
+```
 
-## Test Accounts
+Visit `http://localhost:3000` to see the application.
 
-After seeding the database, you can use these test accounts:
+## 📊 Default Accounts
 
 ### Admin Account
 - **Email**: admin@irishgolfsocietyscotland.com
 - **Password**: admin123
-- **Access**: Full system management
+- **Role**: Full administrative access
 
-### Member Accounts
-- **Email**: seamus@email.com | **Password**: member123
-- **Email**: paddy@email.com | **Password**: member123  
-- **Email**: brendan@email.com | **Password**: member123
-- **Access**: Member booking and profile management
+### Member Account
+- **Email**: seamus@email.com
+- **Password**: member123
+- **Role**: Standard member access
 
-## Database Management
-
-- **View database**: `npm run db:studio` (opens Prisma Studio)
-- **Reset database**: Delete `prisma/dev.db` and run `npm run db:push && npm run db:seed`
-
-## Project Structure
+## 🏗️ Project Structure
 
 ```
 ├── app/                    # Next.js app directory
+│   ├── admin/             # Admin dashboard and management
 │   ├── api/               # API routes
 │   ├── auth/              # Authentication pages
-│   ├── admin/             # Admin dashboard pages
-│   ├── member/            # Member dashboard pages
-│   └── globals.css        # Global styles
-├── components/            # React components
-│   └── ui/               # shadcn/ui components
-├── lib/                  # Utility functions
+│   ├── book/              # Booking system
+│   └── dashboard/         # Member dashboard
+├── components/            # Reusable React components
+│   └── ui/               # UI component library
+├── lib/                  # Utility functions and configurations
 ├── prisma/               # Database schema and migrations
-├── types/                # TypeScript type definitions
 └── public/               # Static assets
 ```
 
-## Key Features
+## 🎯 Key Features Explained
 
-### Admin Features
-- Create and manage golf outings
-- Set pricing for members and guests
-- Manage registration deadlines
-- Create lunch and dinner menus
-- View booking reports and attendee lists
-- Track payment status
-- Export attendee data
+### Meal Management System
+- **Individual Selection**: Each member and guest selects their own main course and dessert
+- **Admin Visibility**: Complete meal breakdown with counts and percentages
+- **Golf Club Integration**: Professional summary format for catering coordination
 
-### Member Features
-- Browse available outings
-- Book attendance with guest management
-- Select meals for member and guests
-- View booking history
-- Update profile and handicap
-- Track payment requirements
+### Member Management
+- **Comprehensive Profiles**: Name, email, phone, handicap, member number
+- **Password Management**: Admin can reset member passwords
+- **Booking History**: Complete tracking of all member bookings
 
-### Booking Process
-1. Member selects an outing
-2. Confirms attendance and adds guests
-3. Selects meals for all attendees
-4. Reviews booking summary and cost
-5. Receives payment instructions
-6. Admin tracks payment status
+### Booking System
+- **Real-time Availability**: Live capacity tracking with visual progress
+- **Guest Management**: Up to 3 guests per member with individual details
+- **Payment Integration**: Bank transfer details with unique references
 
-## Development
+## 🌐 Deployment
 
-### Database Schema
-The application uses SQLite with the following main models:
-- **User**: Member and admin accounts
-- **Outing**: Golf events with details and capacity
-- **Menu**: Lunch and dinner options for each outing
-- **Booking**: Member bookings with guests and meal selections
+### Vercel Deployment
+1. Push your code to GitHub
+2. Connect your GitHub repository to Vercel
+3. Configure environment variables in Vercel dashboard
+4. Deploy automatically on every push
 
-### Authentication
-- NextAuth.js with credentials provider
-- JWT-based sessions
-- Role-based access control
-- Secure password hashing with bcrypt
+### Environment Variables for Production
+```env
+DATABASE_URL="your-production-database-url"
+NEXTAUTH_URL="https://your-domain.vercel.app"
+NEXTAUTH_SECRET="your-production-secret"
+```
 
-### Styling
-- Tailwind CSS for utility-first styling
-- shadcn/ui for consistent component design
-- Responsive design for mobile and desktop
-- Green/white color scheme matching golf theme
+## 📝 Database Schema
 
-## Contributing
+The system uses a relational database with the following main entities:
+- **Users**: Members and admins with authentication
+- **Outings**: Golf events with pricing and capacity
+- **Bookings**: Member reservations with guest and meal details
+- **Menus**: Meal options for each outing
+
+## 🤝 Contributing
 
 1. Fork the repository
-2. Create a feature branch
-3. Make your changes
-4. Test thoroughly
-5. Submit a pull request
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
 
-## License
+## 📄 License
 
-This project is private and proprietary to the Irish Golf Society Scotland.
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
 
-## Support
+## 🏌️‍♂️ About Irish Golf Society Scotland
 
-For technical support or feature requests, please contact the development team. 
+A premier golf society organizing memorable golf experiences across Scotland's finest courses, combining competitive golf with excellent dining and camaraderie.
+
+---
+
+Built with ❤️ for the Irish Golf Society Scotland 

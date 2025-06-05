@@ -65,7 +65,18 @@ async function main() {
   // Create outings with realistic upcoming dates
   const lochLomondOuting = await prisma.outing.upsert({
     where: { id: 'loch-lomond-june-2025' },
-    update: {},
+    update: {
+      name: 'Loch Lomond (Carrick Golf Course)',
+      description: 'Scenic golf experience at Loch Lomond with excellent clubhouse dining',
+      date: new Date('2025-06-20'),
+      time: '09:30',
+      venue: 'Loch Lomond, Cameron House, G83 8QZ',
+      capacity: 44,
+      memberPrice: 90.00,
+      guestPrice: 105.00,
+      registrationDeadline: new Date('2025-06-15T23:59:59Z'),
+      status: 'open'
+    },
     create: {
       id: 'loch-lomond-june-2025',
       name: 'Loch Lomond (Carrick Golf Course)',
@@ -83,7 +94,18 @@ async function main() {
 
   const crudenBayOuting = await prisma.outing.upsert({
     where: { id: 'cruden-bay-august-2025' },
-    update: {},
+    update: {
+      name: 'Cruden Bay Golf Club',
+      description: 'Championship links golf on the dramatic Aberdeenshire coast',
+      date: new Date('2025-08-29'),
+      time: '10:00',
+      venue: 'Cruden Bay Golf Club, Peterhead AB42 0NN',
+      capacity: 40,
+      memberPrice: 0.00,
+      guestPrice: 0.00,
+      registrationDeadline: new Date('2025-08-24T23:59:59Z'),
+      status: 'open'
+    },
     create: {
       id: 'cruden-bay-august-2025',
       name: 'Cruden Bay Golf Club',

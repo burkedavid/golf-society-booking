@@ -10,6 +10,7 @@ import { Label } from '@/components/ui/label'
 import { Textarea } from '@/components/ui/textarea'
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select'
 import { UserMenu } from '@/components/user-menu'
+import { BankTransferModal } from '@/components/bank-transfer-modal'
 import { CalendarDays, Clock, MapPin, Users, PoundSterling, ArrowLeft, Utensils } from 'lucide-react'
 import Link from 'next/link'
 
@@ -40,28 +41,27 @@ export default function BookOuting({ params }: { params: { outingId: string } })
   const [outing, setOuting] = useState<Outing | null>(null)
   const [loading, setLoading] = useState(true)
   const [submitting, setSubmitting] = useState(false)
+  const [showBankModal, setShowBankModal] = useState(false)
+  const [bookingReference, setBookingReference] = useState('')
+  
+  // Form state
   const [guestCount, setGuestCount] = useState(0)
   const [guestNames, setGuestNames] = useState<string[]>([])
   const [guestHandicaps, setGuestHandicaps] = useState<number[]>([])
-  
-  // Separate meal choices for member and each guest
-  const [memberMainCourse, setMemberMainCourse] = useState('')
-  const [memberDessert, setMemberDessert] = useState('')
   const [guestMainCourses, setGuestMainCourses] = useState<string[]>([])
   const [guestDesserts, setGuestDesserts] = useState<string[]>([])
-  
+  const [memberMainCourse, setMemberMainCourse] = useState('')
+  const [memberDessert, setMemberDessert] = useState('')
   const [specialRequests, setSpecialRequests] = useState('')
 
   useEffect(() => {
-    if (status === 'unauthenticated') {
+    if (status === 'loading') return
+    if (!session) {
       router.push('/auth/signin')
       return
     }
-
-    if (status === 'authenticated') {
-      fetchOuting()
-    }
-  }, [status, params.outingId])
+    fetchOuting()
+  }, [session, status])
 
   const fetchOuting = async () => {
     try {
@@ -69,8 +69,6 @@ export default function BookOuting({ params }: { params: { outingId: string } })
       if (response.ok) {
         const data = await response.json()
         setOuting(data)
-      } else {
-        console.error('Failed to fetch outing')
       }
     } catch (error) {
       console.error('Error fetching outing:', error)
@@ -81,39 +79,35 @@ export default function BookOuting({ params }: { params: { outingId: string } })
 
   const handleGuestCountChange = (count: number) => {
     setGuestCount(count)
-    const newGuestNames = Array(count).fill('').map((_, i) => guestNames[i] || '')
-    const newGuestHandicaps = Array(count).fill(28).map((_, i) => guestHandicaps[i] || 28)
-    const newGuestMainCourses = Array(count).fill('').map((_, i) => guestMainCourses[i] || '')
-    const newGuestDesserts = Array(count).fill('').map((_, i) => guestDesserts[i] || '')
-    
-    setGuestNames(newGuestNames)
-    setGuestHandicaps(newGuestHandicaps)
-    setGuestMainCourses(newGuestMainCourses)
-    setGuestDesserts(newGuestDesserts)
+    // Initialize arrays for new guest count
+    setGuestNames(Array(count).fill(''))
+    setGuestHandicaps(Array(count).fill(28))
+    setGuestMainCourses(Array(count).fill(''))
+    setGuestDesserts(Array(count).fill(''))
   }
 
   const handleGuestNameChange = (index: number, name: string) => {
-    const newGuestNames = [...guestNames]
-    newGuestNames[index] = name
-    setGuestNames(newGuestNames)
+    const newNames = [...guestNames]
+    newNames[index] = name
+    setGuestNames(newNames)
   }
 
   const handleGuestHandicapChange = (index: number, handicap: number) => {
-    const newGuestHandicaps = [...guestHandicaps]
-    newGuestHandicaps[index] = handicap
-    setGuestHandicaps(newGuestHandicaps)
+    const newHandicaps = [...guestHandicaps]
+    newHandicaps[index] = handicap
+    setGuestHandicaps(newHandicaps)
   }
 
   const handleGuestMainCourseChange = (index: number, mainCourse: string) => {
-    const newGuestMainCourses = [...guestMainCourses]
-    newGuestMainCourses[index] = mainCourse
-    setGuestMainCourses(newGuestMainCourses)
+    const newMainCourses = [...guestMainCourses]
+    newMainCourses[index] = mainCourse
+    setGuestMainCourses(newMainCourses)
   }
 
   const handleGuestDessertChange = (index: number, dessert: string) => {
-    const newGuestDesserts = [...guestDesserts]
-    newGuestDesserts[index] = dessert
-    setGuestDesserts(newGuestDesserts)
+    const newDesserts = [...guestDesserts]
+    newDesserts[index] = dessert
+    setGuestDesserts(newDesserts)
   }
 
   const calculateTotal = () => {
@@ -152,7 +146,11 @@ export default function BookOuting({ params }: { params: { outingId: string } })
       })
 
       if (response.ok) {
-        router.push('/dashboard?booking=success')
+        const booking = await response.json()
+        // Generate a booking reference (using booking ID or a custom format)
+        const reference = `IGS-${booking.id.slice(-8).toUpperCase()}`
+        setBookingReference(reference)
+        setShowBankModal(true)
       } else {
         const error = await response.json()
         alert(`Booking failed: ${error.message}`)
@@ -163,6 +161,11 @@ export default function BookOuting({ params }: { params: { outingId: string } })
     } finally {
       setSubmitting(false)
     }
+  }
+
+  const handleModalClose = () => {
+    setShowBankModal(false)
+    router.push('/dashboard?booking=success')
   }
 
   if (loading) {
@@ -506,6 +509,16 @@ export default function BookOuting({ params }: { params: { outingId: string } })
           </div>
         </div>
       </div>
+
+      {showBankModal && (
+        <BankTransferModal
+          isOpen={showBankModal}
+          amount={calculateTotal()}
+          bookingReference={bookingReference}
+          memberName={session?.user?.name || ''}
+          onClose={handleModalClose}
+        />
+      )}
     </div>
   )
 } 

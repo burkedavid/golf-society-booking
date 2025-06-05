@@ -222,10 +222,15 @@ export default async function Dashboard() {
                       <div className="text-right ml-8">
                         <div className="bg-green-600 text-white rounded-xl p-6 shadow-lg">
                           <p className="text-sm text-green-100 mb-1">Member Price</p>
-                          <div className="text-3xl font-bold mb-4">£{outing.memberPrice}</div>
+                          <div className="text-3xl font-bold mb-4">
+                            {outing.memberPrice === 0 ? 'TBC' : `£${outing.memberPrice}`}
+                          </div>
                           <Link href={`/book/${outing.id}`}>
-                            <Button className="bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-                              Book Now
+                            <Button 
+                              className="bg-white text-green-600 hover:bg-green-50 font-semibold px-8 py-3 rounded-lg shadow-md hover:shadow-lg transition-all duration-300"
+                              disabled={outing.memberPrice === 0}
+                            >
+                              {outing.memberPrice === 0 ? 'Coming Soon' : 'Book Now'}
                             </Button>
                           </Link>
                         </div>

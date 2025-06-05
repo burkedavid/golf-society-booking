@@ -1,5 +1,0 @@
-{
-  "/admin/dashboard/page": "app/admin/dashboard/page.js",
-  "/admin/outings/create/page": "app/admin/outings/create/page.js",
-  "/auth/signin/page": "app/auth/signin/page.js"
-}

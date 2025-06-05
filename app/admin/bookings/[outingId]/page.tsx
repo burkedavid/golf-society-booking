@@ -101,6 +101,142 @@ export default async function AdminBookingsPage({ params }: { params: { outingId
           </CardContent>
         </Card>
 
+        {/* Meal Summary for Catering */}
+        {outing.bookings.length > 0 && (
+          <Card className="mb-8 shadow-xl border-0 bg-white/80 backdrop-blur-sm">
+            <CardHeader className="bg-gradient-to-r from-orange-600 to-red-600 text-white rounded-t-lg">
+              <CardTitle className="flex items-center">
+                <Utensils className="w-5 h-5 mr-2" />
+                Meal Summary for Golf Club Catering
+              </CardTitle>
+              <CardDescription className="text-orange-100">
+                Complete breakdown of all meal choices for kitchen preparation
+              </CardDescription>
+            </CardHeader>
+            <CardContent className="p-6">
+              {(() => {
+                // Calculate meal totals
+                const mealTotals = {
+                  mainCourse: {} as Record<string, number>,
+                  dessert: {} as Record<string, number>
+                }
+
+                // Count member meals
+                outing.bookings.forEach((booking: any) => {
+                  const memberMeals = JSON.parse(booking.memberMeals || '{}')
+                  if (memberMeals.mainCourse) {
+                    mealTotals.mainCourse[memberMeals.mainCourse] = (mealTotals.mainCourse[memberMeals.mainCourse] || 0) + 1
+                  }
+                  if (memberMeals.dessert) {
+                    mealTotals.dessert[memberMeals.dessert] = (mealTotals.dessert[memberMeals.dessert] || 0) + 1
+                  }
+
+                  // Count guest meals
+                  const guestMeals = JSON.parse(booking.guestMeals || '[]')
+                  guestMeals.forEach((guestMeal: any) => {
+                    if (guestMeal.mainCourse) {
+                      mealTotals.mainCourse[guestMeal.mainCourse] = (mealTotals.mainCourse[guestMeal.mainCourse] || 0) + 1
+                    }
+                    if (guestMeal.dessert) {
+                      mealTotals.dessert[guestMeal.dessert] = (mealTotals.dessert[guestMeal.dessert] || 0) + 1
+                    }
+                  })
+                })
+
+                const totalMainCourses = Object.values(mealTotals.mainCourse).reduce((sum: number, count: number) => sum + count, 0)
+                const totalDesserts = Object.values(mealTotals.dessert).reduce((sum: number, count: number) => sum + count, 0)
+
+                return (
+                  <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    {/* Main Course Summary */}
+                    <div className="bg-green-50 rounded-xl p-6 border border-green-200">
+                      <h3 className="text-xl font-bold text-green-900 mb-4 flex items-center">
+                        <Utensils className="w-5 h-5 mr-2" />
+                        Main Course Orders ({totalMainCourses} total)
+                      </h3>
+                      <div className="space-y-3">
+                        {Object.entries(mealTotals.mainCourse)
+                          .sort(([,a], [,b]) => (b as number) - (a as number))
+                          .map(([dish, count]) => (
+                          <div key={dish} className="bg-white rounded-lg p-4 border border-green-200">
+                            <div className="flex justify-between items-center">
+                              <span className="font-medium text-gray-900">{dish}</span>
+                              <div className="flex items-center space-x-2">
+                                <span className="bg-green-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                  {count}
+                                </span>
+                                <span className="text-sm text-gray-500">
+                                  ({Math.round((count as number / totalMainCourses) * 100)}%)
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {Object.keys(mealTotals.mainCourse).length === 0 && (
+                          <p className="text-green-700 italic">No main course selections yet</p>
+                        )}
+                      </div>
+                    </div>
+
+                    {/* Dessert Summary */}
+                    <div className="bg-blue-50 rounded-xl p-6 border border-blue-200">
+                      <h3 className="text-xl font-bold text-blue-900 mb-4 flex items-center">
+                        <Utensils className="w-5 h-5 mr-2" />
+                        Dessert Orders ({totalDesserts} total)
+                      </h3>
+                      <div className="space-y-3">
+                        {Object.entries(mealTotals.dessert)
+                          .sort(([,a], [,b]) => (b as number) - (a as number))
+                          .map(([dish, count]) => (
+                          <div key={dish} className="bg-white rounded-lg p-4 border border-blue-200">
+                            <div className="flex justify-between items-center">
+                              <span className="font-medium text-gray-900">{dish}</span>
+                              <div className="flex items-center space-x-2">
+                                <span className="bg-blue-600 text-white px-3 py-1 rounded-full text-sm font-bold">
+                                  {count}
+                                </span>
+                                <span className="text-sm text-gray-500">
+                                  ({Math.round((count as number / totalDesserts) * 100)}%)
+                                </span>
+                              </div>
+                            </div>
+                          </div>
+                        ))}
+                        {Object.keys(mealTotals.dessert).length === 0 && (
+                          <p className="text-blue-700 italic">No dessert selections yet</p>
+                        )}
+                      </div>
+                    </div>
+                  </div>
+                )
+              })()}
+
+              {/* Special Dietary Requirements Summary */}
+              {(() => {
+                const specialRequests = outing.bookings
+                  .map((booking: any) => JSON.parse(booking.memberMeals || '{}').specialRequests)
+                  .filter(Boolean)
+
+                if (specialRequests.length > 0) {
+                  return (
+                    <div className="mt-8 bg-yellow-50 rounded-xl p-6 border border-yellow-200">
+                      <h3 className="text-xl font-bold text-yellow-900 mb-4">Special Dietary Requirements</h3>
+                      <div className="space-y-3">
+                        {specialRequests.map((request: string, index: number) => (
+                          <div key={index} className="bg-white rounded-lg p-3 border border-yellow-200">
+                            <p className="text-gray-900">{request}</p>
+                          </div>
+                        ))}
+                      </div>
+                    </div>
+                  )
+                }
+                return null
+              })()}
+            </CardContent>
+          </Card>
+        )}
+
         {/* Bookings List */}
         <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
           <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg">
