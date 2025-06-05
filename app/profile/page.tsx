@@ -20,10 +20,10 @@ export default async function ProfilePage() {
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
       <OrientationIndicator />
       
-      {/* Header */}
+      {/* Header - Mobile Optimized */}
       <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center py-4 sm:py-6">
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 sm:py-6 space-y-3 sm:space-y-0">
             <div className="flex items-center space-x-2 sm:space-x-4">
               <Link href="/dashboard">
                 <Button variant="ghost" size="sm" className="text-white hover:bg-green-700">
@@ -46,19 +46,19 @@ export default async function ProfilePage() {
         </div>
       </div>
 
-      {/* Main Content */}
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* Main Content - Mobile Optimized */}
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         <Card className="shadow-xl border-0 bg-white/90 backdrop-blur-sm">
-          <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg">
-            <CardTitle className="text-2xl flex items-center">
-              <Settings className="w-6 h-6 mr-3" />
+          <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg p-4 sm:p-6">
+            <CardTitle className="text-lg sm:text-2xl flex items-center">
+              <Settings className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
               Profile Settings
             </CardTitle>
-            <CardDescription className="text-green-100">
+            <CardDescription className="text-green-100 text-sm sm:text-base">
               Keep your information up to date for the best experience
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-8">
+          <CardContent className="p-4 sm:p-8">
             <ProfileClient user={session.user} />
           </CardContent>
         </Card>
