@@ -56,13 +56,13 @@ export function AdminMembersClient({ members, totalMembers }: AdminMembersClient
 
   return (
     <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-      <CardHeader className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-lg p-4 sm:p-6">
+      <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg p-4 sm:p-6">
         <CardTitle className="flex items-center text-lg sm:text-2xl">
           <Users className="w-4 h-4 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
           <span className="hidden sm:inline">All Members ({totalMembers})</span>
           <span className="sm:hidden">Members ({totalMembers})</span>
         </CardTitle>
-        <CardDescription className="text-indigo-100 text-sm sm:text-base">
+        <CardDescription className="text-blue-100 text-sm sm:text-base">
           <span className="hidden sm:inline">Manage member profiles, handicaps, contact information, and account settings</span>
           <span className="sm:hidden">Manage member profiles and settings</span>
         </CardDescription>
