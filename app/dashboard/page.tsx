@@ -8,6 +8,7 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/com
 import { Button } from '@/components/ui/button'
 import { ClientUserMenu } from '@/components/client-user-menu'
 import { CalendarDays, Users, Clock, MapPin, Trophy, Star, TrendingUp } from 'lucide-react'
+import OrientationIndicator from '@/components/orientation-indicator'
 
 export default async function Dashboard() {
   const session = await getServerSession(authOptions)
@@ -55,6 +56,9 @@ export default async function Dashboard() {
 
   return (
     <div className="min-h-screen bg-gradient-to-br from-green-50 via-white to-emerald-50">
+      {/* Orientation Prompt for Mobile */}
+      <OrientationIndicator />
+      
       {/* Header with Golf Theme */}
       <div className="bg-gradient-to-r from-green-800 via-green-700 to-emerald-800 shadow-xl">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -109,45 +113,45 @@ export default async function Dashboard() {
 
       {/* Main Content */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
-        {/* Stats Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
+        {/* Mobile-Optimized Stats Cards */}
+        <div className="grid grid-cols-2 md:grid-cols-3 gap-3 sm:gap-4 lg:gap-6 mb-8 sm:mb-12">
           <Card className="bg-gradient-to-br from-green-50 to-emerald-50 border-green-200 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="p-3 bg-green-600 rounded-full">
-                  <CalendarDays className="w-6 h-6 text-white" />
+            <CardContent className="p-3 sm:p-4 lg:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center">
+                <div className="p-2 sm:p-3 bg-green-600 rounded-full mb-2 sm:mb-0 self-center sm:self-auto">
+                  <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-green-600">Available Outings</p>
-                  <p className="text-2xl font-bold text-gray-900">{outings.length}</p>
+                <div className="sm:ml-3 lg:ml-4 text-center sm:text-left">
+                  <p className="text-xs sm:text-sm font-medium text-green-600 leading-tight">Available Outings</p>
+                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{outings.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
           <Card className="bg-gradient-to-br from-blue-50 to-indigo-50 border-blue-200 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="p-3 bg-blue-600 rounded-full">
-                  <Users className="w-6 h-6 text-white" />
+            <CardContent className="p-3 sm:p-4 lg:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center">
+                <div className="p-2 sm:p-3 bg-blue-600 rounded-full mb-2 sm:mb-0 self-center sm:self-auto">
+                  <Users className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-blue-600">My Bookings</p>
-                  <p className="text-2xl font-bold text-gray-900">{userBookings.length}</p>
+                <div className="sm:ml-3 lg:ml-4 text-center sm:text-left">
+                  <p className="text-xs sm:text-sm font-medium text-blue-600 leading-tight">My Bookings</p>
+                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{userBookings.length}</p>
                 </div>
               </div>
             </CardContent>
           </Card>
           
-          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg hover:shadow-xl transition-all duration-300">
-            <CardContent className="p-6">
-              <div className="flex items-center">
-                <div className="p-3 bg-yellow-600 rounded-full">
-                  <Trophy className="w-6 h-6 text-white" />
+          <Card className="bg-gradient-to-br from-yellow-50 to-orange-50 border-yellow-200 shadow-lg hover:shadow-xl transition-all duration-300 col-span-2 md:col-span-1">
+            <CardContent className="p-3 sm:p-4 lg:p-6">
+              <div className="flex flex-col sm:flex-row sm:items-center">
+                <div className="p-2 sm:p-3 bg-yellow-600 rounded-full mb-2 sm:mb-0 self-center sm:self-auto">
+                  <Trophy className="w-4 h-4 sm:w-5 sm:h-5 lg:w-6 lg:h-6 text-white" />
                 </div>
-                <div className="ml-4">
-                  <p className="text-sm font-medium text-yellow-600">Handicap</p>
-                  <p className="text-2xl font-bold text-gray-900">{session.user.handicap}</p>
+                <div className="sm:ml-3 lg:ml-4 text-center sm:text-left">
+                  <p className="text-xs sm:text-sm font-medium text-yellow-600 leading-tight">Handicap</p>
+                  <p className="text-lg sm:text-xl lg:text-2xl font-bold text-gray-900">{session.user.handicap}</p>
                 </div>
               </div>
             </CardContent>
