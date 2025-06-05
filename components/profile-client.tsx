@@ -73,36 +73,36 @@ export function ProfileClient({ user }: ProfileClientProps) {
     <div className="space-y-8">
       {/* Member Information Display */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <Card className="bg-blue-50 border-blue-200">
+        <Card className="bg-green-50 border-green-200">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center text-blue-800">
+            <CardTitle className="text-lg flex items-center text-green-800">
               <User className="w-5 h-5 mr-2" />
               Member Details
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
-              <Label className="text-sm font-medium text-blue-700">Full Name</Label>
+              <Label className="text-sm font-medium text-green-700">Full Name</Label>
               <p className="text-gray-900 font-semibold">{user.name}</p>
             </div>
             <div>
-              <Label className="text-sm font-medium text-blue-700">Member Number</Label>
+              <Label className="text-sm font-medium text-green-700">Member Number</Label>
               <p className="text-gray-900 font-semibold">#{user.memberNumber}</p>
             </div>
           </CardContent>
         </Card>
 
-        <Card className="bg-green-50 border-green-200">
+        <Card className="bg-emerald-50 border-emerald-200">
           <CardHeader className="pb-3">
-            <CardTitle className="text-lg flex items-center text-green-800">
+            <CardTitle className="text-lg flex items-center text-emerald-800">
               <Trophy className="w-5 h-5 mr-2" />
               Golf Profile
             </CardTitle>
           </CardHeader>
           <CardContent className="space-y-3">
             <div>
-              <Label className="text-sm font-medium text-green-700">Current Handicap</Label>
-              <p className="text-2xl font-bold text-green-800">{user.handicap}</p>
+              <Label className="text-sm font-medium text-emerald-700">Current Handicap</Label>
+              <p className="text-2xl font-bold text-emerald-800">{user.handicap}</p>
             </div>
           </CardContent>
         </Card>
@@ -124,7 +124,7 @@ export function ProfileClient({ user }: ProfileClientProps) {
             {/* Email */}
             <div className="space-y-2">
               <Label htmlFor="email" className="flex items-center text-sm font-medium">
-                <Mail className="w-4 h-4 mr-2 text-blue-600" />
+                <Mail className="w-4 h-4 mr-2 text-green-600" />
                 Email Address
               </Label>
               <Input
@@ -143,7 +143,7 @@ export function ProfileClient({ user }: ProfileClientProps) {
             {/* Phone */}
             <div className="space-y-2">
               <Label htmlFor="phone" className="flex items-center text-sm font-medium">
-                <Phone className="w-4 h-4 mr-2 text-green-600" />
+                <Phone className="w-4 h-4 mr-2 text-emerald-600" />
                 Phone Number
               </Label>
               <Input
@@ -196,7 +196,7 @@ export function ProfileClient({ user }: ProfileClientProps) {
               <Button
                 type="submit"
                 disabled={isSubmitting}
-                className="bg-blue-600 hover:bg-blue-700 text-white px-8 py-2"
+                className="bg-green-600 hover:bg-green-700 text-white px-8 py-2"
               >
                 {isSubmitting ? (
                   <>
