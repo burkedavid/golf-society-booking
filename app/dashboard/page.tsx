@@ -209,7 +209,7 @@ export default async function Dashboard() {
                         </h3>
                         <p className="text-gray-600 mb-4 sm:mb-6 text-sm sm:text-lg leading-relaxed">{outing.description}</p>
                         
-                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-3 sm:gap-6 mb-4 sm:mb-6">
+                        <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-6 mb-4 sm:mb-6">
                           <div className="bg-blue-50 rounded-lg p-3 sm:p-4">
                             <div className="flex items-center mb-1 sm:mb-2">
                               <CalendarDays className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-blue-600" />
@@ -227,7 +227,7 @@ export default async function Dashboard() {
                             <p className="text-gray-900 font-medium text-sm sm:text-base">{outing.venue}</p>
                           </div>
                           
-                          <div className="bg-yellow-50 rounded-lg p-3 sm:p-4 sm:col-span-2 md:col-span-1">
+                          <div className="bg-yellow-50 rounded-lg p-3 sm:p-4">
                             <div className="flex items-center mb-1 sm:mb-2">
                               <Clock className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-yellow-600" />
                               <span className="font-semibold text-yellow-800 text-sm sm:text-base">Registration</span>
@@ -236,6 +236,15 @@ export default async function Dashboard() {
                               {daysUntilDeadline > 0 ? `${daysUntilDeadline} days left` : 'Deadline passed'}
                             </p>
                             <p className="text-gray-600 text-xs sm:text-sm">Until {formatDateUK(outing.registrationDeadline)}</p>
+                          </div>
+
+                          <div className="bg-green-50 rounded-lg p-3 sm:p-4">
+                            <div className="flex items-center mb-1 sm:mb-2">
+                              <PoundSterling className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-600" />
+                              <span className="font-semibold text-green-800 text-sm sm:text-base">Pricing</span>
+                            </div>
+                            <p className="text-gray-900 font-medium text-sm sm:text-base">£{outing.memberPrice} member</p>
+                            <p className="text-gray-600 text-xs sm:text-sm">£{outing.guestPrice} guest</p>
                           </div>
                         </div>
                       </div>
