@@ -8,6 +8,7 @@ import { Button } from '@/components/ui/button'
 import { ClientUserMenu } from '@/components/client-user-menu'
 import { MemberEditModal } from '@/components/member-edit-modal'
 import { PasswordResetButton } from '@/components/password-reset-button'
+import { AddMemberModal } from '@/components/add-member-modal'
 import { ArrowLeft, Edit, RotateCcw, Users, Mail, Phone, Trophy, UserPlus, CalendarDays, Star, PoundSterling, UserCog } from 'lucide-react'
 import { formatDateUK } from '@/lib/utils'
 
@@ -93,10 +94,7 @@ export default async function MembersPage() {
               </div>
             </div>
             <div className="flex items-center space-x-4">
-              <Button className="bg-blue-600 hover:bg-blue-700 text-white">
-                <UserPlus className="w-4 h-4 mr-2" />
-                Add New Member
-              </Button>
+              <AddMemberModal />
               <ClientUserMenu />
             </div>
           </div>
