@@ -6,8 +6,8 @@ generator client {
 }
 
 datasource db {
-  provider = "sqlite"
-  url      = "file:./dev.db"
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
 }
 
 model User {
@@ -37,7 +37,7 @@ model Outing {
   memberPrice          Float
   guestPrice           Float
   registrationDeadline DateTime
-  status               String    @default("open") // 'open' | 'closed' | 'cancelled'
+  status               String    @default("active") // 'open' | 'closed' | 'cancelled'
   createdAt            DateTime  @default(now())
   updatedAt            DateTime  @updatedAt
   bookings             Booking[]
