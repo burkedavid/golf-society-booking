@@ -138,75 +138,75 @@ export default async function AdminDashboard() {
       </div>
 
       {/* Main Content */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 sm:py-12">
         {/* Mobile-Optimized Admin Stats Cards */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-2 sm:gap-3 lg:gap-6 mb-6 sm:mb-8 lg:mb-12">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-3 lg:gap-6 mb-8 sm:mb-8 lg:mb-12">
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
-              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
-                <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Total </span>Outings
+            <CardHeader className="bg-gradient-to-r from-green-600 to-emerald-600 text-white rounded-t-lg p-3 sm:p-3 lg:p-4">
+              <CardTitle className="text-sm sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <CalendarDays className="w-4 h-4 sm:w-4 sm:h-4 mr-2 sm:mr-2" />
+                <span className="sm:hidden lg:inline">Total </span>Outings
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
-              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">{outings.length}</div>
-              <p className="text-xs sm:text-sm text-gray-600">Active events</p>
+            <CardContent className="p-4 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">{outings.length}</div>
+              <p className="text-sm sm:text-sm text-gray-600">Active events</p>
             </CardContent>
           </Card>
 
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
-              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
-                <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Total </span>Members
+            <CardHeader className="bg-gradient-to-r from-blue-600 to-indigo-600 text-white rounded-t-lg p-3 sm:p-3 lg:p-4">
+              <CardTitle className="text-sm sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <Users className="w-4 h-4 sm:w-4 sm:h-4 mr-2 sm:mr-2" />
+                <span className="sm:hidden lg:inline">Total </span>Members
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
-              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">{totalMembers}</div>
-              <p className="text-xs sm:text-sm text-gray-600">Registered</p>
+            <CardContent className="p-4 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">{totalMembers}</div>
+              <p className="text-sm sm:text-sm text-gray-600">Registered</p>
             </CardContent>
           </Card>
 
           <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300">
-            <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
-              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
-                <Trophy className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Total </span>Bookings
+            <CardHeader className="bg-gradient-to-r from-purple-600 to-pink-600 text-white rounded-t-lg p-3 sm:p-3 lg:p-4">
+              <CardTitle className="text-sm sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <Trophy className="w-4 h-4 sm:w-4 sm:h-4 mr-2 sm:mr-2" />
+                <span className="sm:hidden lg:inline">Total </span>Bookings
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
-              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">{totalBookings}</div>
-              <p className="text-xs sm:text-sm text-gray-600">All time</p>
+            <CardContent className="p-4 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">{totalBookings}</div>
+              <p className="text-sm sm:text-sm text-gray-600">All time</p>
             </CardContent>
           </Card>
 
-          <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 col-span-2 lg:col-span-1">
-            <CardHeader className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-t-lg p-2 sm:p-3 lg:p-4">
-              <CardTitle className="text-xs sm:text-sm font-medium flex items-center justify-center lg:justify-start">
-                <PoundSterling className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
-                <span className="hidden sm:inline">Total </span>Revenue
+          <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm hover:shadow-2xl transition-all duration-300 sm:col-span-2 lg:col-span-1">
+            <CardHeader className="bg-gradient-to-r from-yellow-600 to-orange-600 text-white rounded-t-lg p-3 sm:p-3 lg:p-4">
+              <CardTitle className="text-sm sm:text-sm font-medium flex items-center justify-center lg:justify-start">
+                <PoundSterling className="w-4 h-4 sm:w-4 sm:h-4 mr-2 sm:mr-2" />
+                <span className="sm:hidden lg:inline">Total </span>Revenue
               </CardTitle>
             </CardHeader>
-            <CardContent className="p-2 sm:p-4 lg:p-6 text-center lg:text-left">
-              <div className="text-lg sm:text-2xl lg:text-3xl font-bold text-gray-900">£{totalRevenue._sum.totalCost?.toFixed(2) || '0.00'}</div>
-              <p className="text-xs sm:text-sm text-gray-600">All time revenue</p>
+            <CardContent className="p-4 sm:p-4 lg:p-6 text-center lg:text-left">
+              <div className="text-xl sm:text-2xl lg:text-3xl font-bold text-gray-900">£{totalRevenue._sum.totalCost?.toFixed(2) || '0.00'}</div>
+              <p className="text-sm sm:text-sm text-gray-600">All time revenue</p>
             </CardContent>
           </Card>
         </div>
 
         {/* Enhanced Outings List */}
         <Card className="shadow-xl border-0 bg-white/80 backdrop-blur-sm">
-          <CardHeader className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-lg">
-            <CardTitle className="text-2xl flex items-center">
-              <CalendarDays className="w-6 h-6 mr-3" />
+          <CardHeader className="bg-gradient-to-r from-indigo-600 to-purple-600 text-white rounded-t-lg p-4 sm:p-6">
+            <CardTitle className="text-xl sm:text-2xl flex items-center">
+              <CalendarDays className="w-5 h-5 sm:w-6 sm:h-6 mr-2 sm:mr-3" />
               Upcoming Outings
             </CardTitle>
-            <CardDescription className="text-indigo-100">
+            <CardDescription className="text-indigo-100 text-sm sm:text-base">
               Manage your golf outings and view detailed booking information
             </CardDescription>
           </CardHeader>
-          <CardContent className="p-8">
-            <div className="space-y-6">
+          <CardContent className="p-4 sm:p-8">
+            <div className="space-y-4 sm:space-y-6">
               {outings.map((outing: any) => {
                 // Calculate total people (members + guests) not just bookings
                 const totalPeople = outing.bookings.reduce((total: number, booking: any) => {
@@ -217,51 +217,51 @@ export default async function AdminDashboard() {
                 const progressPercentage = (totalPeople / outing.capacity) * 100
 
                 return (
-                  <div key={outing.id} className="bg-gradient-to-r from-white to-gray-50 border-2 border-gray-100 rounded-xl p-6 hover:shadow-lg hover:border-green-300 transition-all duration-300">
-                    <div className="flex justify-between items-start mb-6">
+                  <div key={outing.id} className="bg-gradient-to-r from-white to-gray-50 border-2 border-gray-100 rounded-xl p-4 sm:p-6 hover:shadow-lg hover:border-green-300 transition-all duration-300">
+                    <div className="flex flex-col lg:flex-row lg:justify-between lg:items-start space-y-4 lg:space-y-0 mb-4 sm:mb-6">
                       <div className="flex-1">
-                        <h3 className="text-xl font-bold text-gray-900 mb-2 flex items-center">
-                          <Trophy className="w-5 h-5 mr-2 text-green-600" />
+                        <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-2 flex items-center">
+                          <Trophy className="w-4 h-4 sm:w-5 sm:h-5 mr-2 text-green-600" />
                           {outing.name}
                         </h3>
-                        <p className="text-gray-600 mb-4">{outing.description}</p>
-                        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 text-sm">
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <CalendarDays className="w-4 h-4 mr-2 text-green-600" />
+                        <p className="text-gray-600 mb-3 sm:mb-4 text-sm sm:text-base">{outing.description}</p>
+                        <div className="grid grid-cols-2 sm:grid-cols-2 md:grid-cols-4 gap-3 sm:gap-4 text-sm">
+                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm">
+                            <CalendarDays className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-green-600" />
                             <div>
                               <p className="text-xs text-gray-500 uppercase">Date</p>
-                              <p className="font-semibold">{formatDateUK(outing.date)}</p>
+                              <p className="font-semibold text-xs sm:text-sm">{formatDateUK(outing.date)}</p>
                             </div>
                           </div>
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <div className="w-4 h-4 mr-2 text-blue-600">🕐</div>
+                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm">
+                            <div className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-blue-600">🕐</div>
                             <div>
                               <p className="text-xs text-gray-500 uppercase">Time</p>
-                              <p className="font-semibold">{outing.time}</p>
+                              <p className="font-semibold text-xs sm:text-sm">{outing.time}</p>
                             </div>
                           </div>
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <div className="w-4 h-4 mr-2 text-red-600">📍</div>
+                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm col-span-2 sm:col-span-2 md:col-span-1">
+                            <div className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-red-600">📍</div>
                             <div>
                               <p className="text-xs text-gray-500 uppercase">Venue</p>
-                              <p className="font-semibold text-xs">{outing.venue}</p>
+                              <p className="font-semibold text-xs sm:text-sm truncate">{outing.venue}</p>
                             </div>
                           </div>
-                          <div className="flex items-center bg-white rounded-lg p-3 shadow-sm">
-                            <Users className="w-4 h-4 mr-2 text-purple-600" />
+                          <div className="flex items-center bg-white rounded-lg p-2 sm:p-3 shadow-sm">
+                            <Users className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2 text-purple-600" />
                             <div>
                               <p className="text-xs text-gray-500 uppercase">Capacity</p>
-                              <p className="font-semibold">{totalPeople}/{outing.capacity}</p>
+                              <p className="font-semibold text-xs sm:text-sm">{totalPeople}/{outing.capacity}</p>
                             </div>
                           </div>
                         </div>
                       </div>
                       
-                      <div className="text-right ml-6">
-                        <div className="bg-green-600 text-white rounded-lg p-4 shadow-md mb-3">
+                      <div className="flex flex-col space-y-3 lg:text-right lg:ml-6 lg:flex-shrink-0">
+                        <div className="bg-green-600 text-white rounded-lg p-3 sm:p-4 shadow-md">
                           <div className="text-center">
                             {outing.memberPrice === 0 && outing.guestPrice === 0 ? (
-                              <div className="text-lg font-bold text-green-100">
+                              <div className="text-base sm:text-lg font-bold text-green-100">
                                 TBC
                               </div>
                             ) : (
