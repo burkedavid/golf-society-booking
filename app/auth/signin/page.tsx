@@ -401,30 +401,30 @@ export default function SignInPage() {
                         />
                       </div>
                     </div>
+                  </div>
 
-                    <div>
-                      <label htmlFor="signup-proposing-member" className="block text-sm font-semibold text-gray-700 mb-2">
-                        Member Proposing Membership (Optional)
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Users className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                          id="signup-proposing-member"
-                          type="text"
-                          value={signUpProposingMember}
-                          onChange={(e) => setSignUpProposingMember(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
-                          placeholder="e.g. Seamus O'Connor"
-                        />
+                  <div>
+                    <label htmlFor="signup-proposing-member" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Member Referral (Optional)
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Users className="h-5 w-5 text-gray-400" />
                       </div>
+                      <input
+                        id="signup-proposing-member"
+                        type="text"
+                        value={signUpProposingMember}
+                        onChange={(e) => setSignUpProposingMember(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
+                        placeholder="e.g. Seamus O'Connor"
+                      />
                     </div>
                   </div>
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                     <p className="text-xs text-blue-700">
-                      <strong>Note:</strong> You can update your handicap, phone number, place of birth, home golf club, and proposing member details later in your profile. 
+                      <strong>Note:</strong> You can update your handicap, phone number, place of birth, home golf club, and member referral details later in your profile. 
                       Email, password, and full name are required to get started.
                     </p>
                   </div>
