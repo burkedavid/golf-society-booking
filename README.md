@@ -13,6 +13,7 @@ A comprehensive golf society management system built with Next.js, featuring mem
 - **Enhanced Desktop Layout** - Improved spacing and visual hierarchy for desktop users
 - **Bank Transfer Integration** - Automated payment details with copy-to-clipboard functionality
 - **Professional Sign-in/Sign-up** - Tabbed authentication with new member registration
+- **📱 PWA Support** - Install as app on phone with custom Irish Golf Society icon
 
 ### 🆕 **Member Registration System**
 - **Self-Service Registration** - New members can sign up directly from the sign-in page
@@ -29,6 +30,7 @@ A comprehensive golf society management system built with Next.js, featuring mem
 - **Outing Creation** - Create outings with custom menus and pricing
 - **Meal Coordination** - Detailed meal summaries for golf club catering
 - **Enhanced UI** - Professional blue color scheme throughout admin interface
+- **Subscription Tracking** - Track and manage member subscription payments with visual indicators
 
 ### 🍽️ **Advanced Meal System**
 - **Individual Selection** - Separate meal choices for members and each guest
@@ -431,3 +433,28 @@ The system is designed to handle real golf society operations with professional 
 - Seeded menu options with sample Scottish golf club dishes
 - Enhanced user model with auto-generated member numbers
 - Improved data validation and security measures 
+
+## 📱 PWA & App Icon Setup
+
+### Custom App Icons
+When users save your golf app to their phone's home screen, it will display the Irish Golf Society logo as the app icon.
+
+**To set up app icons:**
+1. **Automatic Generation** (Recommended):
+   ```bash
+   # If you have ImageMagick installed
+   ./scripts/generate-icons.ps1  # Windows PowerShell
+   # or
+   ./scripts/generate-icons.sh   # Mac/Linux
+   ```
+
+2. **Manual Creation**: See `ICON_SETUP.md` for detailed instructions
+
+3. **Online Generator**: Use https://realfavicongenerator.net/ with your logo
+
+**What this enables:**
+- ✅ Custom Irish Golf Society icon on home screen
+- ✅ Professional app appearance when installed
+- ✅ PWA (Progressive Web App) capabilities
+- ✅ Branded browser tabs and bookmarks
+- ✅ Standalone app experience on mobile devices 
