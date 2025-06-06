@@ -22,6 +22,9 @@ interface Member {
   memberNumber: string
   handicap: number
   createdAt: Date
+  subscriptionPaid: boolean
+  subscriptionYear: number
+  subscriptionPaidDate: Date | null
   _count: {
     bookings: number
   }
@@ -38,7 +41,7 @@ export default async function MembersPage() {
     redirect('/auth/signin')
   }
 
-  // Fetch all members with their booking statistics
+  // Fetch all members with their booking statistics and subscription data
   const rawMembers = await prisma.user.findMany({
     where: {
       role: 'member'

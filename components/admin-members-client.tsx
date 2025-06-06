@@ -3,9 +3,10 @@
 import { useState, useMemo } from 'react'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
 import { Input } from '@/components/ui/input'
+import { Button } from '@/components/ui/button'
 import { MemberEditModal } from '@/components/member-edit-modal'
 import { PasswordResetButton } from '@/components/password-reset-button'
-import { Users, Mail, Phone, Trophy, Search, X } from 'lucide-react'
+import { Users, Mail, Phone, Trophy, Search, X, CreditCard, CheckCircle, XCircle } from 'lucide-react'
 import { formatDateUK } from '@/lib/utils'
 
 interface Member {
@@ -16,6 +17,9 @@ interface Member {
   memberNumber: string
   handicap: number
   createdAt: Date
+  subscriptionPaid: boolean
+  subscriptionYear: number
+  subscriptionPaidDate: Date | null
   _count: {
     bookings: number
   }
@@ -32,6 +36,7 @@ interface AdminMembersClientProps {
 
 export function AdminMembersClient({ members, totalMembers }: AdminMembersClientProps) {
   const [searchTerm, setSearchTerm] = useState('')
+  const [updatingSubscription, setUpdatingSubscription] = useState<string | null>(null)
 
   // Filter members based on search term
   const filteredMembers = useMemo(() => {
@@ -52,6 +57,36 @@ export function AdminMembersClient({ members, totalMembers }: AdminMembersClient
 
   const clearSearch = () => {
     setSearchTerm('')
+  }
+
+  const toggleSubscription = async (memberId: string, currentStatus: boolean, currentYear: number) => {
+    setUpdatingSubscription(memberId)
+    
+    try {
+      const response = await fetch(`/api/admin/members/${memberId}/subscription`, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({
+          subscriptionPaid: !currentStatus,
+          subscriptionYear: currentYear,
+        }),
+      })
+
+      if (response.ok) {
+        // Refresh the page to show updated data
+        window.location.reload()
+      } else {
+        const errorData = await response.json()
+        alert(errorData.error || 'Failed to update subscription status')
+      }
+    } catch (error) {
+      console.error('Error updating subscription:', error)
+      alert('An error occurred while updating subscription status')
+    } finally {
+      setUpdatingSubscription(null)
+    }
   }
 
   return (
@@ -156,7 +191,7 @@ export function AdminMembersClient({ members, totalMembers }: AdminMembersClient
                       </div>
 
                       {/* Information Grid - Mobile Optimized */}
-                      <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-3 lg:gap-6">
+                      <div className="grid grid-cols-1 gap-3 sm:gap-4 lg:grid-cols-4 lg:gap-6">
                         {/* Contact Information */}
                         <div className="bg-blue-50 p-3 sm:p-4 rounded-lg border border-blue-200">
                           <h4 className="font-semibold text-blue-900 mb-2 sm:mb-3 flex items-center text-sm sm:text-base">
@@ -192,6 +227,56 @@ export function AdminMembersClient({ members, totalMembers }: AdminMembersClient
                               <span className="font-medium">Member Since:</span>
                               <span className="text-xs sm:text-sm">{formatDateUK(member.createdAt)}</span>
                             </div>
+                          </div>
+                        </div>
+
+                        {/* Subscription Status */}
+                        <div className={`p-3 sm:p-4 rounded-lg border ${
+                          member.subscriptionPaid 
+                            ? 'bg-emerald-50 border-emerald-200' 
+                            : 'bg-red-50 border-red-200'
+                        }`}>
+                          <h4 className={`font-semibold mb-2 sm:mb-3 flex items-center text-sm sm:text-base ${
+                            member.subscriptionPaid ? 'text-emerald-900' : 'text-red-900'
+                          }`}>
+                            <CreditCard className="w-3 h-3 sm:w-4 sm:h-4 mr-1 sm:mr-2" />
+                            Subscription {member.subscriptionYear}
+                          </h4>
+                          <div className="space-y-2">
+                            <div className="flex items-center justify-between">
+                              <span className="text-xs sm:text-sm font-medium">Status:</span>
+                              <div className="flex items-center">
+                                {member.subscriptionPaid ? (
+                                  <CheckCircle className="w-4 h-4 text-emerald-600 mr-1" />
+                                ) : (
+                                  <XCircle className="w-4 h-4 text-red-600 mr-1" />
+                                )}
+                                <span className={`text-xs sm:text-sm font-bold ${
+                                  member.subscriptionPaid ? 'text-emerald-700' : 'text-red-700'
+                                }`}>
+                                  {member.subscriptionPaid ? 'Paid' : 'Unpaid'}
+                                </span>
+                              </div>
+                            </div>
+                            {member.subscriptionPaid && member.subscriptionPaidDate && (
+                              <div className="flex justify-between">
+                                <span className="text-xs font-medium">Paid Date:</span>
+                                <span className="text-xs">{formatDateUK(new Date(member.subscriptionPaidDate))}</span>
+                              </div>
+                            )}
+                            <Button
+                              size="sm"
+                              variant={member.subscriptionPaid ? "destructive" : "default"}
+                              className="w-full text-xs"
+                              onClick={() => toggleSubscription(member.id, member.subscriptionPaid, member.subscriptionYear)}
+                              disabled={updatingSubscription === member.id}
+                            >
+                              {updatingSubscription === member.id ? (
+                                'Updating...'
+                              ) : (
+                                member.subscriptionPaid ? 'Mark Unpaid' : 'Mark Paid'
+                              )}
+                            </Button>
                           </div>
                         </div>
 

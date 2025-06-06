@@ -13,6 +13,62 @@ const createMemberSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters')
 })
 
+export async function GET(request: NextRequest) {
+  try {
+    const session = await getServerSession(authOptions)
+
+    if (!session || session.user.role !== 'admin') {
+      return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
+    }
+
+    // Fetch all members with their booking statistics
+    const members = await prisma.user.findMany({
+      where: { role: 'member' },
+      include: {
+        bookings: {
+          include: {
+            outing: true
+          }
+        }
+      },
+      orderBy: { memberNumber: 'asc' }
+    })
+
+    // Calculate booking statistics for each member
+    const membersWithStats = members.map((member: any) => {
+      const totalBookings = member.bookings.length
+      const totalSpent = member.bookings.reduce((sum: number, booking: any) => sum + booking.totalCost, 0)
+      const lastBooking = member.bookings.length > 0 
+        ? member.bookings.sort((a: any, b: any) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())[0]
+        : null
+
+      return {
+        id: member.id,
+        name: member.name,
+        email: member.email,
+        phone: member.phone,
+        memberNumber: member.memberNumber,
+        handicap: member.handicap,
+        placeOfBirth: member.placeOfBirth,
+        homeGolfClub: member.homeGolfClub,
+        proposingMember: member.proposingMember,
+        subscriptionPaid: member.subscriptionPaid,
+        subscriptionYear: member.subscriptionYear,
+        subscriptionPaidDate: member.subscriptionPaidDate,
+        createdAt: member.createdAt,
+        totalBookings,
+        totalSpent,
+        lastBookingDate: lastBooking?.createdAt || null
+      }
+    })
+
+    return NextResponse.json(membersWithStats)
+  } catch (error) {
+    console.error('Error fetching members:', error)
+    return NextResponse.json({ error: 'Internal server error' }, { status: 500 })
+  }
+}
+
 export async function POST(request: NextRequest) {
   try {
     const session = await getServerSession(authOptions)
