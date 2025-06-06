@@ -382,24 +382,22 @@ export default function SignInPage() {
                     </div>
                   </div>
 
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                    <div>
-                      <label htmlFor="signup-home-golf-club" className="block text-sm font-semibold text-gray-700 mb-2">
-                        Home Golf Club (Optional)
-                      </label>
-                      <div className="relative">
-                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                          <Building className="h-5 w-5 text-gray-400" />
-                        </div>
-                        <input
-                          id="signup-home-golf-club"
-                          type="text"
-                          value={signUpHomeGolfClub}
-                          onChange={(e) => setSignUpHomeGolfClub(e.target.value)}
-                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
-                          placeholder="e.g. Royal Dublin Golf Club"
-                        />
+                  <div>
+                    <label htmlFor="signup-home-golf-club" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Home Golf Club (Optional)
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <Building className="h-5 w-5 text-gray-400" />
                       </div>
+                      <input
+                        id="signup-home-golf-club"
+                        type="text"
+                        value={signUpHomeGolfClub}
+                        onChange={(e) => setSignUpHomeGolfClub(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
+                        placeholder="e.g. Royal Dublin Golf Club"
+                      />
                     </div>
                   </div>
 
