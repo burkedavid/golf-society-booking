@@ -8,7 +8,10 @@ const registerSchema = z.object({
   password: z.string().min(6, 'Password must be at least 6 characters'),
   name: z.string().min(1, 'Full name is required'),
   handicap: z.number().min(0).max(54, 'Handicap must be between 0 and 54').optional(),
-  phone: z.string().optional()
+  phone: z.string().optional(),
+  placeOfBirth: z.string().optional(),
+  homeGolfClub: z.string().optional(),
+  proposingMember: z.string().optional()
 })
 
 export async function POST(request: NextRequest) {
@@ -50,6 +53,9 @@ export async function POST(request: NextRequest) {
         name: validatedData.name,
         handicap: validatedData.handicap || 28.0,
         phone: validatedData.phone || null,
+        placeOfBirth: validatedData.placeOfBirth || null,
+        homeGolfClub: validatedData.homeGolfClub || null,
+        proposingMember: validatedData.proposingMember || null,
         memberNumber,
         role: 'member'
       }

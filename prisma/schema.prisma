@@ -11,17 +11,20 @@ datasource db {
 }
 
 model User {
-  id           String    @id @default(cuid())
-  email        String    @unique
-  passwordHash String
-  name         String
-  phone        String?
-  memberNumber String    @unique
-  handicap     Float     @default(28.0)
-  role         String    @default("member") // 'admin' | 'member'
-  createdAt    DateTime  @default(now())
-  updatedAt    DateTime  @updatedAt
-  bookings     Booking[]
+  id              String    @id @default(cuid())
+  email           String    @unique
+  passwordHash    String
+  name            String
+  phone           String?
+  memberNumber    String    @unique
+  handicap        Float     @default(28.0)
+  placeOfBirth    String?
+  homeGolfClub    String?
+  proposingMember String?
+  role            String    @default("member") // 'admin' | 'member'
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  bookings        Booking[]
 
   @@map("users")
 }

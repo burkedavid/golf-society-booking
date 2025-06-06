@@ -6,7 +6,7 @@ import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card'
-import { Trophy, Mail, Lock, Users, MapPin, UserPlus, Phone, Target } from 'lucide-react'
+import { Trophy, Mail, Lock, Users, MapPin, UserPlus, Phone, Target, Building } from 'lucide-react'
 import OrientationIndicator from '@/components/orientation-indicator'
 
 export default function SignInPage() {
@@ -26,6 +26,9 @@ export default function SignInPage() {
   const [signUpName, setSignUpName] = useState('')
   const [signUpHandicap, setSignUpHandicap] = useState<number | ''>('')
   const [signUpPhone, setSignUpPhone] = useState('')
+  const [signUpPlaceOfBirth, setSignUpPlaceOfBirth] = useState('')
+  const [signUpHomeGolfClub, setSignUpHomeGolfClub] = useState('')
+  const [signUpProposingMember, setSignUpProposingMember] = useState('')
 
   const handleSignIn = async (e: React.FormEvent) => {
     e.preventDefault()
@@ -75,6 +78,9 @@ export default function SignInPage() {
           name: signUpName,
           handicap: signUpHandicap !== '' ? Number(signUpHandicap) : undefined,
           phone: signUpPhone || undefined,
+          placeOfBirth: signUpPlaceOfBirth || undefined,
+          homeGolfClub: signUpHomeGolfClub || undefined,
+          proposingMember: signUpProposingMember || undefined,
         }),
       })
 
@@ -90,6 +96,9 @@ export default function SignInPage() {
         setSignUpName('')
         setSignUpHandicap('')
         setSignUpPhone('')
+        setSignUpPlaceOfBirth('')
+        setSignUpHomeGolfClub('')
+        setSignUpProposingMember('')
         // Switch to sign in tab after successful registration
         setTimeout(() => {
           setActiveTab('signin')
@@ -354,9 +363,68 @@ export default function SignInPage() {
                     </div>
                   </div>
 
+                  <div>
+                    <label htmlFor="signup-place-of-birth" className="block text-sm font-semibold text-gray-700 mb-2">
+                      Place of Birth (Optional)
+                    </label>
+                    <div className="relative">
+                      <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                        <MapPin className="h-5 w-5 text-gray-400" />
+                      </div>
+                      <input
+                        id="signup-place-of-birth"
+                        type="text"
+                        value={signUpPlaceOfBirth}
+                        onChange={(e) => setSignUpPlaceOfBirth(e.target.value)}
+                        className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
+                        placeholder="e.g. Dublin, Ireland"
+                      />
+                    </div>
+                  </div>
+
+                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                    <div>
+                      <label htmlFor="signup-home-golf-club" className="block text-sm font-semibold text-gray-700 mb-2">
+                        Home Golf Club (Optional)
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Building className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          id="signup-home-golf-club"
+                          type="text"
+                          value={signUpHomeGolfClub}
+                          onChange={(e) => setSignUpHomeGolfClub(e.target.value)}
+                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
+                          placeholder="e.g. Royal Dublin Golf Club"
+                        />
+                      </div>
+                    </div>
+
+                    <div>
+                      <label htmlFor="signup-proposing-member" className="block text-sm font-semibold text-gray-700 mb-2">
+                        Member Proposing Membership (Optional)
+                      </label>
+                      <div className="relative">
+                        <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+                          <Users className="h-5 w-5 text-gray-400" />
+                        </div>
+                        <input
+                          id="signup-proposing-member"
+                          type="text"
+                          value={signUpProposingMember}
+                          onChange={(e) => setSignUpProposingMember(e.target.value)}
+                          className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
+                          placeholder="e.g. Seamus O'Connor"
+                        />
+                      </div>
+                    </div>
+                  </div>
+
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                     <p className="text-xs text-blue-700">
-                      <strong>Note:</strong> You can update your handicap and phone number later in your profile. 
+                      <strong>Note:</strong> You can update your handicap, phone number, place of birth, home golf club, and proposing member details later in your profile. 
                       Email, password, and full name are required to get started.
                     </p>
                   </div>
