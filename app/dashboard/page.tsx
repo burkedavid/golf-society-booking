@@ -254,46 +254,65 @@ export default async function Dashboard() {
                         </div>
 
                         {/* Additional Professional Details Row */}
-                        <div className="grid grid-cols-1 sm:grid-cols-3 gap-4 lg:gap-6">
-                          {/* Capacity & Availability */}
+                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                          {/* Combined Booking Status & Progress */}
                           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                            <div className="flex items-center mb-2">
-                              <Users className="w-4 h-4 mr-2 text-gray-600" />
-                              <span className="font-semibold text-gray-800 text-sm">Availability</span>
+                            <div className="flex items-center justify-between mb-3">
+                              <div className="flex items-center">
+                                <Users className="w-4 h-4 mr-2 text-gray-600" />
+                                <span className="font-semibold text-gray-800 text-sm">Booking Status</span>
+                              </div>
+                              <span className={`px-2 py-1 rounded-full text-xs font-medium ${
+                                daysUntilDeadline > 7 ? 'bg-green-100 text-green-700' : 
+                                daysUntilDeadline > 0 ? 'bg-yellow-100 text-yellow-700' : 'bg-red-100 text-red-700'
+                              }`}>
+                                {daysUntilDeadline > 7 ? 'Open' : 
+                                 daysUntilDeadline > 0 ? 'Closing Soon' : 'Closed'}
+                              </span>
                             </div>
-                            <p className="text-gray-900 font-medium text-base">{availableSpaces} spaces left</p>
-                            <p className="text-gray-600 text-xs mt-1">{totalPeople}/{outing.capacity} booked</p>
+                            
+                            {/* Progress Bar with Labels */}
+                            <div className="mb-2">
+                              <div className="flex justify-between text-sm text-gray-600 mb-1">
+                                <span>{totalPeople} booked</span>
+                                <span>{availableSpaces} spaces left</span>
+                              </div>
+                              <div className="w-full bg-gray-200 rounded-full h-3">
+                                <div 
+                                  className={`h-3 rounded-full transition-all duration-300 ${
+                                    progressPercentage >= 90 ? 'bg-red-500' :
+                                    progressPercentage >= 70 ? 'bg-yellow-500' : 'bg-green-500'
+                                  }`}
+                                  style={{ width: `${Math.min(progressPercentage, 100)}%` }}
+                                ></div>
+                              </div>
+                              <div className="text-center text-xs text-gray-500 mt-1">
+                                {Math.round(progressPercentage)}% full • {outing.capacity} total capacity
+                              </div>
+                            </div>
                           </div>
 
-                          {/* Progress Bar */}
+                          {/* Registration Deadline Info */}
                           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                            <div className="flex items-center mb-2">
-                              <TrendingUp className="w-4 h-4 mr-2 text-gray-600" />
-                              <span className="font-semibold text-gray-800 text-sm">Progress</span>
+                            <div className="flex items-center mb-3">
+                              <Clock className="w-4 h-4 mr-2 text-gray-600" />
+                              <span className="font-semibold text-gray-800 text-sm">Registration Deadline</span>
                             </div>
-                            <div className="w-full bg-gray-200 rounded-full h-2 mb-1">
-                              <div 
-                                className="bg-green-600 h-2 rounded-full transition-all duration-300" 
-                                style={{ width: `${Math.min(progressPercentage, 100)}%` }}
-                              ></div>
+                            <div className="text-center">
+                              <p className={`text-2xl font-bold mb-1 ${
+                                daysUntilDeadline > 7 ? 'text-green-600' : 
+                                daysUntilDeadline > 0 ? 'text-yellow-600' : 'text-red-600'
+                              }`}>
+                                {daysUntilDeadline > 0 ? `${daysUntilDeadline}` : '0'}
+                              </p>
+                              <p className="text-sm text-gray-600">
+                                {daysUntilDeadline === 1 ? 'day left' : 
+                                 daysUntilDeadline > 1 ? 'days left' : 'deadline passed'}
+                              </p>
+                              <p className="text-xs text-gray-500 mt-1">
+                                Until {formatDateUK(outing.registrationDeadline)}
+                              </p>
                             </div>
-                            <p className="text-gray-600 text-xs">{Math.round(progressPercentage)}% full</p>
-                          </div>
-
-                          {/* Status */}
-                          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                            <div className="flex items-center mb-2">
-                              <Star className="w-4 h-4 mr-2 text-gray-600" />
-                              <span className="font-semibold text-gray-800 text-sm">Status</span>
-                            </div>
-                            <p className={`font-medium text-base ${
-                              daysUntilDeadline > 7 ? 'text-green-600' : 
-                              daysUntilDeadline > 0 ? 'text-yellow-600' : 'text-red-600'
-                            }`}>
-                              {daysUntilDeadline > 7 ? 'Open' : 
-                               daysUntilDeadline > 0 ? 'Closing Soon' : 'Closed'}
-                            </p>
-                            <p className="text-gray-600 text-xs mt-1">Registration</p>
                           </div>
                         </div>
                       </div>
