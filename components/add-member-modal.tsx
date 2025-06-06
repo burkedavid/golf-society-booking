@@ -32,7 +32,7 @@ export function AddMemberModal({ onMemberAdded }: AddMemberModalProps) {
     phone: '',
     handicap: 28,
     password: ''
-  })
+  }) 
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
