@@ -72,7 +72,7 @@ export default function SignInPage() {
         body: JSON.stringify({
           email: signUpEmail,
           password: signUpPassword,
-          name: signUpName || undefined,
+          name: signUpName,
           handicap: signUpHandicap !== '' ? Number(signUpHandicap) : undefined,
           phone: signUpPhone || undefined,
         }),
@@ -293,7 +293,7 @@ export default function SignInPage() {
 
                   <div>
                     <label htmlFor="signup-name" className="block text-sm font-semibold text-gray-700 mb-2">
-                      Full Name (Optional)
+                      Full Name *
                     </label>
                     <div className="relative">
                       <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
@@ -304,6 +304,7 @@ export default function SignInPage() {
                         type="text"
                         value={signUpName}
                         onChange={(e) => setSignUpName(e.target.value)}
+                        required
                         className="w-full pl-10 pr-4 py-3 border-2 border-gray-200 rounded-lg focus:outline-none focus:ring-2 focus:ring-green-500 focus:border-transparent transition-all duration-200 bg-gray-50 hover:bg-white text-base"
                         placeholder="e.g. Seamus O'Connor"
                       />
@@ -355,8 +356,8 @@ export default function SignInPage() {
 
                   <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
                     <p className="text-xs text-blue-700">
-                      <strong>Note:</strong> You can update your name, handicap, and phone number later in your profile. 
-                      Only email and password are required to get started.
+                      <strong>Note:</strong> You can update your handicap and phone number later in your profile. 
+                      Email, password, and full name are required to get started.
                     </p>
                   </div>
 

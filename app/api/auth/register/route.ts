@@ -6,7 +6,7 @@ import bcrypt from 'bcryptjs'
 const registerSchema = z.object({
   email: z.string().email('Invalid email address'),
   password: z.string().min(6, 'Password must be at least 6 characters'),
-  name: z.string().optional(),
+  name: z.string().min(1, 'Full name is required'),
   handicap: z.number().min(0).max(54, 'Handicap must be between 0 and 54').optional(),
   phone: z.string().optional()
 })
@@ -47,7 +47,7 @@ export async function POST(request: NextRequest) {
       data: {
         email: validatedData.email,
         passwordHash,
-        name: validatedData.name || 'New Member',
+        name: validatedData.name,
         handicap: validatedData.handicap || 28.0,
         phone: validatedData.phone || null,
         memberNumber,
