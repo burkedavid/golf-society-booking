@@ -1,6 +1,6 @@
 # Irish Golf Society Scotland - Booking System
 
-A comprehensive golf society management system built with Next.js, featuring member and admin dashboards, individual meal selection, booking management, and mobile-optimized design.
+A comprehensive golf society management system built with Next.js, featuring member and admin dashboards, individual meal selection, booking management, member registration, and mobile-optimized design.
 
 ![Golf Society Logo](public/image-640x886.png)
 
@@ -8,9 +8,19 @@ A comprehensive golf society management system built with Next.js, featuring mem
 
 ### 📱 **Mobile-Optimized Member Experience**
 - **Responsive Dashboard** - Mobile-first design with touch-friendly interfaces
-- **Booking System** - Complete golf outing booking with individual meal selection
+- **Smart Booking System** - Complete golf outing booking with individual meal selection
+- **Consolidated Information Display** - Streamlined booking status and progress tracking
+- **Enhanced Desktop Layout** - Improved spacing and visual hierarchy for desktop users
 - **Bank Transfer Integration** - Automated payment details with copy-to-clipboard functionality
-- **Professional Sign-in** - Mobile-optimized authentication with demo accounts
+- **Professional Sign-in/Sign-up** - Tabbed authentication with new member registration
+
+### 🆕 **Member Registration System**
+- **Self-Service Registration** - New members can sign up directly from the sign-in page
+- **Flexible Profile Creation** - Email and password required, name/handicap/phone optional
+- **Auto-Generated Member Numbers** - Sequential IGS member numbers (IGS001, IGS002, etc.)
+- **Smart Defaults** - Default handicap of 28.0, "New Member" name if not provided
+- **Profile Completion** - Members can update optional details after registration
+- **Secure Password Handling** - bcrypt encryption for all passwords
 
 ### 💼 **Admin Management System**
 - **Dashboard Overview** - Statistics, recent bookings, and system insights
@@ -18,15 +28,18 @@ A comprehensive golf society management system built with Next.js, featuring mem
 - **Member Management** - Complete member profiles with handicap tracking and password reset
 - **Outing Creation** - Create outings with custom menus and pricing
 - **Meal Coordination** - Detailed meal summaries for golf club catering
+- **Enhanced UI** - Professional blue color scheme throughout admin interface
 
 ### 🍽️ **Advanced Meal System**
 - **Individual Selection** - Separate meal choices for members and each guest
-- **Main Course & Dessert** - Complete menu management system
+- **Main Course & Dessert** - Complete menu management system with seeded options
 - **Dietary Requirements** - Special requests and allergy tracking
 - **Catering Reports** - Meal totals and percentages for kitchen planning
+- **Professional Styling** - Blue gradient styling for menu options
 
 ### 🎯 **Key Capabilities**
 - **Real-time Availability** - Live capacity tracking and space management
+- **Smart Progress Indicators** - Color-coded progress bars (green/yellow/red) based on capacity
 - **Payment Tracking** - Bank transfer integration with unique booking references
 - **Professional Design** - Golf-themed UI with Irish Golf Society branding
 - **PostgreSQL Database** - Production-ready with Neon hosting
@@ -89,7 +102,7 @@ NEXTAUTH_SECRET="your-secret-key-here-change-this-in-production-1234567890123456
 # Create database tables
 npm run db:push
 
-# Seed the database with sample data
+# Seed the database with sample data and menu options
 npm run db:seed
 ```
 
@@ -98,6 +111,7 @@ You should see:
 Database seeded successfully!
 Admin login: admin@irishgolfsocietyscotland.com / admin123
 Member login: seamus@email.com / member123
+Menu options seeded: 7 main courses, 7 desserts
 ```
 
 ### Step 6: Start the Development Server
@@ -106,7 +120,7 @@ Member login: seamus@email.com / member123
 npm run dev
 ```
 
-The app will be available at: **http://localhost:3000**
+The app will be available at: **http://localhost:3000** (or next available port)
 
 ### Step 7: Test the System
 1. **Open your browser** to `http://localhost:3000`
@@ -116,6 +130,9 @@ The app will be available at: **http://localhost:3000**
 3. **Sign in as Member:**
    - Email: `seamus@email.com`
    - Password: `member123`
+4. **Test Member Registration:**
+   - Click "Sign Up" tab on sign-in page
+   - Register a new member account
 
 ## 📱 Mobile Testing
 
@@ -123,7 +140,7 @@ To test the mobile experience:
 1. **Open browser developer tools** (F12)
 2. **Click the mobile device icon** (responsive design mode)
 3. **Select a mobile device** (iPhone, Android, etc.)
-4. **Test the member experience** - dashboard, booking, sign-in
+4. **Test the member experience** - dashboard, booking, sign-in, registration
 
 ## 🛠️ Technology Stack
 
@@ -131,15 +148,18 @@ To test the mobile experience:
 - **Backend**: Next.js API Routes, NextAuth.js
 - **Database**: PostgreSQL with Prisma ORM
 - **UI Components**: Radix UI primitives
+- **Authentication**: NextAuth.js with credentials provider + custom registration
+- **Password Security**: bcryptjs for secure hashing
+- **Form Validation**: Zod for schema validation
 - **Hosting**: Vercel (production), Neon (database)
-- **Authentication**: NextAuth.js with credentials provider
 
 ## 📊 Database Schema
 
 ### Users Table
 - Member profiles with handicap tracking
 - Admin and member role management
-- Contact information and member numbers
+- Contact information and auto-generated member numbers
+- Secure password storage with bcrypt hashing
 
 ### Outings Table
 - Golf outing details (venue, date, pricing)
@@ -151,30 +171,43 @@ To test the mobile experience:
 - Individual meal selections for all participants
 - Payment status and booking confirmation
 
+### MenuOptions Table
+- Main courses and desserts for outing menus
+- Professional styling and categorization
+- Seeded with sample Scottish golf club options
+
 ## 🎨 Design Features
 
 ### Golf-Themed UI
 - **Professional Color Scheme**: Rich greens, blues, and emerald tones
+- **Consistent Blue Styling**: Admin interface and menu options use professional blue gradients
 - **Irish Golf Society Branding**: Logo integration throughout
-- **Responsive Design**: Mobile-first approach with desktop optimization
+- **Responsive Design**: Mobile-first approach with enhanced desktop optimization
 
 ### Mobile Optimizations
 - **Touch-Friendly Buttons**: Minimum 44px touch targets
 - **Responsive Typography**: Scales from mobile to desktop
-- **Flexible Layouts**: Stack vertically on mobile, grid on desktop
+- **Flexible Layouts**: Stack vertically on mobile, enhanced grid on desktop
 - **Optimized Forms**: Large input fields and dropdowns for mobile
+- **Tabbed Authentication**: Clean sign-in/sign-up interface
+
+### Desktop Enhancements
+- **Improved Spacing**: Enhanced grid gaps and padding for better visual hierarchy
+- **Consolidated Information**: Reduced redundancy in booking status displays
+- **Professional Layout**: Better use of desktop screen real estate
+- **Enhanced Typography**: Larger text and better scaling for desktop viewing
 
 ## 🔧 Development Commands
 
 ```bash
 # Development
 npm run dev          # Start development server
-npm run build        # Build for production
+npm run build        # Build for production (includes DB setup and seeding)
 npm run start        # Start production server
 
 # Database
 npm run db:push      # Update database schema
-npm run db:seed      # Seed database with sample data
+npm run db:seed      # Seed database with sample data and menu options
 npm run db:studio    # Open Prisma Studio (database GUI)
 
 # Code Quality
@@ -199,7 +232,7 @@ npm run type-check   # Run TypeScript checks
 
 3. **Deploy:**
    - Vercel will automatically build and deploy
-   - Database tables will be created automatically
+   - Database tables will be created and seeded automatically
 
 ### 💰 Free Tier Hosting Costs
 
@@ -240,6 +273,15 @@ npm run type-check   # Run TypeScript checks
 - Password: `member123`
 - Access: Booking and profile management
 
+### New Member Registration
+
+**Self-Service Registration Available:**
+- **Required Fields**: Email and password
+- **Optional Fields**: Name, handicap, phone number
+- **Auto-Generated**: Member numbers (IGS001, IGS002, etc.)
+- **Default Values**: Name="New Member", handicap=28.0
+- **Security**: Passwords encrypted with bcrypt
+
 ### Sample Outings
 
 1. **Loch Lomond (Carrick Golf Course)**
@@ -258,13 +300,22 @@ npm run type-check   # Run TypeScript checks
 - **Password Hashing**: bcrypt for secure password storage
 - **Role-Based Access**: Admin and member permission levels
 - **Environment Variables**: Secure configuration management
+- **Input Validation**: Zod schema validation for all forms
+- **Email Uniqueness**: Prevents duplicate registrations
 
 ## 📱 Mobile Features
 
 ### Member Dashboard
-- **Responsive Cards**: Stack vertically on mobile
+- **Responsive Cards**: Stack vertically on mobile, enhanced desktop grid
 - **Touch-Friendly Buttons**: Full-width booking buttons
-- **Optimized Info Display**: Clean, readable layout
+- **Optimized Info Display**: Clean, readable layout with consolidated information
+- **Smart Progress Indicators**: Color-coded capacity tracking
+
+### Authentication System
+- **Tabbed Interface**: Clean sign-in/sign-up switching
+- **Mobile-Optimized Forms**: Large input fields and touch-friendly buttons
+- **Registration Flow**: Complete new member onboarding
+- **Success Messaging**: Clear feedback and auto-redirect
 
 ### Booking Form
 - **Large Form Fields**: Easy touch input
@@ -287,11 +338,14 @@ npm run type-check   # Run TypeScript checks
 - **Booking Overview**: Complete booking management
 - **Member Management**: Profile updates and password resets
 - **Financial Tracking**: Payment status monitoring
+- **New Member Oversight**: View and manage self-registered members
 
 ### For Members
+- **Easy Registration**: Self-service account creation
 - **Easy Booking**: Streamlined reservation process
 - **Mobile Access**: Book from anywhere on any device
 - **Payment Integration**: Clear bank transfer instructions
+- **Profile Management**: Update details after registration
 
 ## 🚨 Troubleshooting
 
@@ -323,6 +377,13 @@ npm run dev -- -p 3001
 # Restart the development server after changes
 ```
 
+**Registration Issues:**
+```bash
+# Ensure database is properly seeded
+npm run db:seed
+# Check that email addresses are unique
+```
+
 ## 📞 Support
 
 For issues or questions:
@@ -330,18 +391,43 @@ For issues or questions:
 2. Review the terminal output for specific error messages
 3. Ensure all environment variables are correctly set
 4. Verify database connection and seeding
+5. Test member registration flow with unique email addresses
 
 ## 🎉 What's Included
 
 This system provides everything needed for a professional golf society:
 
 ✅ **Member Management** - Complete profiles and handicap tracking  
+✅ **Self-Service Registration** - New members can sign up independently  
 ✅ **Booking System** - Individual meal selection for all participants  
 ✅ **Admin Dashboard** - Full management capabilities  
 ✅ **Mobile Experience** - Optimized for phones and tablets  
+✅ **Enhanced Desktop UI** - Improved spacing and consolidated information  
 ✅ **Payment Integration** - Bank transfer with automated details  
-✅ **Meal Coordination** - Detailed reports for golf clubs  
-✅ **Professional Design** - Golf-themed and branded interface  
+✅ **Meal Coordination** - Detailed reports for golf clubs with seeded options  
+✅ **Professional Design** - Golf-themed and branded interface with consistent styling  
 ✅ **Production Ready** - Deployed on Vercel with PostgreSQL  
+✅ **Security Features** - Encrypted passwords and input validation  
 
-The system is designed to handle real golf society operations with professional presentation and complete functionality for both members and administrators. 
+The system is designed to handle real golf society operations with professional presentation, complete functionality for both members and administrators, and a streamlined onboarding process for new members.
+
+## 🆕 Recent Updates
+
+### Member Registration System
+- Added self-service member registration from sign-in page
+- Implemented tabbed authentication interface (Sign In/Sign Up)
+- Auto-generated sequential member numbers (IGS001, IGS002, etc.)
+- Secure password hashing with bcrypt
+- Flexible profile creation with optional fields
+
+### UI/UX Improvements
+- Enhanced desktop layout with improved spacing and visual hierarchy
+- Consolidated redundant booking information into efficient status cards
+- Professional blue color scheme for admin interface and menu options
+- Smart color-coded progress indicators based on booking capacity
+- Mobile-optimized registration and authentication flows
+
+### Database Enhancements
+- Seeded menu options with sample Scottish golf club dishes
+- Enhanced user model with auto-generated member numbers
+- Improved data validation and security measures 

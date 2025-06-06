@@ -254,7 +254,7 @@ export default async function Dashboard() {
                         </div>
 
                         {/* Additional Professional Details Row */}
-                        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-6">
+                        <div className="grid grid-cols-1 gap-4 lg:gap-6">
                           {/* Combined Booking Status & Progress */}
                           <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
                             <div className="flex items-center justify-between mb-3">
@@ -289,29 +289,6 @@ export default async function Dashboard() {
                               <div className="text-center text-xs text-gray-500 mt-1">
                                 {Math.round(progressPercentage)}% full • {outing.capacity} total capacity
                               </div>
-                            </div>
-                          </div>
-
-                          {/* Registration Deadline Info */}
-                          <div className="bg-gray-50 rounded-lg p-4 border border-gray-200">
-                            <div className="flex items-center mb-3">
-                              <Clock className="w-4 h-4 mr-2 text-gray-600" />
-                              <span className="font-semibold text-gray-800 text-sm">Registration Deadline</span>
-                            </div>
-                            <div className="text-center">
-                              <p className={`text-2xl font-bold mb-1 ${
-                                daysUntilDeadline > 7 ? 'text-green-600' : 
-                                daysUntilDeadline > 0 ? 'text-yellow-600' : 'text-red-600'
-                              }`}>
-                                {daysUntilDeadline > 0 ? `${daysUntilDeadline}` : '0'}
-                              </p>
-                              <p className="text-sm text-gray-600">
-                                {daysUntilDeadline === 1 ? 'day left' : 
-                                 daysUntilDeadline > 1 ? 'days left' : 'deadline passed'}
-                              </p>
-                              <p className="text-xs text-gray-500 mt-1">
-                                Until {formatDateUK(outing.registrationDeadline)}
-                              </p>
                             </div>
                           </div>
                         </div>
